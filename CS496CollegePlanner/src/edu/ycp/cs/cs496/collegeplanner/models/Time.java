@@ -19,7 +19,7 @@ public class Time {
 		return hours;
 	}
 	
-	public void setHour(int hours) {
+	public void setHours(int hours) {
 		this.hours = hours;
 	}
 	
