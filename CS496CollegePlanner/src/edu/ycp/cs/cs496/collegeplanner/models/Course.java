@@ -1,16 +1,15 @@
 package edu.ycp.cs.cs496.collegeplanner.models;
-
-import java.util.ArrayList;
 /**
  * 
  * @author dholtzap
  * store all information pertaining to courses
  */
 public class Course {
+	private int id;
 	private Time startTime;
 	private Time endTime;
 	private String name;
-	private ArrayList<String> prerequisites; // FIXME: could this have a better data-type?
+	private int prereq_id; 
 	private String instructor;
 	private String location;	// TODO: should location be a class we make?
 	
@@ -58,11 +57,19 @@ public class Course {
 		this.name = name;
 	}
 	
-	public ArrayList<String> getPrerequisites() {
-		return prerequisites;
+	public int getPrerequisites() {
+		return prereq_id;
 	}
 	
-	public void setPrerequisites(ArrayList<String> prerequisites) {
-		this.prerequisites = prerequisites;
+	public void setPrerequisites(int prerequisites) {
+		this.prereq_id= prerequisites;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

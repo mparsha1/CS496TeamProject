@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * store all information pertaining to users
  */
 public class User {
+	private int id;
 	private String username;
 	private String password;
 	private String emailAddress;
@@ -47,6 +48,14 @@ public class User {
 
 	public void setCourses(ArrayList<Course> courses) {
 		this.courses = courses;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
