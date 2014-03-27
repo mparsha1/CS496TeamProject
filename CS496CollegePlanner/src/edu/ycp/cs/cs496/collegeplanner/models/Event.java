@@ -6,6 +6,8 @@ public class Event {
 	private String body;
 	private Notification notification;
 	private int id;
+	private Time startTime;
+	private Time endTime;
 	
 	public Event() {
 		
