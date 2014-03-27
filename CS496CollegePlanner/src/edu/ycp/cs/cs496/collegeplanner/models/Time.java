@@ -1,12 +1,13 @@
 package edu.ycp.cs.cs496.collegeplanner.models;
 
+/**
+ * @author dholtzap
+ * Time manipulation/parsing is a pain in the butt. Record a time as hours 
+ * and minutes in 24-hour format. toString will properly format the 
+ * time to 12-hour format.
+ */
 public class Time {
-	/**
-	 * @author dholtzap
-	 * Time manipulation/parsing is a pain in the butt. Record a time as hours 
-	 * and minutes in 24-hour format. toString will properly format the 
-	 * time to 12-hour format.
-	 */
+	
 	private int hours;
 	private int minutes;	
 	
