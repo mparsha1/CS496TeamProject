@@ -32,7 +32,7 @@ public class Time {
 	
 	@Override
 	public String toString() {
-		int formatted_hour = getHours() % 13;
+		int formatted_hour = getHours() % 12;
 		if(this.getHours() > 12) {			
 				return formatted_hour + ":" + getMinutes() + "pm";			
 		}
