@@ -56,6 +56,22 @@ public class Event {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
+	
+	public void setStartTime(Time time) {
+		this.startTime = time;
+	}
+	
+	public void setEndTime(Time time) {
+		this.endTime = time;
+	}
+	
+	public Time getStartTime() {
+		return startTime;
+	}
+	
+	public Time getEndTime() {
+		return endTime;
+	}
 
 	
 
