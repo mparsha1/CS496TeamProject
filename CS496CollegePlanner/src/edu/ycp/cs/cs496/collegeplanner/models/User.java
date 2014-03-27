@@ -13,7 +13,9 @@ public class User {
 	private ArrayList<Course> courses; //FIXME: other possible better data-type?
 	
 	// TODO: field for subscriptions after subscriptions class made
-	
+	public User() {
+		
+	}
 	
 	public String getUsername() {
 		return username;

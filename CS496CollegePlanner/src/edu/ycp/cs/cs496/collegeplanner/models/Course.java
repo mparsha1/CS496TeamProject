@@ -12,10 +12,16 @@ public class Course {
 	private String name;
 	private ArrayList<String> prerequisites; // FIXME: could this have a better data-type?
 	private String instructor;
-	private String location; // TODO: should location be a class we make?
+	private String location;	// TODO: should location be a class we make?
+	
+	public Course() {
+		
+	}
+	
 	public String getLocation() {
 		return location;
 	}
+	
 	public void setLocation(String location) {
 		this.location = location;
 	}
