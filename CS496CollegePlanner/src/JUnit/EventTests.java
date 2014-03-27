@@ -2,6 +2,7 @@ package JUnit;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs.cs496.collegeplanner.models.Date;
@@ -43,10 +44,10 @@ public class EventTests extends TestCase {
 		//ONLY FOR EVENT TYPE
 		
 		Time start = new Time();
-		start.setHour(12);
+		start.setHours(12);
 		start.setMinutes(30);
 		Time end = new Time();
-		end.setHour(1);
+		end.setHours(1);
 		end.setMinutes(30);
 		
 		event.setStartTime(start);
