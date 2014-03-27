@@ -21,8 +21,8 @@ public class EventTests extends TestCase {
 		
 		//set body
 		event.setBody("Nothing here");
-		
-		
+
+	
 		
 		//set Title
 		event.setTitle("Dress fitting");
