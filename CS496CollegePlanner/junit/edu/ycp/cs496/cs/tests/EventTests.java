@@ -1,4 +1,4 @@
-package JUnit;
+package edu.ycp.cs496.cs.tests;
 
 import java.util.ArrayList;
 

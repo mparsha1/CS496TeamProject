@@ -1,4 +1,4 @@
-package JUnit;
+package edu.ycp.cs496.cs.tests;
 
 import org.junit.Before;
 import org.junit.Test;
