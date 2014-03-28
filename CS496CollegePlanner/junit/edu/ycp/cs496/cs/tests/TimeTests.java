@@ -6,6 +6,10 @@ import org.junit.Test;
 import edu.ycp.cs.cs496.collegeplanner.models.Time;
 import junit.framework.TestCase;
 
+/**
+ * @author dholtzap
+ * time tests
+ */
 public class TimeTests extends TestCase {
 	private Time time1;
 	private Time time2;
