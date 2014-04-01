@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <instrumentation android:name="android.test.InstrumentationTestRunner"
+		    android:targetPackage="edu.ycp.cs496.cs.tests"
+		    android:label="something" />
+        <uses-library android:name="android.test.runner" android:required="true"/>
     </application>
 
 </manifest>
