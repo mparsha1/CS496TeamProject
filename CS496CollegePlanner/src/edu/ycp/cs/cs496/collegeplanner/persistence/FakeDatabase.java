@@ -10,7 +10,13 @@ import edu.ycp.cs.cs496.collegeplanner.models.User;
  *  methods to manipulate user objects in the fake database
  */
 public class FakeDatabase implements IDatabase {
-	HashMap<String, String> users = new HashMap<String, String>();
+	HashMap<String, String> users;
+	
+	public FakeDatabase() {
+		users = new HashMap<String, String>();
+		users.put("mparsha", "abc123");
+		users.put("dholtzap", "7");
+	}
 	
 	public boolean addUser(User user) {
 		if(users.containsKey(user.getUsername())){
