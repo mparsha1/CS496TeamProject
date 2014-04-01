@@ -7,5 +7,7 @@
     <string name="Username">Username:</string>
     <string name="Password">Password:</string>
     <string name="SignIn">Sign in</string>
+    <string name="HomePage_temp">You are on the home page</string>
+    <string name="Calendar_button">Calendar</string>
 
 </resources>
