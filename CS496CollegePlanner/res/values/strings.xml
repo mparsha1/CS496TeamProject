@@ -9,5 +9,8 @@
     <string name="SignIn">Sign in</string>
     <string name="HomePage_temp">You are on the home page</string>
     <string name="Calendar_button">Calendar</string>
+    <string name="Calendar">Calendar</string>
+    <string name="SubscriptionsButton">Edit Subscriptions</string>
+    
 
 </resources>
