@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkGreen"
+    android:fadingEdge="horizontal"
     android:orientation="vertical" >
 
     <android.widget.GridLayout
@@ -10,39 +12,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="148dp" >
+        android:layout_height="150dp" >
 
         <Button
             android:id="@+id/button_calendar"
-            android:layout_width="159dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/Button_padding"
+            android:paddingLeft="@dimen/Button_padding"
+            android:paddingRight="@dimen/Button_padding"
+            android:paddingTop="@dimen/Button_padding"
             android:text="@string/Calendar" />
 
         <Button
             android:id="@+id/button_organizations"
-            android:layout_width="160dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:text="@string/SubscriptionsButton" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.43" >
+        android:layout_height="150dp" >
 
         <Button
             android:id="@+id/button_classScedule"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_weight="0.50"
-            android:text="Button" />
+            android:layout_width="200dp"
+            android:layout_height="match_parent"           
+            android:text="@string/ClassScheduleButton" />
 
         <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_weight="0.50"
-            android:text="Button" />
+            android:id="@+id/button_classPlanner"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"       
+            android:text="@string/classPlanner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/button_something"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/Temp" />
 
     </LinearLayout>
 

@@ -11,6 +11,9 @@
     <string name="Calendar_button">Calendar</string>
     <string name="Calendar">Calendar</string>
     <string name="SubscriptionsButton">Edit Subscriptions</string>
+    <string name="ClassScheduleButton">Class Schedule</string>
+    <string name="classPlanner">Class Planner</string>
+    <string name="Temp">Temp Text</string>
     
 
 </resources>
