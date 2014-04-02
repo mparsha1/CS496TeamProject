@@ -47,13 +47,21 @@ public class MainActivity extends Activity {
 				EditText editText_username = (EditText) findViewById(R.id.editText_username);
 				EditText editText_password = (EditText) findViewById(R.id.editText_Password);
 				
-				user.setUsername(editText_username.getText().toString());
-				user.setPassword(editText_password.getText().toString());
+				String username = editText_username.getText().toString();
+				String password = editText_password.getText().toString();
+				
+				if(username.equals("") || password.equals("")) {
+					Toast.makeText(MainActivity.this, "Missing Username or Password field", Toast.LENGTH_SHORT).show();
+					return;
+				}
+					
+				user.setUsername(username);
+				user.setPassword(password);
 				
 				System.out.println(user.getUsername() + user.getPassword());
 				
 				boolean result = logIn(user);
-				Toast.makeText(MainActivity.this, "Log in:" + result, Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "Log in: " + result, Toast.LENGTH_SHORT).show();
 				
 			}
 		});
