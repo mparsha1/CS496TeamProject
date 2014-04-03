@@ -1,5 +1,6 @@
 package edu.ycp.cs.cs496.collegeplanner.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ycp.cs.cs496.collegeplanner.models.User;
@@ -11,11 +12,16 @@ import edu.ycp.cs.cs496.collegeplanner.models.User;
  */
 public class FakeDatabase implements IDatabase {
 	HashMap<String, String> users;
+	ArrayList<String> majors;
 	
 	public FakeDatabase() {
 		users = new HashMap<String, String>();
 		users.put("mparsha", "abc123");
 		users.put("dholtzap", "7");
+		majors.add("Computer Science");
+		majors.add("Computer Engineering");
+		majors.add("Biology");
+		majors.add("Chemistry");
 	}
 	
 	public boolean addUser(User user) {
@@ -34,6 +40,10 @@ public class FakeDatabase implements IDatabase {
 		user.setUsername(username);
 		user.setPassword(users.get(username));
 		return user;
+	}
+	
+	public ArrayList<String> getMajors() {
+		return majors;
 	}
 	
 	public boolean deleteUser(String username) {

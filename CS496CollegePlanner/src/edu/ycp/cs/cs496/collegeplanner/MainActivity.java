@@ -63,11 +63,11 @@ public class MainActivity extends Activity {
 				
 				boolean result = logIn(user);
 				if(result == true) {
-					//Intent goToHome = new Intent(v.getContext(), HomePage.class);
+					Intent goToHome = new Intent(v.getContext(), HomePage.class);
 					
-					//startActivity(goToHome);
+					startActivity(goToHome);
 					
-					//showHomePageView();
+					
 					Toast.makeText(MainActivity.this, "This works", Toast.LENGTH_SHORT).show();
 					
 				} else {
@@ -79,11 +79,5 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	//TODO: Display homepage
-	//public void showHomePageView() {
-		
-	//	setContentView(R.layout.home_screen);
-		
-	//}
 
 }

@@ -9,11 +9,14 @@
     <string name="SignIn">Sign in</string>
     <string name="HomePage_temp">You are on the home page</string>
     <string name="Calendar_button">Calendar</string>
-    <string name="Calendar">Calendar</string>
-    <string name="SubscriptionsButton">Edit Subscriptions</string>
+    <string name="ViewSchedule">View Class Schedule</string>
+    <string name="settingsButton">Settings</string>
     <string name="ClassScheduleButton">Class Schedule</string>
     <string name="classPlanner">Class Planner</string>
-    <string name="Temp">Temp Text</string>
+    <string name="EditCourses">Edit Completed Courses</string>
+    <string name="MyAccount">My Account</string>
+    <string name="LogOut">Log Out</string>
+    
     
 
 </resources>
