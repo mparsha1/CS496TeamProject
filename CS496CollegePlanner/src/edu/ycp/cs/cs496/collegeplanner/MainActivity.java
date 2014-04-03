@@ -4,6 +4,7 @@ import edu.ycp.cs.cs496.collegeplanner.controllers.LoginController;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +62,17 @@ public class MainActivity extends Activity {
 				System.out.println(user.getUsername() + user.getPassword());
 				
 				boolean result = logIn(user);
-				Toast.makeText(MainActivity.this, "Log in: " + result, Toast.LENGTH_SHORT).show();
+				if(result == true) {
+					//Intent goToHome = new Intent(v.getContext(), HomePage.class);
+					
+					//startActivity(goToHome);
+					
+					//showHomePageView();
+					Toast.makeText(MainActivity.this, "This works", Toast.LENGTH_SHORT).show();
+					
+				} else {
+					Toast.makeText(MainActivity.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
+				}
 				
 			}
 		});
@@ -69,8 +80,10 @@ public class MainActivity extends Activity {
 	}
 	
 	//TODO: Display homepage
-	public void showHomePageView() {
+	//public void showHomePageView() {
 		
-	}
+	//	setContentView(R.layout.home_screen);
+		
+	//}
 
 }

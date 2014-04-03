@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkGreen"
@@ -18,17 +19,16 @@
             android:id="@+id/button_calendar"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/Button_padding"
-            android:paddingLeft="@dimen/Button_padding"
-            android:paddingRight="@dimen/Button_padding"
-            android:paddingTop="@dimen/Button_padding"
+            android:background="@color/greyBlue"
             android:text="@string/Calendar" />
 
         <Button
             android:id="@+id/button_organizations"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:text="@string/SubscriptionsButton" />
+            android:background="@color/darkGreen"
+            android:text="@string/SubscriptionsButton"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
@@ -39,13 +39,15 @@
         <Button
             android:id="@+id/button_classScedule"
             android:layout_width="200dp"
-            android:layout_height="match_parent"           
+            android:layout_height="match_parent"  
+            android:background="@color/white"         
             android:text="@string/ClassScheduleButton" />
 
         <Button
             android:id="@+id/button_classPlanner"
             android:layout_width="120dp"
-            android:layout_height="match_parent"       
+            android:layout_height="match_parent"
+            android:background="@color/greyBlue"
             android:text="@string/classPlanner" />
 
     </LinearLayout>
@@ -58,7 +60,9 @@
             android:id="@+id/button_something"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/Temp" />
+            android:text="@string/Temp" 
+            android:background="@color/darkGreen"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
