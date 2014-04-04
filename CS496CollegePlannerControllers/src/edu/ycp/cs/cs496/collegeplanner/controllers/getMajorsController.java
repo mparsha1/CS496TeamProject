@@ -2,12 +2,12 @@ package edu.ycp.cs.cs496.collegeplanner.controllers;
 
 import java.util.ArrayList;
 
-import edu.ycp.cs.cs496.collegeplanner.persistence.Database;
-import edu.ycp.cs.cs496.collegeplanner.persistence.IDatabase;
+import edu.ycp.cs.cs496.collegeplanner.model.persist.DatabaseProvider;
+import edu.ycp.cs.cs496.collegeplanner.model.persist.IDatabase;
 
 public class getMajorsController {
 		public ArrayList<String> getMajors() {
-			IDatabase db = Database.getInstance();
+			IDatabase db = DatabaseProvider.getInstance();
 			
 			return db.getMajors();
 		}

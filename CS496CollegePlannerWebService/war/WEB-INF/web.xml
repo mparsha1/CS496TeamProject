@@ -5,15 +5,15 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
 	<!-- Servlets -->
-	<servlet>
-		<servlet-name>HelloServlet</servlet-name>
-		<servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.HelloServlet</servlet-class>
+	<servlet>		
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>edu.ycp.cs.cs496.collegeplanner.servlerts.LoginServlet</servlet-class>
 	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
-		<servlet-name>HelloServlet</servlet-name>
-		<url-pattern>/hello/*</url-pattern>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Servlet context listeners -->

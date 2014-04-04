@@ -18,17 +18,8 @@ public class CourseParser {
 	public CourseParser() {
 		
 	}
-	// TODO: TEST ME
-	public static void main(String[] args) throws IOException{
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("course file?:");
-		String fileString = keyboard.next();
-		File file = new File(fileString);
-		 parseCoursesFromFile(file);
-	}
 	
-	
-	public static ArrayList<Course> parseCoursesFromFile(File courseFile) throws IOException {
+	public ArrayList<Course> parseCoursesFromFile(File courseFile) throws IOException {
 		FileReader fileReader = new FileReader(courseFile);
 		BufferedReader bReader = new BufferedReader(fileReader);
 
