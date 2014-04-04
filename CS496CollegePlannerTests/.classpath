@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlanner"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerControllers"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerModelClasses"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerPersistence"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerWebService"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -24,12 +24,11 @@ public class CourseParser {
 		System.out.println("course file?:");
 		String fileString = keyboard.next();
 		File file = new File(fileString);
-		CourseParser cp = new CourseParser();
-		cp.parseCoursesFromFile(file);
+		 parseCoursesFromFile(file);
 	}
 	
 	
-	public ArrayList<Course> parseCoursesFromFile(File courseFile) throws IOException {
+	public static ArrayList<Course> parseCoursesFromFile(File courseFile) throws IOException {
 		FileReader fileReader = new FileReader(courseFile);
 		BufferedReader bReader = new BufferedReader(fileReader);
 
