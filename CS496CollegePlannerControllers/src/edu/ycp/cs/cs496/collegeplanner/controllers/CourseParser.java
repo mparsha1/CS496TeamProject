@@ -33,50 +33,48 @@ public class CourseParser {
 					break;
 				}
 				
-				String type = line.substring(0, ' ');
+				String type = line.substring(0, line.indexOf(','));
 				
 				if(type.equals("Course")) {
 					Course course = new Course();
 					courses.add(course);
 				}				
 				else if(type.equals("id")){
-					String idAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String idAsString = line.substring(line.indexOf(',') + 1, line.length());
 					int id = Integer.parseInt(idAsString);
 					courses.get(courses.size() - 1).setId(id);
 				}
 				/*else if(type.equals("start-time")) {
-					String startTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String startTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/'));
 					int startTime = Integer.parseInt(startTimeAsString);
 					courses.get(courses.size() - 1).setStartTime(startTime);
 				}
 				else if(type.equals("finish-time")) {
-					String finishTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String finishTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/'));
 					int finishTime = Integer.parseInt(finishTimeAsString);
 					courses.get(courses.size() - 1).setEndTime(finishTime);
 				}*/
 				else if(type.equals("name")) {
-					String name = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String name = line.substring(line.indexOf(',') + 1, line.length());
 					courses.get(courses.size() - 1).setName(name);
 				}
 				else if(type.equals("instructor")) {
-					String instructor = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String instructor = line.substring(line.indexOf(',') + 1, line.length());
 					courses.get(courses.size() - 1).setInstructor(instructor);
 				}
 				else if(type.equals("location")) {
 					// TODO;
 				}
+				else if(type.equals("category")) {
+					String category = line.substring(line.indexOf(',') + 1, line.length());
+					courses.get(courses.size() - 1).setCategory(category);
+				}
 				else if(type.equals("prereq-id")) {
-					String prereqIdAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/') - 1);
+					String prereqIdAsString = line.substring(line.indexOf(',') + 1, line.length());
 					int prereq_id = Integer.parseInt(prereqIdAsString);
 					courses.get(courses.size() - 1).setPrerequisites(prereq_id);
-				}
-					
-					
-				
-				
-					
-			}
-				
+				}					
+			}				
 
 			System.out.println(courses.toString());
 			bReader.close();

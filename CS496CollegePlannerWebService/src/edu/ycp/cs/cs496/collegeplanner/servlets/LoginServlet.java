@@ -34,8 +34,7 @@ public class LoginServlet extends HttpServlet{
 		resp.setContentType("application/json");
 		resp.setStatus(HttpServletResponse.SC_OK);
 		
-		if(result == true) {
-						
+		if(result == true) {						
 						
 			return;
 		}

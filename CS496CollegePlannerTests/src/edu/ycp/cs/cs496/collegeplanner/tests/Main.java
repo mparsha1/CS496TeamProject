@@ -13,13 +13,19 @@ import edu.ycp.cs.cs496.collegeplanner.models.Course;
 
 public class Main {	
 	
-	@Test
-	public void test() throws IOException {
+	//@Test
+	public static void main(String[] args) throws IOException {
 		System.out.println("Testing...");
 		CourseParser cp = new CourseParser();
-		File courseFile = new File("/coCoursele.txt");
+		File courseFile = new File("courseFile.txt");
 		ArrayList<Course> courses = cp.parseCoursesFromFile(courseFile);
-		System.out.println(courses.toString());
+		for(Course course : courses) {
+			System.out.println("id: " + course.getId() + "name: " + course.getName() + 
+					"instructor: " + course.getInstructor() + "pre-req: " + course.getPrerequisites() + "category" +
+					course.getCategory());
+					
+					
+		}
 	}
 
 }

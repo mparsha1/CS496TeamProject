@@ -1,0 +1,12 @@
+Course,
+id,1
+name,Physics
+category,Physical Science
+instructor,Mister
+prereq-id,0
+Course,
+id,2
+name,Chemistry
+category,Physical Science
+instructor,Misses
+prereq-id,3

@@ -7,7 +7,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerControllers"/>
-	<classpathentry kind="lib" path="//storage/home/Desktop/modelClasses.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496_Jetty"/>
+	<classpathentry kind="lib" path="H:/git/CS496TeamProject/CS496CollegePlanner/libs/modelClasses.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

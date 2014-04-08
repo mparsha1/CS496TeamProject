@@ -12,6 +12,7 @@ public class Course {
 	private int prereq_id; 
 	private String instructor;
 	private String location;	// TODO: should location be a class we make?
+	private String category;
 	
 	public Course() {
 		
@@ -71,5 +72,13 @@ public class Course {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }
