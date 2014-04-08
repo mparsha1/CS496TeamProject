@@ -4,9 +4,13 @@ name,Physics
 category,Physical Science
 instructor,Mister
 prereq-id,0
+start-time,10:00am
+finish-time,10:50am
 Course,
 id,2
 name,Chemistry
 category,Physical Science
 instructor,Misses
+start-time,12:00pm
+finish-time,1:45pm
 prereq-id,3

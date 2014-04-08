@@ -44,16 +44,14 @@ public class CourseParser {
 					int id = Integer.parseInt(idAsString);
 					courses.get(courses.size() - 1).setId(id);
 				}
-				/*else if(type.equals("start-time")) {
-					String startTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/'));
-					int startTime = Integer.parseInt(startTimeAsString);
+				else if(type.equals("start-time")) {
+					String startTime = line.substring(line.indexOf(',') + 1, line.length());					
 					courses.get(courses.size() - 1).setStartTime(startTime);
 				}
 				else if(type.equals("finish-time")) {
-					String finishTimeAsString = line.substring(line.indexOf(',') + 1, line.indexOf('/'));
-					int finishTime = Integer.parseInt(finishTimeAsString);
+					String finishTime = line.substring(line.indexOf(',') + 1, line.length());					
 					courses.get(courses.size() - 1).setEndTime(finishTime);
-				}*/
+				}
 				else if(type.equals("name")) {
 					String name = line.substring(line.indexOf(',') + 1, line.length());
 					courses.get(courses.size() - 1).setName(name);

@@ -22,7 +22,7 @@ public class Main {
 		for(Course course : courses) {
 			System.out.println("id: " + course.getId() + "name: " + course.getName() + 
 					"instructor: " + course.getInstructor() + "pre-req: " + course.getPrerequisites() + "category" +
-					course.getCategory());
+					course.getCategory() + "time: " + course.getStartTime() + "-" + course.getEndTime());
 					
 					
 		}

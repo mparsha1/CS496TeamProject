@@ -6,8 +6,8 @@ package edu.ycp.cs.cs496.collegeplanner.models;
  */
 public class Course {
 	private int id;
-	private int startTime;
-	private int endTime;
+	private String startTime;
+	private String endTime;
 	private String name;
 	private int prereq_id; 
 	private String instructor;
@@ -34,19 +34,19 @@ public class Course {
 		this.instructor = instructor;
 	}
 	
-	public int getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 	
-	public void setStartTime(int startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 	
-	public int getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 	
-	public void setEndTime(int endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	
