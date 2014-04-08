@@ -9,5 +9,20 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerControllers"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496_Jetty"/>
 	<classpathentry kind="lib" path="H:/git/CS496TeamProject/CS496CollegePlanner/libs/modelClasses.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.2.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://fasterxml.github.io/jackson-annotations/javadoc/2.2.0/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/jackson-core-2.2.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://fasterxml.github.io/jackson-core/javadoc/2.2.0/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.2.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

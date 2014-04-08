@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.collegeplanner.controllers.LoginController;
+import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class LoginServlet extends HttpServlet{
@@ -31,15 +32,15 @@ public class LoginServlet extends HttpServlet{
 		
 		boolean result = controller.login(user);
 		
-		resp.setContentType("application/json");
+		resp.setContentType("text/plain");
 		resp.setStatus(HttpServletResponse.SC_OK);
 		
-		if(result == true) {						
-						
+		if(result == true) {			
+			
 			return;
 		}
 		
-		
+		return;	
 		
 	}
 }

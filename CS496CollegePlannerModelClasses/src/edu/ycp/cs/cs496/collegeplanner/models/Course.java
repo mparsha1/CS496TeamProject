@@ -11,7 +11,7 @@ public class Course {
 	private String name;
 	private int prereq_id; 
 	private String instructor;
-	private String location;	// TODO: should location be a class we make?
+	private String location;	// TODO: should location be a class we make? NO
 	private String category;
 	
 	public Course() {

@@ -39,7 +39,7 @@ public class CourseParser {
 					Course course = new Course();
 					courses.add(course);
 				}				
-				else if(type.equals("id")){
+				else if(type.equals("id")) {
 					String idAsString = line.substring(line.indexOf(',') + 1, line.length());
 					int id = Integer.parseInt(idAsString);
 					courses.get(courses.size() - 1).setId(id);
@@ -61,7 +61,8 @@ public class CourseParser {
 					courses.get(courses.size() - 1).setInstructor(instructor);
 				}
 				else if(type.equals("location")) {
-					// TODO;
+					String location = line.substring(line.indexOf(',') + 1, line.length());
+					courses.get(courses.size() - 1).setLocation(location);
 				}
 				else if(type.equals("category")) {
 					String category = line.substring(line.indexOf(',') + 1, line.length());

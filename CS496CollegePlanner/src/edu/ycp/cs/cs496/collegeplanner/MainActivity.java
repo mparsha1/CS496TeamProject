@@ -1,5 +1,6 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
+import mobileControllers.GetLoginResult;
 import edu.ycp.cs.cs496.collegeplanner.controllers.LoginController;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import android.os.Bundle;
@@ -28,8 +29,9 @@ public class MainActivity extends Activity {
 	}
 	
 	public boolean logIn(User user) {
-		LoginController lc = new LoginController();
-		return lc.login(user);		
+		return false;
+		//GetLoginResult loginRequester = new GetLoginResult();
+		//boolean result = loginRequester.getLoginResult(user.getUsername(), user.getPassword());
 	}
 	
 	public void setDefaultView() {

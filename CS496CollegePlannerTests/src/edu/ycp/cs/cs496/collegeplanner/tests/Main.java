@@ -20,9 +20,9 @@ public class Main {
 		File courseFile = new File("courseFile.txt");
 		ArrayList<Course> courses = cp.parseCoursesFromFile(courseFile);
 		for(Course course : courses) {
-			System.out.println("id: " + course.getId() + "name: " + course.getName() + 
-					"instructor: " + course.getInstructor() + "pre-req: " + course.getPrerequisites() + "category" +
-					course.getCategory() + "time: " + course.getStartTime() + "-" + course.getEndTime());
+			System.out.println("id: " + course.getId() + " name: " + course.getName() + 
+					" instructor: " + course.getInstructor() + " pre-req: " + course.getPrerequisites() + " category " +
+					course.getCategory() + " time: " + course.getStartTime() + "-" + course.getEndTime());
 					
 					
 		}
