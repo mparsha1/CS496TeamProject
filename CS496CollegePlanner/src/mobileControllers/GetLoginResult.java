@@ -1,6 +1,7 @@
 package mobileControllers;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -10,8 +11,16 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+
+import edu.ycp.cs.cs496.collegeplanner.json.JSON;
+import edu.ycp.cs.cs496.collegeplanner.models.User;
+
 
 
 
@@ -34,17 +43,21 @@ public class GetLoginResult {
 			uri = URIUtils.createURI("http", "10.0.2.2", 8081, location, 
 					    null, null);
 			
-			// Construct request
+			// Construct request	
 			HttpGet request = new HttpGet(uri);
+		
+			HttpParams params = new BasicHttpParams();
+			
+			params.setParameter("username", username);
+			params.setParameter("password", password);
+			
 			
 			HttpResponse response = client.execute(request);
 			
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				// Copy the response body to a string
-				HttpEntity entity = response.getEntity();
 				
-				// Parse JSON
-				//return JSON.getObjectMapper().readValue(entity.getContent(), Item.class);
+				return true;
+				
 			} 
 			
 		

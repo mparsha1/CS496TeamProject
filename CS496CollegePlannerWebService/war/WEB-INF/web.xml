@@ -15,6 +15,10 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MajorsServlet</servlet-name>
+		<url-pattern>/majors</url-pattern>
+	</servlet-mapping>
 	
 	<!-- Servlet context listeners -->
 	<listener>

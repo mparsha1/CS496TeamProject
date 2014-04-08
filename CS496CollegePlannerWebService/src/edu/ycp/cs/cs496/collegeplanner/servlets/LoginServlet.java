@@ -33,13 +33,18 @@ public class LoginServlet extends HttpServlet{
 		boolean result = controller.login(user);
 		
 		resp.setContentType("text/plain");
-		resp.setStatus(HttpServletResponse.SC_OK);
 		
-		if(result == true) {			
+		//resp.setStatus(HttpServletResponse.SC_OK);
+		
+		if(result == true) {	
 			
+			//set to SC_OK if it worked
+			resp.setStatus(HttpServletResponse.SC_OK);
 			return;
 		}
 		
+		//set to SC_NOT_FOUND if there is a problem with the username and password.
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		return;	
 		
 	}

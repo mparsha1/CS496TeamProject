@@ -19,4 +19,6 @@ public interface IDatabase {
 	
 	public ArrayList<String> getMajors();
 	
+	public boolean setMajor(String username, String major);
+	
 }

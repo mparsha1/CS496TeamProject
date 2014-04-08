@@ -14,6 +14,8 @@ public class FakeDatabase implements IDatabase {
 	HashMap<String, String> users;
 	ArrayList<String> majors;
 	
+	ArrayList<User> users_2;
+	
 	public FakeDatabase() {
 		users = new HashMap<String, String>();
 		majors = new ArrayList<String>();
@@ -23,6 +25,15 @@ public class FakeDatabase implements IDatabase {
 		majors.add("Computer Engineering");
 		majors.add("Biology");
 		majors.add("Chemistry");
+		users_2 = new ArrayList<User>();
+		
+		User Misty = new User();
+		Misty.setMajor("Computer Science");
+		User Drew = new User();
+		Drew.setMajor("Computer Science");
+		users_2.add(Misty);
+		users_2.add(Drew);
+		
 	}
 	
 	public boolean addUser(User user) {
@@ -43,8 +54,34 @@ public class FakeDatabase implements IDatabase {
 		return user;
 	}
 	
+	public User getUser_2(String username) {
+		
+		User user = null;
+		
+		for(int i = 0; i < users_2.size(); i++) {
+			
+			if(users_2.get(i).getUsername().equals(username)) {
+				user = users_2.get(i);
+			}
+		}
+		
+		return user;
+	}
+	
 	public ArrayList<String> getMajors() {
 		return majors;
+	}
+	
+	public boolean setMajor(String username, String major) {
+		
+		User user = getUser_2(username);
+		
+		if(user != null) {
+			user.setMajor(major);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean deleteUser(String username) {
