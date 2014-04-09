@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.collegeplanner.controllers.getMajorsController;
+import edu.ycp.cs.cs496.collegeplanner.controllers.setMajorController;
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 
 public class MajorsServlet extends HttpServlet{
@@ -48,7 +49,24 @@ public class MajorsServlet extends HttpServlet{
 		
 		//TODO!!!  Handle when a user changes/selects their major!!! 
 		
+		setMajorController controller = new setMajorController();
 		
+		String username = req.getParameter("username");
+		String major = req.getParameter("major");
+		
+		boolean result = controller.setMajor(username, major);
+		
+		resp.setContentType("text/plain");
+		
+		if(result) {	
+			//set to SC_OK if it worked
+			resp.setStatus(HttpServletResponse.SC_OK);
+			return;
+		}
+		
+		//set to SC_NOT_FOUND if there is a problem 
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		return;	
 		
 		
 	}
