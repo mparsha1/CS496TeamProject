@@ -75,10 +75,7 @@ public class CourseParser {
 					int prereq_id = Integer.parseInt(prereqIdAsString);
 					courses.get(courses.size() - 1).setPrerequisites(prereq_id);
 				}					
-			}
-			
-			IDatabase db = DatabaseProvider.getInstance();
-			
+			}			
 
 			System.out.println(courses.toString());
 			bReader.close();
