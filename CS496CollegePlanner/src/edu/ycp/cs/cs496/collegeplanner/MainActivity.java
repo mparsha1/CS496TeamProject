@@ -1,8 +1,5 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
-import mobileControllers.GetLoginResult;
-import edu.ycp.cs.cs496.collegeplanner.controllers.LoginController;
-import edu.ycp.cs.cs496.collegeplanner.models.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
