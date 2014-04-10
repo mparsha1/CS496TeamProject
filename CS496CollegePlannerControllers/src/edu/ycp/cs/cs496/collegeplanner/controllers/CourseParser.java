@@ -5,10 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import edu.ycp.cs.cs496.collegeplanner.model.persist.DatabaseProvider;
-import edu.ycp.cs.cs496.collegeplanner.model.persist.IDatabase;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 
 /**

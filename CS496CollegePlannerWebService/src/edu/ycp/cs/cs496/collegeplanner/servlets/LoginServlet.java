@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.collegeplanner.controllers.LoginController;
-import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class LoginServlet extends HttpServlet{
