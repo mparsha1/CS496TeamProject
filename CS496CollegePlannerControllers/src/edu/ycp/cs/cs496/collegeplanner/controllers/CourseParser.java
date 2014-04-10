@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.ycp.cs.cs496.collegeplanner.model.persist.DatabaseProvider;
+import edu.ycp.cs.cs496.collegeplanner.model.persist.IDatabase;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 
 /**
@@ -73,7 +75,10 @@ public class CourseParser {
 					int prereq_id = Integer.parseInt(prereqIdAsString);
 					courses.get(courses.size() - 1).setPrerequisites(prereq_id);
 				}					
-			}				
+			}
+			
+			IDatabase db = DatabaseProvider.getInstance();
+			
 
 			System.out.println(courses.toString());
 			bReader.close();

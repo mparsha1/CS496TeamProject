@@ -1,7 +1,7 @@
 package edu.ycp.cs.cs496.collegeplanner.model.persist;
 
 import java.util.ArrayList;
-
+import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 /**
@@ -15,10 +15,15 @@ public interface IDatabase {
 	
 	public User getUser(String username);
 	
-	public boolean deleteUser(String username);
+	public ArrayList<User> getUsers();
+	
+	public boolean deleteUser(User user);
 	
 	public ArrayList<String> getMajors();
 	
 	public boolean setMajor(String username, String major);
 	
+	public boolean addCourse(Course course);
+	
+	public ArrayList<Course> getCourses();
 }

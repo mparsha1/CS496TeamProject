@@ -3,78 +3,76 @@ package edu.ycp.cs.cs496.collegeplanner.model.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 /**
  * @author dholtzap
- * (addUser, getUser, deleteUser)
- *  methods to manipulate user objects in the fake database
+ * 
+ *  methods to manipulate user, course objects in the fake database
  */
-public class FakeDatabase implements IDatabase {
-	HashMap<String, String> users;
+public class FakeDatabase implements IDatabase {	
 	ArrayList<String> majors;
 	
-	ArrayList<User> users_2;
+	ArrayList<User> users;
+	
+	ArrayList<Course> courses;
 	
 	public FakeDatabase() {
-		users = new HashMap<String, String>();
-		majors = new ArrayList<String>();
-		users.put("mparsha", "abc123");
-		users.put("dholtzap", "7");
+		
+		majors = new ArrayList<String>();		
 		majors.add("Computer Science");
 		majors.add("Computer Engineering");
 		majors.add("Biology");
 		majors.add("Chemistry");
-		users_2 = new ArrayList<User>();
+		users = new ArrayList<User>();
 		
 		User Misty = new User();
 		Misty.setMajor("Computer Science");
 		User Drew = new User();
 		Drew.setMajor("Computer Science");
-		users_2.add(Misty);
-		users_2.add(Drew);
+		users.add(Misty);
+		users.add(Drew);
 		
 	}
 	
 	public boolean addUser(User user) {
-		if(users.containsKey(user.getUsername())){
+		if(users.contains(user)){
 			return false;
 		}
-		users.put(user.getUsername(), user.getPassword());
+		
+		User newUser = new User();
+		newUser.setUsername(user.getUsername());
+		newUser.setPassword(user.getPassword());
+		users.add(newUser);
 		return true;
 	}
 	
 	public User getUser(String username) {
 		User user = new User();
-		if(!users.containsKey(username)){
-			return null;
-		}
-		user.setUsername(username);
-		user.setPassword(users.get(username));
-		return user;
-	}
-	
-	public User getUser_2(String username) {
 		
-		User user = null;
-		
-		for(int i = 0; i < users_2.size(); i++) {
+		for(int i = 0; i < users.size(); i++) {
 			
-			if(users_2.get(i).getUsername().equals(username)) {
-				user = users_2.get(i);
+			if(users.get(i).getUsername().equals(username)) {
+				user.setUsername(users.get(i).getUsername());
+				user.setPassword(users.get(i).getPassword());
 			}
 		}
 		
-		return user;
+		return user;	
+	}
+	
+	public ArrayList<User> getUsers() {
+		return new ArrayList<User>(users);
 	}
 	
 	public ArrayList<String> getMajors() {
-		return majors;
+		return new ArrayList<String>(majors);
 	}
 	
 	public boolean setMajor(String username, String major) {
 		
-		User user = getUser_2(username);
+		User user = getUser(username);
 		
 		if(user != null) {
 			user.setMajor(major);
@@ -84,11 +82,27 @@ public class FakeDatabase implements IDatabase {
 		return false;
 	}
 	
-	public boolean deleteUser(String username) {
-		if(users.containsKey(username)){
-			users.remove(username);
+	public boolean deleteUser(User user) {
+		if(users.contains(user)){
+			users.remove(user);
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean addCourse(Course course) {
+		if(courses.contains(course)) {
+			return false;
+		}
+		
+		courses.add(course);
+		return true;
+		
+	}
+
+	@Override
+	public ArrayList<Course> getCourses() {
+		return new ArrayList<Course>(courses);
 	}
 }
