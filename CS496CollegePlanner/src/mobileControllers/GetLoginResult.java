@@ -1,6 +1,7 @@
 package mobileControllers;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -8,11 +9,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
+
+
+import edu.ycp.cs.cs496.collegeplanner.models.User;
+import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 
 
 
@@ -37,12 +41,19 @@ public class GetLoginResult {
 					    null, null);
 			
 			// Construct request	
-			HttpGet request = new HttpGet(uri);
+			HttpPost request = new HttpPost(uri);
 		
-			HttpParams params = new BasicHttpParams();
+			User user = new User();
 			
-			params.setParameter("username", username);
-			params.setParameter("password", password);
+			user.setUsername(username);
+			user.setPassword(password);
+			
+			StringWriter sw = new StringWriter();
+			JSON.getObjectMapper().writeValue(sw, user);
+			
+			StringEntity reqEntity = new StringEntity(sw.toString());
+			reqEntity.setContentType("application/json");
+			request.setEntity(reqEntity);
 			
 			
 			HttpResponse response = client.execute(request);
