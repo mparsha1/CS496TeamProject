@@ -26,8 +26,12 @@ public class FakeDatabase implements IDatabase {
 		users = new ArrayList<User>();
 		
 		User Misty = new User();
+		Misty.setUsername("mparsha");
+		Misty.setPassword("abc123");
 		Misty.setMajor("Computer Science");
 		User Drew = new User();
+		Drew.setUsername("dholtzap");
+		Drew.setPassword("7");
 		Drew.setMajor("Computer Science");
 		users.add(Misty);
 		users.add(Drew);
@@ -52,12 +56,15 @@ public class FakeDatabase implements IDatabase {
 		for(int i = 0; i < users.size(); i++) {
 			
 			if(users.get(i).getUsername().equals(username)) {
+				System.out.println("found user" + username);
 				user.setUsername(users.get(i).getUsername());
 				user.setPassword(users.get(i).getPassword());
+				System.out.println("processed user");
+				return user;	
 			}
 		}
+		return null;
 		
-		return user;	
 	}
 	
 	public ArrayList<User> getUsers() {

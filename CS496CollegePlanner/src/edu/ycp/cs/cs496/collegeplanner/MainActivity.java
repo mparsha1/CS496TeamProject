@@ -1,5 +1,11 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.apache.http.client.ClientProtocolException;
+
+import mobileControllers.GetLoginResult;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -25,10 +31,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public boolean logIn(User user) {
-		return false;
-		//GetLoginResult loginRequester = new GetLoginResult();
-		//boolean result = loginRequester.getLoginResult(user.getUsername(), user.getPassword());
+	public boolean logIn(User user) throws ClientProtocolException, URISyntaxException, IOException {		
+		GetLoginResult loginRequester = new GetLoginResult();
+		return loginRequester.getLoginResult(user.getUsername(), user.getPassword());
 	}
 	
 	public void setDefaultView() {
@@ -60,7 +65,13 @@ public class MainActivity extends Activity {
 				
 				System.out.println(user.getUsername() + user.getPassword());
 				
-				boolean result = logIn(user);
+				boolean result = false;
+				try {
+					result = logIn(user);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if(result == true) {
 					Intent goToHome = new Intent(v.getContext(), HomePage.class);
 					

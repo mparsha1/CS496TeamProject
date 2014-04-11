@@ -14,6 +14,8 @@ import org.apache.http.client.utils.URIUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.util.Log;
+
 
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
@@ -47,6 +49,8 @@ public class GetLoginResult {
 			
 			user.setUsername(username);
 			user.setPassword(password);
+			
+			Log.println(1, "getloginresult", user.getUsername());
 			
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, user);

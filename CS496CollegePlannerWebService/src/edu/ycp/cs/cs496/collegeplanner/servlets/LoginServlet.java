@@ -1,5 +1,6 @@
 package edu.ycp.cs.cs496.collegeplanner.servlets;
 
+import java.io.Console;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -26,8 +27,9 @@ public class LoginServlet extends HttpServlet{
 		//String password = req.getParameter("password");
 		
 		User user = new User();
-		
+		System.out.println("hi before mapper");
 		user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+		System.out.println(user.getUsername() + "hi after mapper");
 		
 		boolean result = controller.login(user);
 		
