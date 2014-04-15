@@ -1,14 +1,21 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 public class HomePage extends Activity {
+	
+	String username;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent i = getIntent();
+		username = i.getStringExtra("username");
 		setDefaultView();
 		//setContentView(R.layout.activity_main);
 	}
@@ -22,5 +29,25 @@ public class HomePage extends Activity {
 	
 	public void setDefaultView() {
 		setContentView(R.layout.home_screen);
+		
+		Button settingsBtn = (Button) findViewById(R.id.SettingsBtn);
+		
+		settingsBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				System.out.print("On Click");
+				Intent goToSettings = new Intent(v.getContext(), SettingsPage.class);
+				goToSettings.putExtra("username", username);
+				startActivity(goToSettings);
+				
+			}
+			
+			
+			
+		});
+		
 	}
 }

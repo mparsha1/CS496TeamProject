@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
 				}
 				if(result == true) {
 					Intent goToHome = new Intent(v.getContext(), HomePage.class);
-					
+					goToHome.putExtra("username", username);
 					startActivity(goToHome);
 					
 					

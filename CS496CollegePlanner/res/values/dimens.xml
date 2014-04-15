@@ -6,5 +6,6 @@
     <dimen name="Sign_in_button_size">120dp</dimen>
     <dimen name="Button_padding">10dp</dimen>
     <dimen name="Temp">20dp</dimen>
+    <dimen name="majorLabel">15dp</dimen>
 
 </resources>
