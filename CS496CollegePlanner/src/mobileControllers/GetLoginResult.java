@@ -50,7 +50,6 @@ public class GetLoginResult {
 			user.setUsername(username);
 			user.setPassword(password);
 			
-			Log.println(1, "getloginresult", user.getUsername());
 			
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, user);

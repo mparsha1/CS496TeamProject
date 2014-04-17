@@ -21,21 +21,17 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		
 		LoginController controller = new LoginController();
 		
-		//String username = req.getParameter("username");
-		//String password = req.getParameter("password");
-		
 		User user = new User();
-		System.out.println("hi before mapper");
 		user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
-		System.out.println(user.getUsername() + "hi after mapper");
 		
 		boolean result = controller.login(user);
 		
 		resp.setContentType("text/plain");
 		
-		//resp.setStatus(HttpServletResponse.SC_OK);
 		
 		if(result == true) {	
 			

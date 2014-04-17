@@ -56,15 +56,27 @@ public class FakeDatabase implements IDatabase {
 		for(int i = 0; i < users.size(); i++) {
 			
 			if(users.get(i).getUsername().equals(username)) {
-				System.out.println("found user" + username);
 				user.setUsername(users.get(i).getUsername());
 				user.setPassword(users.get(i).getPassword());
-				System.out.println("processed user");
+				user.setMajor(users.get(i).getMajor());
 				return user;	
 			}
 		}
 		return null;
 		
+	}
+	
+	public String getMajor(String username) {
+		
+		System.out.println("Database username" + username);
+		User u = getUser(username);
+		
+		if(u != null) {
+			return u.getMajor();
+		}	
+		
+		
+		return null;
 	}
 	
 	public ArrayList<User> getUsers() {

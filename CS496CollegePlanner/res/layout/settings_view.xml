@@ -2,16 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/lightGreyBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/backButtonSettingsPg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/Back"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/spacerTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.24" />
+
+        <Button
+            android:id="@+id/signOutButtonSettingsPg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/LogOut"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/MajorLabel"
-        android:layout_width="wrap_content"
+        android:id="@+id/UsernameTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/Button_padding"
-        android:paddingTop="@dimen/activity_horizontal_margin"
-        android:textColor="@color/darkGreen"
-        android:textSize="@dimen/majorLabel" />
+        android:gravity="center_horizontal|center"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/NotFound"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkGreen" />
+
+    <TextView
+        android:id="@+id/MajorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/NotFound"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkGreen" />
 
     <Button
         android:id="@+id/ChangeMajorBtn"

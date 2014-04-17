@@ -38,7 +38,6 @@ public class HomePage extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				System.out.print("On Click");
 				Intent goToSettings = new Intent(v.getContext(), SettingsPage.class);
 				goToSettings.putExtra("username", username);
 				startActivity(goToSettings);

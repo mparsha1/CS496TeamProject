@@ -7,5 +7,8 @@
     <dimen name="Button_padding">10dp</dimen>
     <dimen name="Temp">20dp</dimen>
     <dimen name="majorLabel">15dp</dimen>
+    <dimen name="settingsPageLabels">45dp</dimen>
+    <dimen name="SignOutWidth">80dp</dimen>
+    <dimen name="SignOutHeight">45dp</dimen>
 
 </resources>

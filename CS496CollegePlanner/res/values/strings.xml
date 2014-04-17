@@ -18,6 +18,9 @@
     <string name="LogOut">Log Out</string>
     <string name="ChangeMajorBtn">Change Major</string>
     <string name="ManageClasseBtn">Manage Classes</string>
+    <string name="Major">Major</string>
+    <string name="NotFound">Not Found</string>
+    <string name="Back">Back</string>
     
     
 

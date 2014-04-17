@@ -26,4 +26,6 @@ public interface IDatabase {
 	public boolean addCourse(Course course);
 	
 	public ArrayList<Course> getCourses();
+	
+	public String getMajor(String username);
 }

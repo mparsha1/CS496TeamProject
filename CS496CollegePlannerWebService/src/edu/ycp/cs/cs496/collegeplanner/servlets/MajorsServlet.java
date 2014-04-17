@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.cs.cs496.collegeplanner.controllers.getMajorOfUser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.getMajorsController;
 import edu.ycp.cs.cs496.collegeplanner.controllers.setMajorController;
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
+import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class MajorsServlet extends HttpServlet{
 	
@@ -47,27 +49,28 @@ public class MajorsServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		//TODO!!!  Handle when a user changes/selects their major!!! 
+		System.out.print("servlet");
+		User user = new User();
+		user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		
-		setMajorController controller = new setMajorController();
+		getMajorOfUser controller = new getMajorOfUser();
+		String major = controller.getMajor(user.getUsername());
+		System.out.println(": " + major);
 		
-		String username = req.getParameter("username");
-		String major = req.getParameter("major");
-		
-		boolean result = controller.setMajor(username, major);
-		
-		resp.setContentType("text/plain");
-		
-		if(result) {	
+		if(major != null) {	
 			//set to SC_OK if it worked
+			User u = new User();
+			u.setMajor(major);
+			Writer writer = resp.getWriter();
 			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json"); 
+			JSON.getObjectMapper().writeValue(writer, u);
 			return;
 		}
 		
 		//set to SC_NOT_FOUND if there is a problem 
 		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		return;	
-		
 		
 	}
 
