@@ -1,6 +1,7 @@
 package mobileControllers;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -8,11 +9,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
+
+
+import edu.ycp.cs.cs496.collegeplanner.User;
+import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 
 public class SetMajor {
 	
@@ -32,12 +36,18 @@ public class SetMajor {
 			uri = URIUtils.createURI("http", "10.0.2.2", 8081, location, 
 					    null, null);
 			
-		HttpPost req = new HttpPost(uri);
+		HttpPut req = new HttpPut(uri);
 		
-		HttpParams params = new BasicHttpParams();
-		params.setParameter("major", major);
-		params.setParameter("username", username);
-		req.setParams(params);
+		User user = new User();
+		user.setUsername(username);
+		user.setMajor(major);
+		
+		StringWriter sw = new StringWriter();
+		JSON.getObjectMapper().writeValue(sw, user);
+		
+		StringEntity reqEntity = new StringEntity(sw.toString());
+		reqEntity.setContentType("application/json");
+		req.setEntity(reqEntity);
 		
 		
 		HttpResponse resp = client.execute(req);

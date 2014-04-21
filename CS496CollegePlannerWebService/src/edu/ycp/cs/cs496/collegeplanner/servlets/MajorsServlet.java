@@ -73,5 +73,28 @@ public class MajorsServlet extends HttpServlet{
 		return;	
 		
 	}
+	
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		
+		User user = new User();
+		user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+		
+		setMajorController controller = new setMajorController();
+		
+		boolean verify = controller.setMajor(user.getUsername(), user.getMajor());
+		System.out.println("Changed major to: " + user.getMajor());
+		
+		if(verify) {
+			resp.setStatus(HttpServletResponse.SC_OK);
+			System.out.println("Changed major to: " + user.getMajor());
+			return;
+		}
+		
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		return;	
+		
+	}
 
 }

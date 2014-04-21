@@ -28,4 +28,10 @@ public interface IDatabase {
 	public ArrayList<Course> getCourses();
 	
 	public String getMajor(String username);
+	
+	public ArrayList<String> getClassesTakenByUser(String username);
+	
+	public ArrayList<String> getClassesInCategory(String category);
+	
+	public ArrayList<String> getClassCategories();
 }

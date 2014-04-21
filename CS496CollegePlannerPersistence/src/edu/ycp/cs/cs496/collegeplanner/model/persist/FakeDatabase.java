@@ -1,7 +1,10 @@
 package edu.ycp.cs.cs496.collegeplanner.model.persist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
+import edu.ycp.cs.cs496.collegeplanner.models.IntegerPairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 /**
@@ -16,6 +19,11 @@ public class FakeDatabase implements IDatabase {
 	
 	ArrayList<Course> courses;
 	
+	ArrayList<IntegerPairs> course_user;
+	
+	ArrayList<String> categories;
+	
+	
 	public FakeDatabase() {
 		
 		majors = new ArrayList<String>();		
@@ -25,16 +33,64 @@ public class FakeDatabase implements IDatabase {
 		majors.add("Chemistry");
 		users = new ArrayList<User>();
 		
+		categories = new ArrayList<String>();
+		categories.add("Lab Science");
+		categories.add("Computer Science");
+		categories.add("History");
+		categories.add("Arts and Music");
+		
+		
+		Course a = new Course();
+		Course b = new Course();
+		Course c = new Course();
+		Course d = new Course();
+		Course e = new Course();
+		Course f = new Course();
+		a.setName("BIO 101");
+		a.setCategory("Lab Science");
+		a.setId(0);
+		b.setName("CHEM201");
+		b.setCategory("Lab Science");
+		b.setId(1);
+		c.setName("CS101");
+		c.setCategory("Computer Science");
+		c.setId(2);
+		d.setName("HIS101");
+		d.setCategory("History");
+		d.setId(3);
+		e.setName("PHY160");
+		e.setCategory("Lab Science");
+		e.setId(4);
+		f.setName("ART300");
+		f.setCategory("Arts and Music");
+		a.setId(5);
+		
+		courses = new ArrayList<Course>();
+		courses.add(a);
+		courses.add(b);
+		courses.add(c);
+		courses.add(d);
+		courses.add(e);
+		courses.add(f);
+		
+		
 		User Misty = new User();
 		Misty.setUsername("mparsha");
 		Misty.setPassword("abc123");
-		Misty.setMajor("Computer Science");
+		Misty.setMajor("Undeclared");
 		User Drew = new User();
 		Drew.setUsername("dholtzap");
 		Drew.setPassword("7");
 		Drew.setMajor("Computer Science");
 		users.add(Misty);
 		users.add(Drew);
+		
+		course_user = new ArrayList<IntegerPairs>();
+		
+		course_user.add(new IntegerPairs(0,1));
+		course_user.add(new IntegerPairs(0,2));
+		
+		
 		
 	}
 	
@@ -48,6 +104,30 @@ public class FakeDatabase implements IDatabase {
 		newUser.setPassword(user.getPassword());
 		users.add(newUser);
 		return true;
+	}
+	
+	private int getUserID(String username) {
+		int ID = -1;
+		
+		for(int i = 0; i < users.size(); i++) {
+			
+			if(users.get(i).getUsername().equals(username)) {
+				ID = users.get(i).getId();	
+			}
+		}
+		
+		return ID;
+		
+	}
+	
+	private Course getCourseByID(int ID) {
+		for(int i = 0; i < courses.size(); i++) {
+			if(courses.get(i).getId() == ID) {
+				return courses.get(i);
+			}
+		}
+		
+		return null;
 	}
 	
 	public User getUser(String username) {
@@ -66,6 +146,49 @@ public class FakeDatabase implements IDatabase {
 		
 	}
 	
+	public ArrayList<String> getClassCategories() {
+		
+		return new ArrayList<String>(categories);
+		
+	}
+	
+	public ArrayList<String> getClassesInCategory(String category) {
+		
+		ArrayList<String> classes = new ArrayList<String>();
+		
+		for(int i = 0; i < courses.size(); i++) {
+			if( courses.get(i).equals(category)) {
+				classes.add(courses.get(i).getName());
+			}
+		}
+		
+		return classes;
+	}
+	
+	public ArrayList<String> getClassesTakenByUser(String username) {
+		
+		int ID = getUserID(username);
+		
+		ArrayList<Integer> classes = new ArrayList<Integer>();
+		
+		for(int i = 0; i < course_user.size(); i++) {
+			if(course_user.get(i).getFirst() == ID) {
+				classes.add(course_user.get(i).getSecond());
+			}
+		}
+		
+		ArrayList<String> classNames = new ArrayList<String>();
+		
+		for(int i = 0; i < classes.size(); i++) {
+			Course course = getCourseByID(classes.get(i));
+			if(course != null) {
+				classNames.add(course.getName());
+			}
+		}
+		
+		return classNames;
+		
+	}
 	public String getMajor(String username) {
 		
 		System.out.println("Database username" + username);
@@ -89,12 +212,20 @@ public class FakeDatabase implements IDatabase {
 	
 	public boolean setMajor(String username, String major) {
 		
-		User user = getUser(username);
+		int index = -1;
 		
-		if(user != null) {
-			user.setMajor(major);
+		for(int i = 0; i < users.size(); i++) {
+			
+			if(users.get(i).getUsername().equals(username)) {
+				index = i;	
+			}
+		}
+		
+		if(index != -1) {
+			users.get(index).setMajor(major);
 			return true;
 		}
+		
 		
 		return false;
 	}

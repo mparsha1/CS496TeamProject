@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 
 
+import mobileControllers.CoursesController;
 import mobileControllers.GetMajor;
 import mobileControllers.GetMajors;
+import mobileControllers.SetMajor;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +18,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -37,7 +41,6 @@ public class SettingsPage extends Activity {
 		try {
 			setDefaultView();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		
@@ -53,7 +56,6 @@ public class SettingsPage extends Activity {
 	}
 	
 	private void setDefaultView() throws ClientProtocolException, URISyntaxException, IOException {
-		// TODO Auto-generated method stub
 		setContentView(R.layout.settings_view);
 		
 		TextView majorText = (TextView) findViewById(R.id.MajorTextView);
@@ -62,6 +64,26 @@ public class SettingsPage extends Activity {
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonSettingsPg);
 		Button backButton = (Button) findViewById(R.id.backButtonSettingsPg);
 		Button changeMajorButton = (Button) findViewById(R.id.ChangeMajorBtn);
+		Button manageClassesButton = (Button) findViewById(R.id.ManageClassesBtn);
+		
+		manageClassesButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				CoursesController controller = new CoursesController();
+				ArrayList<String> categories = new ArrayList<String>();
+				try {
+					categories = controller.getCategories();
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				} 
+				
+				displayCategoriesView(categories);
+				
+			}	
+		});
 		
 		backButton.setOnClickListener(new View.OnClickListener() {
 
@@ -119,6 +141,71 @@ public class SettingsPage extends Activity {
 		
 	}
 	
+	public void displayCategoriesView(ArrayList<String> categories) {
+		
+		//Add Linear layout
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
+		
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+		backButton.setTextColor(getResources().getColor(R.color.white));
+		
+		//add back click listener
+		backButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+	    	public void onClick(View v) {
+	    		try {			
+	    			setDefaultView();
+	    		}
+	    		
+	    		catch(Exception e) {
+	    			e.printStackTrace();
+	    		}   		
+	    	}
+		});
+		
+		layout.addView(backButton);
+		
+		String[] categoryList = new String[categories.size()];
+		
+		for(int i = 0; i < categories.size(); i++) {
+			categoryList[i] = categories.get(i);
+		}
+		
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, categoryList);
+		final ListView lv = new ListView(this);
+		lv.setAdapter(la);  
+		layout.addView(lv);
+		setContentView(layout,llp);
+		
+		lv.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int index,
+					long id) {
+				
+				String selected = lv.getItemAtPosition(index).toString();
+				
+				
+			}
+			
+		});
+				
+				
+		
+	}
+	
 	public void displayMajorsView(ArrayList<String> majors) {
 		
 		int backgroundColor = R.color.lightGreyBackground;
@@ -165,12 +252,38 @@ public class SettingsPage extends Activity {
 			majorsList[i] = majors.get(i);
 		}
 		
-		ListAdapter la = new ArrayAdapter<String>(this, R.layout.major_selection_view, majorsList);
-		ListView lv = new ListView(this);
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, majorsList);
+		final ListView lv = new ListView(this);
 		lv.setAdapter(la);  
 		layout.addView(lv);
 		setContentView(layout,llp);
+		
+		
+		lv.setOnItemClickListener( new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int index,
+					long id) {
+				
+				
+				String selected = lv.getItemAtPosition(index).toString();
+				SetMajor controller = new SetMajor();
+				boolean verify = false;
+				try {
+					verify = controller.setMajor(username, selected);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				try {
+					setDefaultView();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+			}
+			
+		});
 
 	}
 	
