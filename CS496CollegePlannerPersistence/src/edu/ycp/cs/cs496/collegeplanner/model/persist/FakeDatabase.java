@@ -157,11 +157,9 @@ public class FakeDatabase implements IDatabase {
 		ArrayList<String> classes = new ArrayList<String>();
 		
 		for(int i = 0; i < courses.size(); i++) {
-<<<<<<< HEAD
+
 			if( courses.get(i).getCategory().equals(category)) {
-=======
-			if(courses.get(i).equals(category)) {
->>>>>>> branch 'master' of git@github.com:mparsha1/CS496TeamProject.git
+
 				classes.add(courses.get(i).getName());
 			}
 		}

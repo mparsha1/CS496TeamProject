@@ -85,9 +85,9 @@ public class CoursesController {
 					
 	}
 	
-	public ArrayList<String> getCoursesByUser(String username) throws ClientProtocolException, URISyntaxException, IOException {
+	//public ArrayList<String> getCoursesByUser(String username) throws ClientProtocolException, URISyntaxException, IOException {
 		
-	}
+	//}
 	
 	
 
