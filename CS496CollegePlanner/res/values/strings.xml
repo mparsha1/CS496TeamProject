@@ -21,6 +21,8 @@
     <string name="Major">Major</string>
     <string name="NotFound">Not Found</string>
     <string name="Back">Back</string>
+    <string name="AddCompletedCourses">Add Completed Courses</string>
+    <string name="ManageCompletedCourses">Manage Completed Courses</string>
     
     
 

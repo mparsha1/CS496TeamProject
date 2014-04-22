@@ -157,10 +157,11 @@ public class FakeDatabase implements IDatabase {
 		ArrayList<String> classes = new ArrayList<String>();
 		
 		for(int i = 0; i < courses.size(); i++) {
-			if( courses.get(i).equals(category)) {
+			if( courses.get(i).getCategory().equals(category)) {
 				classes.add(courses.get(i).getName());
 			}
 		}
+		
 		
 		return classes;
 	}
