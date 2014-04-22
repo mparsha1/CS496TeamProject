@@ -13,7 +13,6 @@ public class User {
 	private String emailAddress;
 	private ArrayList<Course> courses; //FIXME: other possible better data-type?
 	private String major;
-	
 	// TODO: field for subscriptions after subscriptions class made
 	public User() {
 		
