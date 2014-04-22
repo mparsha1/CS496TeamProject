@@ -21,7 +21,7 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/spacerTemp"
+            android:id="@+id/spacerTemp_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.24" />
@@ -38,7 +38,7 @@
     </LinearLayout>
     
     <TextView
-        android:id="@+id/UsernameTextView"
+        android:id="@+id/UsernameTextView_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -49,45 +49,44 @@
         android:textColor="@color/darkGreen" />
 
    <TextView
-        android:id="@+id/MajorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal|center"
-        android:height="@dimen/settingsPageLabels"
-        android:text="@string/Major"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/darkGreen" />
+       android:id="@+id/MajorTextView_2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="10dp"
+       android:gravity="center_horizontal|center"
+       android:height="@dimen/settingsPageLabels"
+       android:text="@string/Major"
+       android:textAppearance="?android:attr/textAppearanceLarge"
+       android:textColor="@color/darkGreen" />
     
     <Button
         android:id="@+id/currentCoursesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
         android:height="@dimen/settingsPageLabels"
         android:text="@string/Current_Courses"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/darkGreen" />
     
      <Button
-        android:id="@+id/previousCoursesTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left|center_horizontal"
-        android:height="@dimen/settingsPageLabels"
-        android:text="@string/Previous_Courses"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/darkGreen" />
+         android:id="@+id/previousCoursesTextView"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center_vertical|center_horizontal"
+         android:height="@dimen/settingsPageLabels"
+         android:text="@string/Previous_Courses"
+         android:textAppearance="?android:attr/textAppearanceMedium"
+         android:textColor="@color/darkGreen" />
      
       <Button
-        android:id="@+id/advisorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left|center_horizontal"
-        android:height="@dimen/settingsPageLabels"
-        android:text="@string/Advisor"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/darkGreen" />
-
+          android:id="@+id/advisorTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical|center_horizontal"
+          android:height="@dimen/settingsPageLabels"
+          android:text="@string/Advisor"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textColor="@color/darkGreen" />
 
 </LinearLayout>

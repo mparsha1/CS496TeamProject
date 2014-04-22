@@ -1,4 +1,4 @@
-package edu.ycp.cs.cs496.collegeplanner.model.persist;
+package edu.ycp.cs.cs496.collegeplanner.persist;
 
 import java.util.ArrayList;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
@@ -34,4 +34,9 @@ public interface IDatabase {
 	public ArrayList<String> getClassesInCategory(String category);
 	
 	public ArrayList<String> getClassCategories();
+	
+	public boolean addClassToUser(String username, String className);
+	
+	public boolean deleteClassFromUser(String username, String className);
+	
 }

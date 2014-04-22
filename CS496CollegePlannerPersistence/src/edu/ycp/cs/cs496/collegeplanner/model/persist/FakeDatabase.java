@@ -6,6 +6,7 @@ import java.util.HashMap;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.IntegerPairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
+import edu.ycp.cs.cs496.collegeplanner.persist.IDatabase;
 
 /**
  * @author dholtzap
@@ -120,6 +121,21 @@ public class FakeDatabase implements IDatabase {
 		
 	}
 	
+	private int getCourseId(String courseName) {
+		
+		int ID = -1;
+		
+		for(int i = 0; i < courses.size(); i++) {
+			
+			if(courses.get(i).getName().equals(courseName)) {
+				ID = courses.get(i).getId();	
+			}
+		}
+		
+		return ID;
+		
+	}
+	
 	private Course getCourseByID(int ID) {
 		for(int i = 0; i < courses.size(); i++) {
 			if(courses.get(i).getId() == ID) {
@@ -144,6 +160,38 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 		
+	}
+	
+	public boolean deleteClassFromUser(String username, String className) {
+		int userId = getUserID(username);
+		int courseId = getCourseId(className);
+		
+		if(userId != -1 && courseId != -1) {
+			for(int i = 0; i < course_user.size(); i++) {
+				if(course_user.get(i).getFirst() == userId && course_user.get(i).getSecond() == courseId) {
+					course_user.remove(i);
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean addClassToUser(String username, String className) {
+		
+		//TODO:  check to make sure the class is not a duplicate!
+		int userId = getUserID(username);
+		int courseId = getCourseId(className);
+		
+		if(userId != -1 && courseId != -1) {
+			course_user.add(new IntegerPairs(userId, courseId));
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public ArrayList<String> getClassCategories() {

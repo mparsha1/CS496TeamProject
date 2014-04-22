@@ -1,4 +1,5 @@
-package edu.ycp.cs.cs496.collegeplanner.model.persist;
+package edu.ycp.cs.cs496.collegeplanner.persist;
+
 
 public class DatabaseProvider {
 	private static IDatabase theInstance;

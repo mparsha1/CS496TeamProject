@@ -12,9 +12,12 @@ import mobileControllers.GetMajor;
 import mobileControllers.GetMajors;
 import mobileControllers.SetMajor;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -26,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsPage extends Activity {
 	
@@ -45,7 +49,6 @@ public class SettingsPage extends Activity {
 		} 
 		
 	}
-	
 	
 
 	@Override
@@ -76,12 +79,14 @@ public class SettingsPage extends Activity {
 				ArrayList<String> courses = new ArrayList<String>();
 				try {
 					//get courses by user
+					courses = controller.getCoursesByUser(username);
+					displayUserCourses(courses);
+					
 				} catch (Exception e) {
 					
 					e.printStackTrace();
 				} 
 				
-				displayCategoriesView(courses);
 				
 			}	
 		});
@@ -155,17 +160,94 @@ public class SettingsPage extends Activity {
 		majorText.setText("Major: " + major);
 		usernameText.setText("Username: " + username);
 
-	
-		
-		
 		
 	}
 	
 	
 	
-	public void displayCategoriesView(ArrayList<String> categories) {
+	public void displayCategoriesView(final ArrayList<String> categories) {
+		
 		
 		//Add Linear layout
+		final LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
+		
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+		backButton.setTextColor(getResources().getColor(R.color.white));
+		
+		//add Instruction text view
+		
+		TextView text = new TextView(this);
+		text.setText("    --- Select a Category ---");
+		text.setTextColor(getResources().getColor(R.color.darkGreen));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		
+		
+		//add back click listener
+		backButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+	    	public void onClick(View v) {
+	    		try {			
+	    			setDefaultView();
+	    		}
+	    		
+	    		catch(Exception e) {
+	    			e.printStackTrace();
+	    		}   		
+	    	}
+		});
+		
+		layout.addView(backButton);
+		layout.addView(text);
+		
+		String[] categoryList = new String[categories.size()];
+		
+		for(int i = 0; i < categories.size(); i++) {
+			categoryList[i] = categories.get(i);
+		}
+		
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, categoryList);
+		final ListView lv = new ListView(this);
+		lv.setAdapter(la); 
+		layout.addView(lv);
+		setContentView(layout,llp);
+		
+		lv.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int index,
+					long id) {
+				ArrayList<String> classes = new ArrayList<String>();
+				String selected = lv.getItemAtPosition(index).toString();
+				CoursesController controller = new CoursesController();
+				try {
+					 classes = controller.getCoursesByCategory(selected);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				displayCourses(classes, categories);
+				
+				
+			}
+			
+		});		
+		
+	}
+	
+	public void displayCourses(ArrayList<String> courses, final ArrayList<String> categories) {
+	//Add Linear layout
 		final LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
@@ -188,7 +270,7 @@ public class SettingsPage extends Activity {
 			@Override
 	    	public void onClick(View v) {
 	    		try {			
-	    			setDefaultView();
+	    			displayCategoriesView(categories);
 	    		}
 	    		
 	    		catch(Exception e) {
@@ -197,100 +279,60 @@ public class SettingsPage extends Activity {
 	    	}
 		});
 		
+		TextView text = new TextView(this);
+		text.setText("    --- Select a Course to Add ---");
+		text.setTextColor(getResources().getColor(R.color.darkGreen));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		
 		layout.addView(backButton);
-		
-		String[] categoryList = new String[categories.size()];
-		
-		for(int i = 0; i < categories.size(); i++) {
-			categoryList[i] = categories.get(i);
+		layout.addView(text);
+	
+	
+		String[] classList = new String[courses.size()];
+	
+		for(int i = 0; i < courses.size(); i++) {
+			classList[i] = courses.get(i);
 		}
-		
-		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, categoryList);
+	
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, classList);
 		final ListView lv = new ListView(this);
 		lv.setAdapter(la);  
 		layout.addView(lv);
 		setContentView(layout,llp);
 		
 		lv.setOnItemClickListener( new OnItemClickListener() {
-
+	
 			@Override
-			public void onItemClick(AdapterView<?> parent, View v, int index,
+			public void onItemClick(AdapterView<?> parent, final View v, int index,
 					long id) {
-				ArrayList<String> classes = new ArrayList<String>();
-				String selected = lv.getItemAtPosition(index).toString();
-				CoursesController controller = new CoursesController();
-				try {
-					 classes = controller.getCoursesByCategory(selected);
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
 				
-				displayCourses(classes);
-				
-				
+				final String selected = lv.getItemAtPosition(index).toString();
+				AlertDialog.Builder builder =  new AlertDialog.Builder(SettingsPage.this);
+				builder.setMessage("Add " + selected + " to completed courses?");
+				builder.setPositiveButton("Add Course", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+							boolean verify = false;
+							CoursesController controller = new CoursesController();
+							try {
+								verify = controller.addCourseToUser(username, selected);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							
+							if(verify) {
+								Toast.makeText(SettingsPage.this, selected + " added to completed courses", Toast.LENGTH_SHORT).show();
+							}						
+						}
+					});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();
 			}
 			
-		});		
-		
-	}
-	
-	public void displayCourses(ArrayList<String> courses) {
-		//Add Linear layout
-				final LinearLayout layout = new LinearLayout(this);
-				layout.setOrientation(LinearLayout.VERTICAL);
-				LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
-						LinearLayout.LayoutParams.FILL_PARENT,
-						LinearLayout.LayoutParams.FILL_PARENT);
-				layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
-				
-				//Add Back Button
-				Button backButton = new Button(this);
-				backButton.setText("Back");
-				backButton.setLayoutParams(new LayoutParams(
-						LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT));
-				
-				backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
-				backButton.setTextColor(getResources().getColor(R.color.white));
-				
-				//add back click listener
-				backButton.setOnClickListener(new View.OnClickListener() {
-					@Override
-			    	public void onClick(View v) {
-			    		try {			
-			    			setDefaultView();
-			    		}
-			    		
-			    		catch(Exception e) {
-			    			e.printStackTrace();
-			    		}   		
-			    	}
-				});
-				
-				layout.addView(backButton);
-		
-		
-				String[] classList = new String[courses.size()];
-		
-				for(int i = 0; i < courses.size(); i++) {
-					classList[i] = courses.get(i);
-				}
-		
-				ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, classList);
-				final ListView lv = new ListView(this);
-				lv.setAdapter(la);  
-				layout.addView(lv);
-				setContentView(layout,llp);
-				
-				lv.setOnItemClickListener( new OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, View v, int index,
-							long id) {
-						//TODO: prompt to add course to taken courses
-					}
-					
-				});	
+		});	
 	}
 	
 	public void displayMajorsView(ArrayList<String> majors) {
@@ -327,7 +369,13 @@ public class SettingsPage extends Activity {
         	}
 		});
 		
+		TextView text = new TextView(this);
+		text.setText("    --- Select your Major ---");
+		text.setTextColor(getResources().getColor(R.color.darkGreen));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		
 		layout.addView(backButton);
+		layout.addView(text);
 		
 		String[] majorsList = new String[majors.size()];
 		
@@ -354,6 +402,7 @@ public class SettingsPage extends Activity {
 				boolean verify = false;
 				try {
 					verify = controller.setMajor(username, selected);
+					Toast.makeText(SettingsPage.this, "Your major is now " + selected, Toast.LENGTH_SHORT).show();
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
@@ -370,10 +419,10 @@ public class SettingsPage extends Activity {
 
 	}
 	
-	public void displayUserCourses(ArrayList<String> courses) {
+	public void displayUserCourses(final ArrayList<String> courses) {
 		
 		//Add Linear layout
-		LinearLayout layout = new LinearLayout(this);
+		final LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
@@ -404,9 +453,15 @@ public class SettingsPage extends Activity {
         	}
 		});
 		
+		TextView text = new TextView(this);
+		text.setText("    --- Select a Course to Remove ---");
+		text.setTextColor(getResources().getColor(R.color.darkGreen));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		
 		layout.addView(backButton);
+		layout.addView(text);
 
-		String[] courseList = new String[courses.size()];
+		final String[] courseList = new String[courses.size()];
 		
 		for(int i = 0; i < courses.size(); i++) {
 			courseList[i] = courses.get(i);
@@ -424,14 +479,45 @@ public class SettingsPage extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int index,
 					long id) {
-				//TODO: prompt to remove course
+				final String selected = lv.getItemAtPosition(index).toString();
+				AlertDialog.Builder builder =  new AlertDialog.Builder(SettingsPage.this);
+				builder.setMessage("Remove " + selected + " from completed courses?");
+				builder.setPositiveButton("Remove Course", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+							boolean verify = false;
+							CoursesController controller = new CoursesController();
+							try {
+								verify = controller.deleteCourseFromUser(username, selected);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							
+							if(verify) {
+								Toast.makeText(SettingsPage.this, selected + " deleted from completed courses", Toast.LENGTH_SHORT).show();
+								ArrayList<String> modifiedCourses = new ArrayList<String>();
+								try {
+									modifiedCourses = controller.getCoursesByUser(username);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} 
+								
+								displayUserCourses(modifiedCourses);
+								
+							}						
+						}
+					});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();
 			}
 			
 		});	
 		
 		
 	}
-	
-	
 	
 }

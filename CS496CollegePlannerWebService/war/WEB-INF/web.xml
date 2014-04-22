@@ -17,6 +17,10 @@
 	    <servlet-name>CoursesServlet</servlet-name>
 	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.CoursesServlet</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>EditCoursesServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.EditCoursesServlet</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
@@ -30,6 +34,10 @@
 	<servlet-mapping>
 		<servlet-name>CoursesServlet</servlet-name>
 		<url-pattern>/courses</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditCoursesServlet</servlet-name>
+		<url-pattern>/userCourses</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Servlet context listeners -->

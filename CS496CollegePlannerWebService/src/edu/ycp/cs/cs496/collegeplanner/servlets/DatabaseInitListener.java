@@ -3,8 +3,8 @@ package edu.ycp.cs.cs496.collegeplanner.servlets;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import edu.ycp.cs.cs496.collegeplanner.model.persist.DatabaseProvider;
 import edu.ycp.cs.cs496.collegeplanner.model.persist.FakeDatabase;
+import edu.ycp.cs.cs496.collegeplanner.persist.DatabaseProvider;
 
 public class DatabaseInitListener implements ServletContextListener {
 
