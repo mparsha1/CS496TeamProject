@@ -24,5 +24,10 @@
     <string name="Current_Courses">Current Courses</string>
     <string name="Previous_Courses">Previous Courses</string>    
     <string name="Advisor">Advisor</string> 
+    <string name="AddCompletedCourses">Add Completed Courses</string>
+    <string name="ManageCompletedCourses">Manage Completed Courses</string>
+    
+    
+
 
 </resources>

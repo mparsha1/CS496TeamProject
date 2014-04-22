@@ -67,7 +67,14 @@
         android:id="@+id/ManageClassesBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ManageClasseBtn"
+        android:text="@string/AddCompletedCourses"
+        android:textColor="@color/darkGreen" />
+
+    <Button
+        android:id="@+id/deleteClassesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ManageCompletedCourses"
         android:textColor="@color/darkGreen" />
 
 </LinearLayout>

@@ -65,6 +65,26 @@ public class SettingsPage extends Activity {
 		Button backButton = (Button) findViewById(R.id.backButtonSettingsPg);
 		Button changeMajorButton = (Button) findViewById(R.id.ChangeMajorBtn);
 		Button manageClassesButton = (Button) findViewById(R.id.ManageClassesBtn);
+		Button removeClassesButton = (Button) findViewById(R.id.deleteClassesBtn);
+		
+		removeClassesButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				CoursesController controller = new CoursesController();
+				ArrayList<String> courses = new ArrayList<String>();
+				try {
+					//get courses by user
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				} 
+				
+				displayCategoriesView(courses);
+				
+			}	
+		});
 		
 		manageClassesButton.setOnClickListener(new View.OnClickListener() {
 
@@ -141,10 +161,12 @@ public class SettingsPage extends Activity {
 		
 	}
 	
+	
+	
 	public void displayCategoriesView(ArrayList<String> categories) {
 		
 		//Add Linear layout
-		LinearLayout layout = new LinearLayout(this);
+		final LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
@@ -194,23 +216,84 @@ public class SettingsPage extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int index,
 					long id) {
-				
+				ArrayList<String> classes = new ArrayList<String>();
 				String selected = lv.getItemAtPosition(index).toString();
+				CoursesController controller = new CoursesController();
+				try {
+					 classes = controller.getCoursesByCategory(selected);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				displayCourses(classes);
 				
 				
 			}
 			
-		});
-				
-				
+		});		
 		
 	}
 	
-	public void displayMajorsView(ArrayList<String> majors) {
+	public void displayCourses(ArrayList<String> courses) {
+		//Add Linear layout
+				final LinearLayout layout = new LinearLayout(this);
+				layout.setOrientation(LinearLayout.VERTICAL);
+				LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+						LinearLayout.LayoutParams.FILL_PARENT,
+						LinearLayout.LayoutParams.FILL_PARENT);
+				layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
+				
+				//Add Back Button
+				Button backButton = new Button(this);
+				backButton.setText("Back");
+				backButton.setLayoutParams(new LayoutParams(
+						LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT));
+				
+				backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+				backButton.setTextColor(getResources().getColor(R.color.white));
+				
+				//add back click listener
+				backButton.setOnClickListener(new View.OnClickListener() {
+					@Override
+			    	public void onClick(View v) {
+			    		try {			
+			    			setDefaultView();
+			    		}
+			    		
+			    		catch(Exception e) {
+			    			e.printStackTrace();
+			    		}   		
+			    	}
+				});
+				
+				layout.addView(backButton);
 		
-		int backgroundColor = R.color.lightGreyBackground;
-		int darkGreen = R.color.darkGreen;
-		int white = R.color.white;
+		
+				String[] classList = new String[courses.size()];
+		
+				for(int i = 0; i < courses.size(); i++) {
+					classList[i] = courses.get(i);
+				}
+		
+				ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, classList);
+				final ListView lv = new ListView(this);
+				lv.setAdapter(la);  
+				layout.addView(lv);
+				setContentView(layout,llp);
+				
+				lv.setOnItemClickListener( new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View v, int index,
+							long id) {
+						//TODO: prompt to add course to taken courses
+					}
+					
+				});	
+	}
+	
+	public void displayMajorsView(ArrayList<String> majors) {
 		
 		//Add Linear layout
 		LinearLayout layout = new LinearLayout(this);
@@ -285,6 +368,68 @@ public class SettingsPage extends Activity {
 			
 		});
 
+	}
+	
+	public void displayUserCourses(ArrayList<String> courses) {
+		
+		//Add Linear layout
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
+		
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+		backButton.setTextColor(getResources().getColor(R.color.white));
+		
+		//add back click listener
+		backButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+        	public void onClick(View v) {
+        		try {			
+        			setDefaultView();
+        		}
+        		
+        		catch(Exception e) {
+        			e.printStackTrace();
+        		}   		
+        	}
+		});
+		
+		layout.addView(backButton);
+
+		String[] courseList = new String[courses.size()];
+		
+		for(int i = 0; i < courses.size(); i++) {
+			courseList[i] = courses.get(i);
+		}
+		
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, courseList);
+		final ListView lv = new ListView(this);
+		lv.setAdapter(la);  
+		layout.addView(lv);
+		setContentView(layout,llp);
+		
+		
+		lv.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int index,
+					long id) {
+				//TODO: prompt to remove course
+			}
+			
+		});	
+		
+		
 	}
 	
 	

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.collegeplanner.controllers.CoursesController;
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
+import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class CoursesServlet extends HttpServlet{
 
@@ -23,42 +24,50 @@ public class CoursesServlet extends HttpServlet{
 		ArrayList<String> classes = new ArrayList<String>();
 		CoursesController controller = new CoursesController();
 		Writer writer = resp.getWriter();
-		
-		String pathInfo = req.getPathInfo(); 
-		
-		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) { 
-			//return all courses
+
+		classes = controller.getCategories();
 			
-			classes = controller.getCategories();
+			
+		
+		if(classes.size() > 0 ) {
 			resp.setStatus(HttpServletResponse.SC_OK); 
 			resp.setContentType("application/json"); 
 			JSON.getObjectMapper().writeValue(writer, classes);
 			return;
-			
 		}
 		
-		if (pathInfo.startsWith("/")) { 
-			pathInfo = pathInfo.substring(1); 
-		} 
+		else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
 		
-		if(pathInfo.equals("categories")) {
-			
-			classes = controller.getCategories();
+		
+	}
+	
+	@Override 
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		
+		ArrayList<String> classes = new ArrayList<String>();
+		CoursesController controller = new CoursesController();
+		Writer writer = resp.getWriter();
+		
+		String category = JSON.getObjectMapper().readValue(req.getReader(), String.class);
+		System.out.println("Server category: " + category);
+		classes = controller.getClassesInCategory(category);
+		
+		if(!classes.isEmpty()) {
 			resp.setStatus(HttpServletResponse.SC_OK); 
 			resp.setContentType("application/json"); 
-			JSON.getObjectMapper().writeValue(writer, classes);
+			JSON.getObjectMapper().writeValue(writer, classes);	
 			return;
-			
 		} else {
-			//return all classes taken by user
-			classes = controller.getClassesTakenByUser(pathInfo);
-			resp.setStatus(HttpServletResponse.SC_OK); 
-			resp.setContentType("application/json"); 
-			JSON.getObjectMapper().writeValue(writer, classes);
+			
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			resp.setContentType("text/plain");
 			return;
 		}
-			
-		
 		
 	}
 
