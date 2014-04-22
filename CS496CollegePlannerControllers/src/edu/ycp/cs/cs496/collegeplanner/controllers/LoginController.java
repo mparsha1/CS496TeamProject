@@ -16,7 +16,7 @@ public class LoginController {
 	
 	private boolean validateUser(String username, String password) {
 		IDatabase db = DatabaseProvider.getInstance();
-		if(db.getUser(username) != null && db.getUser(username).getPassword().equals(password)) {
+		if(db.getUser(username) != null && db.getUser(username).getPassword().equals(password)) {			
 			return true;
 		}		
 		return false;		

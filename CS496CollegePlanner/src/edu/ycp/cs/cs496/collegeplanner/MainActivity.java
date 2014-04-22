@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import edu.ycp.cs.cs496.collegeplanner.models.User;
+
 import mobileControllers.GetLoginResult;
 import android.os.Bundle;
 import android.app.Activity;
@@ -34,7 +36,7 @@ public class MainActivity extends Activity {
 	public boolean logIn(User user) throws ClientProtocolException, URISyntaxException, IOException {		
 		GetLoginResult loginRequester = new GetLoginResult();
 		return loginRequester.getLoginResult(user.getUsername(), user.getPassword());
-	}
+	}	
 	
 	public void setDefaultView() {
 		setContentView(R.layout.activity_main);
@@ -74,7 +76,7 @@ public class MainActivity extends Activity {
 				}
 				if(result == true) {
 					Intent goToHome = new Intent(v.getContext(), HomePage.class);
-					goToHome.putExtra("username", username);
+					goToHome.putExtra("username", username);					
 					startActivity(goToHome);
 					
 					
