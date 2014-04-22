@@ -1,6 +1,8 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,8 +29,7 @@ public class HomePage extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}		
-	
+	}	
 	
 	public void setDefaultView() {
 		setContentView(R.layout.home_screen);
@@ -38,10 +39,21 @@ public class HomePage extends Activity {
 		logOutBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				Intent goToSignIn = new Intent(v.getContext(), MainActivity.class);	
-				Toast.makeText(HomePage.this, "Bye " + username, Toast.LENGTH_SHORT).show();
-				startActivity(goToSignIn);
+			public void onClick(final View v) {				
+				
+				AlertDialog.Builder builder =  new AlertDialog.Builder(HomePage.this);
+				builder.setMessage("Are you sure you want to log out?");
+				builder.setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent goToSignIn = new Intent(v.getContext(), MainActivity.class);	
+							Toast.makeText(HomePage.this, "Bye " + username, Toast.LENGTH_SHORT).show();
+							startActivity(goToSignIn);							
+						}
+					});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();					
 			}
 		});
 		
