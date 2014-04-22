@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/lightGreyBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/backButtonAccountPg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/Back"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/spacerTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.24" />
+
+        <Button
+            android:id="@+id/signOutButtonAccountPg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/LogOut"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/UsernameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal|center"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkGreen" />
+
+   <TextView
+        android:id="@+id/MajorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal|center"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Major"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkGreen" />
+    
+    <Button
+        android:id="@+id/currentCoursesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Current_Courses"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+    
+     <Button
+        android:id="@+id/previousCoursesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Previous_Courses"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+     
+      <Button
+        android:id="@+id/advisorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Advisor"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+
+</LinearLayout>

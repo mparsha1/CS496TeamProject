@@ -21,7 +21,8 @@
     <string name="Major">Major</string>
     <string name="NotFound">Not Found</string>
     <string name="Back">Back</string>
-    
-    
+    <string name="Current_Courses">Current Courses</string>
+    <string name="Previous_Courses">Previous Courses</string>    
+    <string name="Advisor">Advisor</string> 
 
 </resources>
