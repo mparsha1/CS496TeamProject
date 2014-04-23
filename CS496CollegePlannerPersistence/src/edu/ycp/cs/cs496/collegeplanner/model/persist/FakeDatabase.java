@@ -185,8 +185,16 @@ public class FakeDatabase implements IDatabase {
 		//TODO:  check to make sure the class is not a duplicate!
 		int userId = getUserID(username);
 		int courseId = getCourseId(className);
+		boolean noDuplicates = true;
 		
-		if(userId != -1 && courseId != -1) {
+		for(int i = 0; i < course_user.size(); i++) {
+			if(course_user.get(i).getFirst() == userId && course_user.get(i).getSecond() == courseId) {
+				noDuplicates = false;
+			}
+		}
+		
+		
+		if(userId != -1 && courseId != -1 && noDuplicates) {
 			course_user.add(new IntegerPairs(userId, courseId));
 			return true;
 		}

@@ -325,7 +325,9 @@ public class SettingsPage extends Activity {
 							
 							if(verify) {
 								Toast.makeText(SettingsPage.this, selected + " added to completed courses", Toast.LENGTH_SHORT).show();
-							}						
+							} else {
+								Toast.makeText(SettingsPage.this, selected + " is already in your list of completed courses.", Toast.LENGTH_SHORT).show();
+							}
 						}
 					});
 				builder.setNegativeButton("Cancel", null);
