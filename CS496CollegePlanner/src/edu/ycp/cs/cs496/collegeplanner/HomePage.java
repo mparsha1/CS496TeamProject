@@ -75,5 +75,17 @@ public class HomePage extends Activity {
 			
 		});
 		
+		Button accountButton = (Button) findViewById(R.id.button_myAccount);
+		
+		accountButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent goToAccount = new Intent(v.getContext(), AccountPage.class);
+				goToAccount.putExtra("username", username);
+				startActivity(goToAccount);				
+			}
+		});
+		
 	}
 }

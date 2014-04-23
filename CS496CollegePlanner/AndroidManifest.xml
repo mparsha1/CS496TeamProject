@@ -30,6 +30,10 @@
         <activity android:name="edu.ycp.cs.cs496.collegeplanner.SettingsPage"
             		android:label="@string/settingsButton" > 
             		</activity>  
+            		
+        <activity android:name="edu.ycp.cs.cs496.collegeplanner.AccountPage"
+        	android:label="@string/accountButton">
+        	</activity>
         
         <instrumentation android:name="android.test.InstrumentationTestRunner"
 		    android:targetPackage="edu.ycp.cs496.cs.tests"

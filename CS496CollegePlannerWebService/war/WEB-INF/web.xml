@@ -21,8 +21,16 @@
 	    <servlet-name>EditCoursesServlet</servlet-name>
 	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.EditCoursesServlet</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>AdvisorServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.AdvisorServlet</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
+	<servlet-mapping>
+	    <servlet-name>AdvisorServlet</servlet-name>
+	    <url-pattern>/advisor/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>

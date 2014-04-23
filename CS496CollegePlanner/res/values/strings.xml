@@ -11,6 +11,7 @@
     <string name="Calendar_button">Calendar</string>
     <string name="ViewSchedule">View Class Schedule</string>
     <string name="settingsButton">Settings</string>
+    <string name="accountButton">Account</string>
     <string name="ClassScheduleButton">Class Schedule</string>
     <string name="classPlanner">Class Planner</string>
     <string name="EditCourses">Edit Completed Courses</string>

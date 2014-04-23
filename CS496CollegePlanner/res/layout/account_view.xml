@@ -69,7 +69,7 @@
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:textColor="@color/darkGreen" />
     
-    <Button
+    <!-- TODO: <Button
         android:id="@+id/currentCoursesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
          android:height="@dimen/settingsPageLabels"
          android:text="@string/Previous_Courses"
          android:textAppearance="?android:attr/textAppearanceMedium"
-         android:textColor="@color/darkGreen" /> 
+         android:textColor="@color/darkGreen" />  -->
       
 
 </LinearLayout>
