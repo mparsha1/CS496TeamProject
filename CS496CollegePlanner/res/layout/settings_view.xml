@@ -62,6 +62,13 @@
         android:layout_height="wrap_content"
         android:text="@string/ChangeMajorBtn"
         android:textColor="@color/darkGreen" />
+    
+    <Button
+        android:id="@+id/ChangeAdvisorBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ChangeAdvisorBtn"
+        android:textColor="@color/darkGreen" />
 
     <Button
         android:id="@+id/ManageClassesBtn"

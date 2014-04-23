@@ -17,6 +17,7 @@
     <string name="MyAccount">My Account</string>
     <string name="LogOut">Log Out</string>
     <string name="ChangeMajorBtn">Change Major</string>
+    <string name="ChangeAdvisorBtn">Change Advisor</string>
     <string name="ManageClasseBtn">Manage Classes</string>
     <string name="Major">Major</string>
     <string name="NotFound">Not Found</string>

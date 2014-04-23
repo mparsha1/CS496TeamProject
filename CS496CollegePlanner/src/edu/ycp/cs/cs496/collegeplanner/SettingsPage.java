@@ -67,8 +67,17 @@ public class SettingsPage extends Activity {
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonSettingsPg);
 		Button backButton = (Button) findViewById(R.id.backButtonSettingsPg);
 		Button changeMajorButton = (Button) findViewById(R.id.ChangeMajorBtn);
+		Button changeAdvisorButton = (Button) findViewById(R.id.ChangeAdvisorBtn);
 		Button manageClassesButton = (Button) findViewById(R.id.ManageClassesBtn);
 		Button removeClassesButton = (Button) findViewById(R.id.deleteClassesBtn);
+		
+		changeAdvisorButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub				
+			}
+		});
 		
 		removeClassesButton.setOnClickListener(new View.OnClickListener() {
 
