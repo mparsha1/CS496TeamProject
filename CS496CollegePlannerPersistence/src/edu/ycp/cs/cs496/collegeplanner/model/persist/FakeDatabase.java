@@ -27,6 +27,8 @@ public class FakeDatabase implements IDatabase {
 
 	ArrayList<Advisor> advisors;
 	
+	ArrayList<String>  departments;
+	
 	HashMap<User, Advisor> user_advisor;
 	
 	public FakeDatabase() {
@@ -48,13 +50,18 @@ public class FakeDatabase implements IDatabase {
 		Advisor babcock = new Advisor();
 		babcock.setName("Dr. Babcock");
 		babcock.setLocation("KEC 101");
-		babcock.setDepartment("Computer Science");
+		babcock.setDepartment("Phyisical Sciences");
 		Advisor hovemeyer = new Advisor();
 		hovemeyer.setName("Dr. Hovemeyer");
-		hovemeyer.setDepartment("Computer Science");
+		hovemeyer.setDepartment("Physical Sciences");
 		hovemeyer.setLocation("KEC 112");
 		advisors.add(babcock);
 		advisors.add(hovemeyer);
+		
+		departments = new ArrayList<String>();
+		departments.add("Physical Sciences");
+		departments.add("Arts and Humanities");
+		
 
 
 		Course a = new Course();
@@ -95,10 +102,12 @@ public class FakeDatabase implements IDatabase {
 		Misty.setUsername("mparsha");
 		Misty.setPassword("abc123");
 		Misty.setMajor("Undeclared");
+		Misty.setName("Misty Parshall");
 		User Drew = new User();
 		Drew.setUsername("dholtzap");
 		Drew.setPassword("7");
 		Drew.setMajor("Computer Science");
+		Drew.setName("Drew Holtzapple");
 		users.add(Misty);
 		users.add(Drew);
 
@@ -282,6 +291,16 @@ public class FakeDatabase implements IDatabase {
 	public ArrayList<User> getUsers() {
 		return new ArrayList<User>(users);
 	}
+	
+	public String getNameOfUser(String username) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)) {
+				return users.get(i).getName();
+			}
+		}
+		
+		return null;
+	}
 
 	public ArrayList<String> getMajors() {
 		return new ArrayList<String>(majors);
@@ -353,6 +372,10 @@ public class FakeDatabase implements IDatabase {
 	@Override
 	public ArrayList<Advisor> getAdvisors() {		
 		return advisors;
+	}
+	
+	public ArrayList<String> getAdvisorDepartments() {
+		return null;
 	}
 
 	@Override

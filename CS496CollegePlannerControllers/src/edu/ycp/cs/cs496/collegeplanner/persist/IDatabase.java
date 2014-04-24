@@ -28,8 +28,10 @@ public interface IDatabase {
 	public Advisor getAdvisor(String advisorName);
 	
 	public ArrayList<Advisor> getAdvisors();
+	public ArrayList<String> getAdvisorDepartments();
 	
 	public boolean deleteUser(User user);
+	public String getNameOfUser(String username);
 	
 	public ArrayList<String> getMajors();
 	
