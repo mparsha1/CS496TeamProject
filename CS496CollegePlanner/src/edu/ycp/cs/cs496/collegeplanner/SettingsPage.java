@@ -253,13 +253,12 @@ public class SettingsPage extends Activity {
 				displayAdvisorsList(advisors);
 				
 				
-				}
-			
+				}		
 		});
 	}
 	
-	public void displayAdvisorsList(final ArrayList<String> advisors) {
-		
+	public void displayAdvisorsList(final ArrayList<Advisor> advisors) {
+		//Todo: finish!
 	}
 
 
