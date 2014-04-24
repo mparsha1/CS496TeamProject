@@ -499,22 +499,37 @@ public class SettingsPage extends Activity {
 			public void onItemClick(AdapterView<?> parent, View v, int index,
 					long id) {
 
+				final String selected = lv.getItemAtPosition(index).toString();
+				AlertDialog.Builder builder =  new AlertDialog.Builder(SettingsPage.this);
+				builder.setMessage("Change your major to " + selected + "?");
+				builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
 
-				String selected = lv.getItemAtPosition(index).toString();
-				SetMajor controller = new SetMajor();
-				boolean verify = false;
-				try {
-					verify = controller.setMajor(username, selected);
-					Toast.makeText(SettingsPage.this, "Your major is now " + selected, Toast.LENGTH_SHORT).show();
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
 
-				try {
-					setDefaultView();
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
+						boolean verify = false;
+						SetMajor controller = new SetMajor();
+						try {
+							verify = controller.setMajor(username, selected);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+
+						if(verify) {
+							Toast.makeText(SettingsPage.this, "Your major is now " + selected, Toast.LENGTH_SHORT).show();
+							try {
+								setDefaultView();
+							} catch (Exception e) {
+								e.printStackTrace();
+							} 
+						} 
+					}
+				});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();
+			
+
 
 			}
 
