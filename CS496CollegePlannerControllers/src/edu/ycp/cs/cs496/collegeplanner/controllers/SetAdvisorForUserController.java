@@ -9,6 +9,6 @@ public class SetAdvisorForUserController {
 	public boolean setAdvisorForUser(Advisor advisor, User user) {
 		IDatabase db = DatabaseProvider.getInstance();
 		
-		return db.setAdvisorForUser(advisor, user);		
+		return db.setAdvisorForUser(advisor.getName(), user.getUsername());		
 	}
 }

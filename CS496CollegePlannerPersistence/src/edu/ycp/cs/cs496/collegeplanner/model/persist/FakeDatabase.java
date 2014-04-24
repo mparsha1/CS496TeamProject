@@ -29,7 +29,7 @@ public class FakeDatabase implements IDatabase {
 	
 	ArrayList<String>  departments;
 	
-	HashMap<User, Advisor> user_advisor;
+	ArrayList<IntegerPairs> user_advisor;
 	
 	public FakeDatabase() {
 
@@ -51,10 +51,18 @@ public class FakeDatabase implements IDatabase {
 		babcock.setName("Dr. Babcock");
 		babcock.setLocation("KEC 101");
 		babcock.setDepartment("Phyisical Sciences");
+		babcock.setId(0);
+		babcock.setEmail("babcock@ycp.edu");
+		babcock.setPhone("717-717-7171");
+		
 		Advisor hovemeyer = new Advisor();
 		hovemeyer.setName("Dr. Hovemeyer");
 		hovemeyer.setDepartment("Physical Sciences");
 		hovemeyer.setLocation("KEC 112");
+		hovemeyer.setId(1);
+		hovemeyer.setEmail("hovemeyer@ycp.edu");
+		hovemeyer.setPhone("717-777-7777");
+		
 		advisors.add(babcock);
 		advisors.add(hovemeyer);
 		
@@ -103,11 +111,13 @@ public class FakeDatabase implements IDatabase {
 		Misty.setPassword("abc123");
 		Misty.setMajor("Undeclared");
 		Misty.setName("Misty Parshall");
+		Misty.setId(0);
 		User Drew = new User();
 		Drew.setUsername("dholtzap");
 		Drew.setPassword("7");
 		Drew.setMajor("Computer Science");
 		Drew.setName("Drew Holtzapple");
+		Drew.setId(1);
 		users.add(Misty);
 		users.add(Drew);
 
@@ -116,9 +126,10 @@ public class FakeDatabase implements IDatabase {
 		course_user.add(new IntegerPairs(0,1));
 		course_user.add(new IntegerPairs(0,2));
 		
-		user_advisor = new HashMap<User, Advisor>();
-		user_advisor.put(Drew, hovemeyer);
-		user_advisor.put(Misty, babcock);
+		user_advisor = new ArrayList<IntegerPairs>();
+		user_advisor.add(new IntegerPairs(0,0));
+		user_advisor.add(new IntegerPairs(1,1));
+		
 
 	}
 
@@ -209,7 +220,6 @@ public class FakeDatabase implements IDatabase {
 
 	public boolean addClassToUser(String username, String className) {
 
-		//TODO:  check to make sure the class is not a duplicate!
 		int userId = getUserID(username);
 		int courseId = getCourseId(className);
 		boolean noDuplicates = true;
@@ -375,17 +385,69 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	public ArrayList<String> getAdvisorDepartments() {
-		return null;
+		return new ArrayList<String>(departments);
 	}
 
 	@Override
-	public boolean setAdvisorForUser(Advisor advsr, User usr) {		
-		user_advisor.put(usr, advsr);
+	public boolean setAdvisorForUser(String advisor, String username) {		
+		int usernameId = -1;
+		int advisorId = -1;
+		
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)){
+				usernameId = users.get(i).getId();
+			}
+		}
+		for(int i = 0; i < advisors.size(); i++) {
+			if(advisors.get(i).getName().equals(advisor)){
+				advisorId = advisors.get(i).getId();
+			}
+		}
+		for(int i = 0; i < user_advisor.size(); i++) {
+			if(user_advisor.get(i).getFirst() == usernameId) {
+				user_advisor.get(i).setSecond(advisorId);
+				return true;
+			}
+		}
+		
+		user_advisor.add(new IntegerPairs(usernameId, advisorId));
 		return true;
 	}
 
 	@Override
 	public Advisor getAdvisorForUser(User user) {
-		return user_advisor.get(user);		
+		int userId = -1;
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(user.getUsername())){
+				userId = users.get(i).getId();
+			}
+		}
+		int advisorId = -1;
+		for(int i = 0; i < user_advisor.size(); i++) {
+			if(user_advisor.get(i).getFirst() == userId) {
+				advisorId = user_advisor.get(i).getSecond();
+			}
+		}
+		
+		for(int i = 0; i < advisors.size(); i++) {
+			if(advisors.get(i).getId() == advisorId) {
+				return advisors.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public ArrayList<Advisor> getAdvisorsByDepartment(String department) {
+		ArrayList<Advisor> result = new ArrayList<Advisor>();
+		
+		for(int i = 0; i < advisors.size(); i++) {
+			if(advisors.get(i).getDepartment().equals(department)) {
+				result.add(advisors.get(i));
+			}
+		}
+		
+		return result;
 	}
 }

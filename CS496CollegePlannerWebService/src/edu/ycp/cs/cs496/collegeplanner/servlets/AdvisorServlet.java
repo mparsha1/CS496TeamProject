@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.collegeplanner.controllers.GetAdvisorForUserController;
 import edu.ycp.cs.cs496.collegeplanner.controllers.GetAdvisorsController;
+import edu.ycp.cs.cs496.collegeplanner.controllers.GetDepartmentsController;
 import edu.ycp.cs.cs496.collegeplanner.controllers.GetUsersController;
 import edu.ycp.cs.cs496.collegeplanner.controllers.SetAdvisorForUserController;
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
@@ -32,13 +33,14 @@ public class AdvisorServlet extends HttpServlet {
 		
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			// get all advisors
-			GetAdvisorsController gac = new GetAdvisorsController();
-			ArrayList<Advisor> advisors = gac.getAdvisors();				
+			GetDepartmentsController controller = new GetDepartmentsController();
 			
-			if(!advisors.isEmpty()) {
+			ArrayList<String> departments = controller.getDepartments();				
+			
+			if(!departments.isEmpty()) {
 				resp.setStatus(HttpServletResponse.SC_OK); 
 				resp.setContentType("application/json"); 
-				JSON.getObjectMapper().writeValue(writer, advisors);	
+				JSON.getObjectMapper().writeValue(writer, departments);	
 				return;
 			} else {			
 				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -113,6 +115,27 @@ public class AdvisorServlet extends HttpServlet {
 		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		resp.setContentType("text/plain");
 		return;		
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Writer writer = resp.getWriter();
+		
+		String department = JSON.getObjectMapper().readValue(req.getReader(), String.class);
+		GetAdvisorsController controller = new GetAdvisorsController();
+		ArrayList<Advisor> advisors = controller.getAdvisors(department);
+		
+		if(!advisors.isEmpty()) {
+			resp.setStatus(HttpServletResponse.SC_OK); 
+			resp.setContentType("text/plain"); 			
+			JSON.getObjectMapper().writeValue(writer, advisors);	
+			return;
+		} else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			resp.setContentType("text/plain");
+			return;
+		}
+		
 	}
 
 }

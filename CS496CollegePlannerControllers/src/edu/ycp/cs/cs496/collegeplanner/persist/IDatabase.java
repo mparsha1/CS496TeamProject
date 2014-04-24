@@ -21,7 +21,7 @@ public interface IDatabase {
 	
 	public boolean addAdvisor(Advisor advsr);
 	
-	public boolean setAdvisorForUser(Advisor advsr, User usr);
+	public boolean setAdvisorForUser(String advisor, String user);
 	
 	public Advisor getAdvisorForUser(User user);
 	
@@ -29,6 +29,7 @@ public interface IDatabase {
 	
 	public ArrayList<Advisor> getAdvisors();
 	public ArrayList<String> getAdvisorDepartments();
+	public ArrayList<Advisor> getAdvisorsByDepartment(String department);
 	
 	public boolean deleteUser(User user);
 	public String getNameOfUser(String username);
