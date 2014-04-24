@@ -52,13 +52,13 @@ public class AccountPage extends Activity{
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonAccountPg);
 		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);		
 		
-		usernameText.setText(username);
+		usernameText.setText("Username: " + username);
 		
 		GetMajor gm = new GetMajor();
-		majorText.setText(gm.getMajor(username));
+		majorText.setText("Major: " + gm.getMajor(username));
 		
 		GetAdvisorForUser gafu = new GetAdvisorForUser();
-		advisorText.setText(gafu.getAdvisorForUser(username).getName());
+		advisorText.setText("Advisor: " + gafu.getAdvisorForUser(username).getName());
 		
 		backButton.setOnClickListener(new View.OnClickListener() {
 
