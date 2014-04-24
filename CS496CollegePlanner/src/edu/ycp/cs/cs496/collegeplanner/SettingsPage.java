@@ -234,7 +234,7 @@ public class SettingsPage extends Activity {
 		layout.addView(lv);
 		setContentView(layout,llp);
 
-		lv.setOnItemClickListener( new OnItemClickListener() {
+		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int index,
