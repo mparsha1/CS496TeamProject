@@ -15,6 +15,14 @@ public interface IDatabase {
 	
 	public boolean addUser(User user);
 	
+	public boolean setNameOfUser(String username, String newUsername);
+	
+	public boolean setPasswordOfUser(String username, String password);
+	
+	public String getPasswordOfUser(String username);
+	
+	public boolean setUsernameOfUser(String username, String newUsername);
+	
 	public User getUser(String username);
 	
 	public ArrayList<User> getUsers();
