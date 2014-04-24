@@ -10,10 +10,10 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
+	private String name;
 	private String emailAddress;
 	private ArrayList<Course> courses; //FIXME: other possible better data-type?
 	private String major;
-	
 	// TODO: field for subscriptions after subscriptions class made
 	public User() {
 		
@@ -66,5 +66,13 @@ public class User {
 	public void setMajor(String major) {
 		this.major = major;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}	
 	
 }
