@@ -28,6 +28,9 @@
     <string name="Advisor">Advisor</string> 
     <string name="AddCompletedCourses">Add Completed Courses</string>
     <string name="ManageCompletedCourses">Manage Completed Courses</string>
+    <string name="Name">Name</string>
+    <string name="EditUsername">Edit Username</string>
+    <string name="EditPassword">Edit Password</string>
     
     
 

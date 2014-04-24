@@ -50,7 +50,10 @@ public class AccountPage extends Activity{
 		TextView advisorText = (TextView) findViewById(R.id.advisorTextView);
 		
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonAccountPg);
-		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);		
+		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);
+		
+		Button editUsernameButton = (Button) findViewById(R.id.editUsernameAcntPgBtn);
+		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);
 		
 		usernameText.setText("Username: " + username);
 		
@@ -59,6 +62,24 @@ public class AccountPage extends Activity{
 		
 		GetAdvisorForUser gafu = new GetAdvisorForUser();
 		advisorText.setText("Advisor: " + gafu.getAdvisorForUser(username).getName());
+		
+		editUsernameButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		editPasswordButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		backButton.setOnClickListener(new View.OnClickListener() {
 

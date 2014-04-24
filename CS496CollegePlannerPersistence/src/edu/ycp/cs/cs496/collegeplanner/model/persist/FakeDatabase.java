@@ -311,6 +311,19 @@ public class FakeDatabase implements IDatabase {
 		
 		return null;
 	}
+	
+	public boolean setNameOfUser(String username, String newUsername) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)) {
+				users.get(i).setName(newUsername);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
 
 	public ArrayList<String> getMajors() {
 		return new ArrayList<String>(majors);
@@ -449,5 +462,37 @@ public class FakeDatabase implements IDatabase {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public boolean setPasswordOfUser(String username, String password) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)) {
+				users.get(i).setPassword(password);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String getPasswordOfUser(String username) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)) {
+				return users.get(i).getPassword();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean changeUsernameOfUser(String username, String newUsername) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUsername().equals(username)) {
+				users.get(i).setUsername(newUsername);
+				return true;
+			}
+		}
+		return false;
 	}
 }

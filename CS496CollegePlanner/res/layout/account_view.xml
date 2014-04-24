@@ -38,6 +38,19 @@
     </LinearLayout>
     
     <TextView
+        android:id="@+id/NameTextView_AcntPg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal|left"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+  	
+   
+    
+    <TextView
         android:id="@+id/UsernameTextView_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,6 +81,26 @@
           android:text="@string/Advisor"
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:textColor="@color/darkGreen" />
+   
+   <Button 
+      android:id="@+id/editUsernameAcntPgBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/EditUsername"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+   
+   <Button 
+      android:id="@+id/editPasswordAcntPgBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:height="@dimen/settingsPageLabels"
+        android:text="@string/EditPassword"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
     
     <!-- TODO: <Button
         android:id="@+id/currentCoursesTextView"
