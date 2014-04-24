@@ -10,7 +10,7 @@ import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 
 
 import mobileControllers.CoursesController;
-import mobileControllers.GetAdvisor;
+import mobileControllers.getAdvisorDepartments;
 import mobileControllers.GetMajor;
 import mobileControllers.GetMajors;
 import mobileControllers.SetAdvisorForUser;
@@ -78,7 +78,7 @@ public class SettingsPage extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				GetAdvisor ga = new GetAdvisor();
+				getAdvisorDepartments ga = new getAdvisorDepartments();
 				try {
 					ArrayList<Advisor> advisors = ga.getAdvisor();
 					displayAdvisors(advisors);
@@ -181,7 +181,7 @@ public class SettingsPage extends Activity {
 
 	}
 
-	private void displayAdvisors(final ArrayList<Advisor> advisors) {
+	private void displayAdvisors(final ArrayList<Advisor> departments) {
 		//Add Linear layout
 		final LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
@@ -201,7 +201,7 @@ public class SettingsPage extends Activity {
 		backButton.setTextColor(getResources().getColor(R.color.white));
 
 		TextView text = new TextView(this);
-		text.setText("    --- Select an Advisor ---");
+		text.setText("    --- Select a Department ---");
 		text.setTextColor(getResources().getColor(R.color.darkGreen));
 		text.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -222,13 +222,13 @@ public class SettingsPage extends Activity {
 		layout.addView(backButton);
 		layout.addView(text);
 
-		String[] advisorList = new String[advisors.size()];
+		String[] departmentList = new String[departments.size()];
 
-		for(int i = 0; i < advisors.size(); i++) {
-			advisorList[i] = advisors.get(i).getName();
+		for(int i = 0; i < departments.size(); i++) {
+			departmentList[i] = departments.get(i).getName();
 		}
 
-		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, advisorList);
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, departmentList);
 		final ListView lv = new ListView(this);
 		lv.setAdapter(la); 
 		layout.addView(lv);
@@ -241,27 +241,25 @@ public class SettingsPage extends Activity {
 					long id) {				
 				String selected = lv.getItemAtPosition(index).toString();
 				System.out.println("selected: " + selected);
-				for(Advisor advsr : advisors) {
-					if(advsr.getName().equals(selected)) {
-						SetAdvisorForUser safu = new SetAdvisorForUser();
-						try {
-							boolean result = false;
-							result = safu.setAdvisorForUser(username, advsr);
-							if(result == true) {
-								Toast.makeText(SettingsPage.this, "changed advisor", Toast.LENGTH_SHORT).show();
-							}
-							else {
-								Toast.makeText(SettingsPage.this, "something blew up", Toast.LENGTH_SHORT).show();
-							}
-							setDefaultView();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} 
-					}
+				getAdvisorDepartments controller = new getAdvisorDepartments();
+				ArrayList<Advisor> advisors = new ArrayList<Advisor>();
+				try {
+					advisors = controller.getAdvisorsByDepartment(selected);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+				displayAdvisorsList(advisors);
+				
+				
 				}
-			}
+			
 		});
+	}
+	
+	public void displayAdvisorsList(final ArrayList<String> advisors) {
+		
 	}
 
 
