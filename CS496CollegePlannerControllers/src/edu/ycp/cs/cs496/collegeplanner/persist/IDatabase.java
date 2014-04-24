@@ -21,7 +21,7 @@ public interface IDatabase {
 	
 	public String getPasswordOfUser(String username);
 	
-	public boolean setUsernameOfUser(String username, String newUsername);
+	public boolean changeUsernameOfUser(String username, String newUsername);
 	
 	public User getUser(String username);
 	

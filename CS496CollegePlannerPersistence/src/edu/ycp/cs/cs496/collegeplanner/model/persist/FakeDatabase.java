@@ -424,7 +424,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
-	public boolean setUsernameOfUser(String username, String newUsername) {
+	public boolean changeUsernameOfUser(String username, String newUsername) {
 		for(int i = 0; i < users.size(); i++) {
 			if(users.get(i).getUsername().equals(username)) {
 				users.get(i).setUsername(newUsername);
