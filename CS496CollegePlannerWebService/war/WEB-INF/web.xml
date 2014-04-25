@@ -25,8 +25,32 @@
 	    <servlet-name>AdvisorServlet</servlet-name>
 	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.AdvisorServlet</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>NameServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.NameServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>UsernameServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.UsernameServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>PasswordServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.PasswordServlet</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
+	<servlet-mapping>
+	    <servlet-name>NameServlet</servlet-name>
+	    <url-pattern>/name/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>UsernameServlet</servlet-name>
+	    <url-pattern>/username/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>PasswordServlet</servlet-name>
+	    <url-pattern>/password/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 	    <servlet-name>AdvisorServlet</servlet-name>
 	    <url-pattern>/advisor/*</url-pattern>
