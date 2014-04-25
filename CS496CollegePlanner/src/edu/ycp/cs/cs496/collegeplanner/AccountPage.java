@@ -11,6 +11,8 @@ import mobileControllers.SetPassword;
 
 import org.apache.http.client.ClientProtocolException;
 
+import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -272,12 +274,17 @@ public class AccountPage extends Activity{
 		TextView majorText = (TextView) findViewById(R.id.MajorTextView_2);
 		TextView usernameText = (TextView) findViewById(R.id.UsernameTextView_2);
 		TextView advisorText = (TextView) findViewById(R.id.advisorTextView);
+		TextView advisorEmail = (TextView) findViewById(R.id.AdvisorEmail);
+		TextView advisorPhone = (TextView) findViewById(R.id.AdvisorPhone);
+		TextView advisorLocation = (TextView) findViewById(R.id.AdvisorLocation);
 
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonAccountPg);
 		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);
 
 		Button editUsernameButton = (Button) findViewById(R.id.editUsernameAcntPgBtn);
 		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);
+		
+		
 
 		usernameText.setText("Username: " + username);
 
@@ -285,8 +292,12 @@ public class AccountPage extends Activity{
 		majorText.setText("Major: " + gm.getMajor(username));
 
 		GetAdvisorForUser gafu = new GetAdvisorForUser();
-		advisorText.setText("Advisor: " + gafu.getAdvisorForUser(username).getName());
-
+		Advisor advisor = gafu.getAdvisorForUser(username);
+		advisorText.setText("Advisor: " + advisor.getName());
+		advisorEmail.setText("Email: " + advisor.getEmail());
+		advisorPhone.setText("Phone: " + advisor.getPhone());
+		advisorLocation.setText("Office Locaton: " + advisor.getLocation());
+		
 		editUsernameButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

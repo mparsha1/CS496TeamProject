@@ -80,8 +80,8 @@ public class SettingsPage extends Activity {
 			public void onClick(View v) {
 				getAdvisorDepartments ga = new getAdvisorDepartments();
 				try {
-					ArrayList<Advisor> advisors = ga.getAdvisor();
-					displayAdvisors(advisors);
+					ArrayList<String> departments = ga.getAdvisorDepartments();
+					displayDepartments(departments);
 				} catch (Exception e) {					
 					e.printStackTrace();				
 				}
@@ -181,7 +181,7 @@ public class SettingsPage extends Activity {
 
 	}
 
-	private void displayAdvisors(final ArrayList<Advisor> departments) {
+	private void displayDepartments(final ArrayList<String> departments) {
 		//Add Linear layout
 		final LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
@@ -225,7 +225,7 @@ public class SettingsPage extends Activity {
 		String[] departmentList = new String[departments.size()];
 
 		for(int i = 0; i < departments.size(); i++) {
-			departmentList[i] = departments.get(i).getName();
+			departmentList[i] = departments.get(i);
 		}
 
 		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, departmentList);
@@ -242,23 +242,115 @@ public class SettingsPage extends Activity {
 				String selected = lv.getItemAtPosition(index).toString();
 				System.out.println("selected: " + selected);
 				getAdvisorDepartments controller = new getAdvisorDepartments();
-				ArrayList<Advisor> advisors = new ArrayList<Advisor>();
+				ArrayList<String> advisors = new ArrayList<String>();
+				
 				try {
 					advisors = controller.getAdvisorsByDepartment(selected);
+					if(advisors!= null) {
+						displayAdvisorsList(advisors, departments);
+					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 				
-				displayAdvisorsList(advisors);
+				if(advisors == null) {
+					displayAdvisorsList(new ArrayList<String>(), departments);
+				}
 				
 				
 				}		
 		});
 	}
 	
-	public void displayAdvisorsList(final ArrayList<Advisor> advisors) {
-		//Todo: finish!
+	public void displayAdvisorsList(ArrayList<String> advisors, final ArrayList<String> departments) {
+		final LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		layout.setBackgroundColor(getResources().getColor(R.color.lightGreyBackground));
+
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+
+		backButton.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+		backButton.setTextColor(getResources().getColor(R.color.white));
+
+		//add back click listener
+		backButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {			
+					displayDepartments(departments);
+				}
+
+				catch(Exception e) {
+					e.printStackTrace();
+				}   		
+			}
+		});
+
+		TextView text = new TextView(this);
+		text.setText("    --- Select a Advisor to Add ---");
+		text.setTextColor(getResources().getColor(R.color.darkGreen));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+
+		layout.addView(backButton);
+		layout.addView(text);
+
+		String[] advisorList = new String[advisors.size()];
+		for(int i = 0; i < advisors.size(); i++) {
+			advisorList[i] = advisors.get(i);
+		}
+		ListAdapter la = new ArrayAdapter<String>(this, R.layout.list_view, advisorList);
+
+		final ListView lv = new ListView(this);
+		lv.setAdapter(la);  
+		layout.addView(lv);
+		setContentView(layout,llp);
+
+		lv.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View v, int index,
+					long id) {
+				
+				final String selected = lv.getItemAtPosition(index).toString();
+				AlertDialog.Builder builder =  new AlertDialog.Builder(SettingsPage.this);
+				builder.setMessage("Change your advisor to " + selected + "?");
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						boolean verify = false;
+						SetAdvisorForUser controller = new SetAdvisorForUser();
+						Advisor a = new Advisor();
+						a.setName(selected);
+						try {
+							verify = controller.setAdvisorForUser(username, a);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+
+						if(verify) {
+							Toast.makeText(SettingsPage.this, selected + " is now listed as your advisor", Toast.LENGTH_SHORT).show();
+						} 
+					}
+				});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();
+			}
+			
+		});
+		
+		
 	}
 
 

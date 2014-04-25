@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/lightGreyBackground">
+    android:background="@color/lightGreyBackground"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,57 +41,96 @@
     <TextView
         android:id="@+id/NameTextView_AcntPg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal|left"
         android:height="@dimen/settingsPageLabels"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/Name"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/darkGreen" />
   	
-   
-    
     <TextView
         android:id="@+id/UsernameTextView_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="26dp"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal|left"
         android:height="@dimen/settingsPageLabels"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="@string/Username"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/darkGreen" />
 
-   <TextView
-       android:id="@+id/MajorTextView_2"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginBottom="10dp"
-       android:gravity="center_horizontal|left"
-       android:height="@dimen/settingsPageLabels"
-       android:text="@string/Major"
-       android:textAppearance="?android:attr/textAppearanceMedium"
-       android:textColor="@color/darkGreen" />
-   
-   <TextView
-          android:id="@+id/advisorTextView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center_horizontal|left"
-          android:height="@dimen/settingsPageLabels"
-          android:text="@string/Advisor"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="@color/darkGreen" />
-   
-   <Button 
-      android:id="@+id/editUsernameAcntPgBtn"
+    <TextView
+        android:id="@+id/MajorTextView_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:height="@dimen/settingsPageLabels"
-        android:text="@string/EditUsername"
+        android:layout_height="26dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal|left"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/Major"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/darkGreen" />
+
+    <TextView
+        android:id="@+id/advisorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:gravity="center_horizontal|left"
+        android:height="@dimen/settingsPageLabels"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/Advisor"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/AdvisorContactInformaion"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen"
+        android:textColorHint="@color/darkGreen" />
+
+   <TextView
+       android:id="@+id/AdvisorEmail"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/darkGreen"
+       android:textColorHint="@color/darkGreen" />
+
+   <TextView
+       android:id="@+id/AdvisorPhone"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/darkGreen"
+       android:textColorHint="@color/darkGreen" />
+
+   <TextView
+       android:id="@+id/AdvisorLocation"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/darkGreen"
+       android:textColorHint="@color/darkGreen" />
+   
+   <Button
+       android:id="@+id/editUsernameAcntPgBtn"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center_vertical|center_horizontal"
+       android:height="@dimen/settingsPageLabels"
+       android:text="@string/EditUsername"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/darkGreen" />
    
    <Button 
       android:id="@+id/editPasswordAcntPgBtn"
@@ -121,6 +161,5 @@
          android:text="@string/Previous_Courses"
          android:textAppearance="?android:attr/textAppearanceMedium"
          android:textColor="@color/darkGreen" />  -->
-      
 
 </LinearLayout>

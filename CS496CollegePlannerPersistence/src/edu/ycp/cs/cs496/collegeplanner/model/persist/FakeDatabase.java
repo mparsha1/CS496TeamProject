@@ -50,7 +50,7 @@ public class FakeDatabase implements IDatabase {
 		Advisor babcock = new Advisor();
 		babcock.setName("Dr. Babcock");
 		babcock.setLocation("KEC 101");
-		babcock.setDepartment("Phyisical Sciences");
+		babcock.setDepartment("Physical Sciences");
 		babcock.setId(0);
 		babcock.setEmail("babcock@ycp.edu");
 		babcock.setPhone("717-717-7171");
@@ -63,12 +63,31 @@ public class FakeDatabase implements IDatabase {
 		hovemeyer.setEmail("hovemeyer@ycp.edu");
 		hovemeyer.setPhone("717-777-7777");
 		
+		Advisor ad1 = new Advisor();
+		ad1.setName("Advisor");
+		ad1.setDepartment("Behavioral Sciences");
+		
+		Advisor ad2 = new Advisor();
+		ad2.setName("Advisor Too");
+		ad2.setDepartment("Behavioral Sciences");
+		
+		Advisor ad3 = new Advisor();
+		ad3.setName("Advisor As well");
+		ad3.setDepartment("Nursing");
+		
 		advisors.add(babcock);
 		advisors.add(hovemeyer);
+		advisors.add(ad1);
+		advisors.add(ad2);
+		advisors.add(ad3);
 		
 		departments = new ArrayList<String>();
 		departments.add("Physical Sciences");
-		departments.add("Arts and Humanities");
+		departments.add("English and Humanities");
+		departments.add("Behavioral Sciences");
+		departments.add("Biological Sciences");
+		departments.add("History and Political Science");
+		departments.add("Nursing");
 		
 
 

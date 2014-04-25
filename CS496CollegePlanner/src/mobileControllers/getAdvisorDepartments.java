@@ -54,7 +54,7 @@ public class getAdvisorDepartments {
 		return null;
 	}
 	
-	public ArrayList<Advisor> getAdvisorsByDepartment(String department) throws URISyntaxException, ClientProtocolException, IOException {
+	public ArrayList<String> getAdvisorsByDepartment(String department) throws URISyntaxException, ClientProtocolException, IOException {
 		HttpClient client = new DefaultHttpClient();
 		
 		URI uri;
@@ -76,11 +76,12 @@ public class getAdvisorDepartments {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			
 			HttpEntity entity = response.getEntity();
-			ArrayList<Advisor> advisors = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
+			ArrayList<String> advisors = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
+			System.out.println("made it to mobile advisor controller with SC_OK");
 			return advisors;
 			
 		} 
-		
+	
 		return null;
 		
 	}

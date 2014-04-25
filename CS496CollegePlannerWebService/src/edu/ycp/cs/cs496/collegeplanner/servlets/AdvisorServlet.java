@@ -121,16 +121,25 @@ public class AdvisorServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Writer writer = resp.getWriter();
 		
+		System.out.println("in put thingy");
 		String department = JSON.getObjectMapper().readValue(req.getReader(), String.class);
 		GetAdvisorsController controller = new GetAdvisorsController();
 		ArrayList<Advisor> advisors = controller.getAdvisors(department);
+		ArrayList<String> advNames = new ArrayList<String>();
+		for(int i = 0; i < advisors.size(); i++) {
+			advNames.add(advisors.get(i).getName());
+		}
+		
+		
 		
 		if(!advisors.isEmpty()) {
+			System.out.println("advisors is not empty! First one: " + advisors.get(0).getName());
 			resp.setStatus(HttpServletResponse.SC_OK); 
 			resp.setContentType("text/plain"); 			
-			JSON.getObjectMapper().writeValue(writer, advisors);	
+			JSON.getObjectMapper().writeValue(writer, advNames);	
 			return;
 		} else {
+			System.out.println("advisors is empty from the database! :(");
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
 			return;

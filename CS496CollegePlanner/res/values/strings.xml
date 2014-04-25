@@ -20,17 +20,19 @@
     <string name="ChangeMajorBtn">Change Major</string>
     <string name="ChangeAdvisorBtn">Change Advisor</string>
     <string name="ManageClasseBtn">Manage Classes</string>
-    <string name="Major">Major</string>
+    <string name="Major">Major:</string>
     <string name="NotFound">Not Found</string>
     <string name="Back">Back</string>
     <string name="Current_Courses">Current Courses</string>
     <string name="Previous_Courses">Previous Courses</string>    
-    <string name="Advisor">Advisor</string> 
+    <string name="Advisor">Advisor:</string> 
     <string name="AddCompletedCourses">Add Completed Courses</string>
     <string name="ManageCompletedCourses">Manage Completed Courses</string>
-    <string name="Name">Name</string>
+    <string name="Name">Name:</string>
     <string name="EditUsername">Edit Username</string>
     <string name="EditPassword">Edit Password</string>
+    <string name="AdvisorContactInformaion">Advisor Contact Information:</string>
+    <string name="EditName">Edit Name</string>
     
     
 
