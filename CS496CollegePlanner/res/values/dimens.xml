@@ -10,5 +10,6 @@
     <dimen name="settingsPageLabels">45dp</dimen>
     <dimen name="SignOutWidth">80dp</dimen>
     <dimen name="SignOutHeight">45dp</dimen>
+    <dimen name="FillerCoursePage">100dp</dimen>
 
 </resources>

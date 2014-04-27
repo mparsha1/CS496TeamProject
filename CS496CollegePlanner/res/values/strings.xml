@@ -9,7 +9,7 @@
     <string name="SignIn">Sign in</string>
     <string name="HomePage_temp">You are on the home page</string>
     <string name="Calendar_button">Calendar</string>
-    <string name="ViewSchedule">View Class Schedule</string>
+    <string name="ViewSchedule">Current Class Schedule</string>
     <string name="settingsButton">Settings</string>
     <string name="accountButton">Account</string>
     <string name="ClassScheduleButton">Class Schedule</string>
@@ -33,6 +33,10 @@
     <string name="EditPassword">Edit Password</string>
     <string name="AdvisorContactInformaion">Advisor Contact Information:</string>
     <string name="EditName">Edit Name</string>
+    <string name="viewNextSemester">View Suggested Course Sequence</string>
+    <string name="EnterMaxCredits">Enter the maximum number of credits you would like to take next semester:</string>
+    <string name="MaxDefault">18</string>
+    <string name="GenerateCourses">Generate Courses</string>
     
     
 

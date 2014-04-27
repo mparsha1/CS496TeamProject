@@ -14,6 +14,7 @@ public class User {
 	private String emailAddress;
 	private ArrayList<Course> courses; //FIXME: other possible better data-type?
 	private String major;
+	private int maxCredits;
 	// TODO: field for subscriptions after subscriptions class made
 	public User() {
 		
@@ -73,6 +74,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getMaxCredits() {
+		return maxCredits;
+	}
+
+	public void setMaxCredits(int maxCredits) {
+		this.maxCredits = maxCredits;
 	}	
 	
 }

@@ -54,11 +54,11 @@
         android:layout_height="match_parent" >
 
         <Button
-            android:id="@+id/button_editCourses"
+            android:id="@+id/button_viewNextSemester"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/darkGreen"
-            android:text="@string/EditCourses"
+            android:text="@string/viewNextSemester"
             android:textColor="@color/white" />
 
     </LinearLayout>

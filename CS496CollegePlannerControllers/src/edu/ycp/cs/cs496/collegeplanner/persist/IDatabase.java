@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
+import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 /**
@@ -53,6 +54,7 @@ public interface IDatabase {
 	public String getMajor(String username);
 	
 	public ArrayList<String> getClassesTakenByUser(String username);
+	public ArrayList<Course> getCoursesTakenByUser(String username);
 	
 	public ArrayList<String> getClassesInCategory(String category);
 	
@@ -61,5 +63,7 @@ public interface IDatabase {
 	public boolean addClassToUser(String username, String className);
 	
 	public boolean deleteClassFromUser(String username, String className);
+	
+	public ArrayList<CourseSequencePairs> getCourseSequence(String major);
 	
 }

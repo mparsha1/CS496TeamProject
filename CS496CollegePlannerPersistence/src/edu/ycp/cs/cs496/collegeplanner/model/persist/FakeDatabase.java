@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
+import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
 import edu.ycp.cs.cs496.collegeplanner.models.IntegerPairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import edu.ycp.cs.cs496.collegeplanner.persist.IDatabase;
@@ -30,6 +31,8 @@ public class FakeDatabase implements IDatabase {
 	ArrayList<String>  departments;
 	
 	ArrayList<IntegerPairs> user_advisor;
+	
+	ArrayList<CourseSequencePairs> sequence;
 	
 	public FakeDatabase() {
 
@@ -97,24 +100,36 @@ public class FakeDatabase implements IDatabase {
 		Course d = new Course();
 		Course e = new Course();
 		Course f = new Course();
+		Course g = new Course();
 		a.setName("BIO 101");
 		a.setCategory("Lab Science");
+		a.setType("LAB");
 		a.setId(0);
 		b.setName("CHEM201");
 		b.setCategory("Lab Science");
+		b.setType("LAB");
 		b.setId(1);
 		c.setName("CS101");
 		c.setCategory("Computer Science");
+		c.setType("CS101");
 		c.setId(2);
 		d.setName("HIS101");
 		d.setCategory("History");
+		d.setType("ADR");
 		d.setId(3);
 		e.setName("PHY160");
 		e.setCategory("Lab Science");
+		e.setType("LAB");
 		e.setId(4);
 		f.setName("ART300");
 		f.setCategory("Arts and Music");
-		a.setId(5);
+		f.setCategory("ADR");
+		f.setId(5);
+		g.setName("MAT171");
+		g.setCategory("Mathematics");
+		g.setId(6);
+		g.setType("MAT171");
+		
 
 		courses = new ArrayList<Course>();
 		courses.add(a);
@@ -149,7 +164,42 @@ public class FakeDatabase implements IDatabase {
 		user_advisor.add(new IntegerPairs(0,0));
 		user_advisor.add(new IntegerPairs(1,1));
 		
+		sequence = new ArrayList<CourseSequencePairs>();
+		
+		sequence.add(new CourseSequencePairs("Computer Science", "CS100", 1, 2, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "MAT171", 1, 4, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "LAB", 1, 4, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "WRT102", 1, 3, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "ADR", 1, 3, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "CS101", 1, 2, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "MAT172", 1, 4, "MAT171"));
+		sequence.add(new CourseSequencePairs("Computer Science", "LAB", 1, 4, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "WRT202", 1, 3, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "IFL100", 1, 2, "None"));
+		
+		sequence.add(new CourseSequencePairs("Computer Science", "CS201", 2, 4, "CS101"));
+		sequence.add(new CourseSequencePairs("Computer Science", "MAT280", 2, 3, "MAT171"));
+		sequence.add(new CourseSequencePairs("Computer Science", "LAB", 2, 4, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "FREE ELECTIVE", 2, 3, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "PHYS ED", 2, 1, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "CS320", 2, 3, "CS201"));
+		sequence.add(new CourseSequencePairs("Computer Science", "ECE260", 2, 4, "CS201"));
+		sequence.add(new CourseSequencePairs("Computer Science", "MAT272", 2, 4, "MAT172"));
+		sequence.add(new CourseSequencePairs("Computer Science", "HC101", 2, 3, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "ADR", 2, 3, "None"));
 
+	}
+	
+	public ArrayList<CourseSequencePairs> getCourseSequence(String major) {
+		
+		ArrayList<CourseSequencePairs> result = new ArrayList<CourseSequencePairs>();
+		for(int i = 0; i < sequence.size(); i++) {
+			if(sequence.get(i).getSequenceName().equals(major)) {
+				result.add(sequence.get(i));
+			}
+		}
+		
+		return result;
 	}
 
 	public boolean addUser(User user) {
@@ -304,6 +354,32 @@ public class FakeDatabase implements IDatabase {
 		return classNames;
 
 	}
+	
+	public ArrayList<Course> getCoursesTakenByUser(String username) {
+
+		int ID = getUserID(username);
+
+		ArrayList<Integer> classes = new ArrayList<Integer>();
+
+		for(int i = 0; i < course_user.size(); i++) {
+			if(course_user.get(i).getFirst() == ID) {
+				classes.add(course_user.get(i).getSecond());
+			}
+		}
+
+		ArrayList<Course> classNames = new ArrayList<Course>();
+
+		for(int i = 0; i < classes.size(); i++) {
+			Course course = getCourseByID(classes.get(i));
+			if(course != null) {
+				classNames.add(course);
+			}
+		}
+
+		return classNames;
+
+	}
+	
 	public String getMajor(String username) {
 
 		System.out.println("Database username" + username);

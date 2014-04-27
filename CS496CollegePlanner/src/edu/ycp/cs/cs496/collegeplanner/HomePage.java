@@ -87,5 +87,18 @@ public class HomePage extends Activity {
 			}
 		});
 		
+		Button viewCoursesButton = (Button) findViewById(R.id.button_viewNextSemester);
+		
+		viewCoursesButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent goToCourses = new Intent(v.getContext(), CourseSequencePage.class);
+				goToCourses.putExtra("username", username);
+				startActivity(goToCourses);				
+			}
+		});
+		
+		
 	}
 }
