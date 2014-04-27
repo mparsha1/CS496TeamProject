@@ -49,7 +49,7 @@ public class GetCourseSequence {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			
 			HttpEntity entity = response.getEntity();
-			result = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
+			newResult = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
 			
 			for(int j = 0; j < result.size(); j++) {
 				newResult.add(result.get(j).getCourseName());

@@ -171,7 +171,7 @@ public class FakeDatabase implements IDatabase {
 		sequence.add(new CourseSequencePairs("Computer Science", "LAB", 1, 4, "None"));
 		sequence.add(new CourseSequencePairs("Computer Science", "WRT102", 1, 3, "None"));
 		sequence.add(new CourseSequencePairs("Computer Science", "ADR", 1, 3, "None"));
-		sequence.add(new CourseSequencePairs("Computer Science", "CS101", 1, 2, "None"));
+		sequence.add(new CourseSequencePairs("Computer Science", "CS101", 1, 2, "CS100"));
 		sequence.add(new CourseSequencePairs("Computer Science", "MAT172", 1, 4, "MAT171"));
 		sequence.add(new CourseSequencePairs("Computer Science", "LAB", 1, 4, "None"));
 		sequence.add(new CourseSequencePairs("Computer Science", "WRT202", 1, 3, "None"));

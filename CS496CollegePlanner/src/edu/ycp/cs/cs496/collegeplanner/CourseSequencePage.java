@@ -87,7 +87,7 @@ public class CourseSequencePage extends Activity {
 			@Override
 			public void onClick(View v) {
 				Editable max = maxCredits.getText();
-				Integer maxCredits = Integer.getInteger(max.toString());
+				int maxCredits = Integer.parseInt(max.toString());
 				User u = new User();
 				GetMajor gmController = new GetMajor();
 				String major = "";
@@ -99,7 +99,7 @@ public class CourseSequencePage extends Activity {
 				}  
 				
 				u.setMajor(major);
-				u.setMaxCredits(18);
+				u.setMaxCredits(maxCredits);
 				GetCourseSequence controller = new GetCourseSequence();
 				ArrayList<String> list = new ArrayList<String>();
 				try {

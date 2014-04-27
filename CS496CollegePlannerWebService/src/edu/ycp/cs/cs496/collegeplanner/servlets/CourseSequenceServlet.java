@@ -26,6 +26,10 @@ public class CourseSequenceServlet extends HttpServlet {
 		User u = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		GetSuggestedCourseSequence controller = new GetSuggestedCourseSequence();
 		ArrayList<CourseSequencePairs> result =  controller.getSuggestedSequence(u);
+		ArrayList<String> formattedResult = new ArrayList<String>();
+		for(int i = 0; i < result.size(); i++) {
+			formattedResult.add("Course: " + result.get(i).getCourseName() + " Credits: " + result.get(i).getCredits());
+		}
 		
 		Writer writer = resp.getWriter();
 		
@@ -37,7 +41,7 @@ public class CourseSequenceServlet extends HttpServlet {
 		
 		resp.setStatus(HttpServletResponse.SC_OK); 
 		resp.setContentType("application/json"); 
-		JSON.getObjectMapper().writeValue(writer, result);	
+		JSON.getObjectMapper().writeValue(writer, formattedResult);	
 		return;
 	}
 	

@@ -41,18 +41,21 @@ public class GetSuggestedCourseSequence {
 		}
 		
 		int count = 0;
-		int i = 0;
 		ArrayList<CourseSequencePairs> result = new ArrayList<CourseSequencePairs>();
 		
-		while(count < 19) {
-			result.add(sequence.get(i));
-			count+= sequence.get(i).getCredits();
-			i++;
+		for(int i = 0; i < sequence.size(); i++) {	
 			
+				if(sequence.get(i).getCredits() + count < u.getMaxCredits()) {
+					System.out.println(sequence.get(i).getCourseName());
+					result.add(sequence.get(i));
+					count+= sequence.get(i).getCredits();
+					
+				}
 		}
 		
 	
-		
+	
+		System.out.println("Out of loop");
 		
 		
 		return result;
