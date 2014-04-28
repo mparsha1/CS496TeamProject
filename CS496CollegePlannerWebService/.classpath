@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerControllers"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerModelClasses"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS496CollegePlannerPersistence"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Derby"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
