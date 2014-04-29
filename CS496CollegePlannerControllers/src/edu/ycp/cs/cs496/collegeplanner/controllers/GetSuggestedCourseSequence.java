@@ -45,7 +45,7 @@ public class GetSuggestedCourseSequence {
 		
 		for(int i = 0; i < sequence.size(); i++) {	
 			
-				if(sequence.get(i).getCredits() + count < u.getMaxCredits()) {
+				if(sequence.get(i).getCredits() + count <= u.getMaxCredits()) {
 					System.out.println(sequence.get(i).getCourseName());
 					result.add(sequence.get(i));
 					count+= sequence.get(i).getCredits();

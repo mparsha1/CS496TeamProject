@@ -40,12 +40,14 @@ public class FakeDatabase implements IDatabase {
 		
 		currentClasses = new ArrayList<CurrentClass>();
 		CurrentClass c1 = new CurrentClass();
-		c1.setNameAndInfo("Class: HIS101 Day(s): MWF Location: HUM12");
+		c1.setNameAndInfo("Class: HIS101\nDay(s): MWF\nLocation: HUM12");
 		c1.setUserId(0);
+		c1.setCourseName("HIS101");
 		currentClasses.add(c1);
 		CurrentClass c2 = new CurrentClass();
-		c2.setNameAndInfo("Class: CS101 Day(s): TR Location: KEC119");
+		c2.setNameAndInfo("Class: CS101\nDay(s): TR\nLocation: KEC119");
 		c2.setUserId(0);
+		c2.setCourseName("CS101");
 		currentClasses.add(c2);
 
 		majors = new ArrayList<String>();		
@@ -205,10 +207,12 @@ public class FakeDatabase implements IDatabase {
 	public ArrayList<String> getCurrentClassSchedule(String username) {
 		int userId = getUserID(username);
 		ArrayList<String> result = new ArrayList<String>();
+		System.out.println("made it to database");
 		
 		if(userId != -1) {
 			for(int i = 0; i < currentClasses.size(); i++) {
 				if(currentClasses.get(i).getUserId() == userId) {
+					System.out.println("found Course: " + currentClasses.get(i).getCourseName());
 					result.add(currentClasses.get(i).getNameAndInfo());
 				}
 			}

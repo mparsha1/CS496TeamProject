@@ -36,20 +36,17 @@ public class CurrentSchedule {
 					
 					HttpGet req = new HttpGet(uri);
 					HttpResponse resp = client.execute(req);
-					
+					ArrayList<String> courses = new ArrayList<String>();
 					
 					if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 						HttpEntity entity = resp.getEntity();
 						
-						ArrayList<String> courses = new ArrayList<String>();
-						
 						//Is this okay?? Not sure.
 						courses = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
 						
-						return courses;
 					} 
 					
-		return null;	
+		return courses;	
 						
 					
 	}

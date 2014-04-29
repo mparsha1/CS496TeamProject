@@ -26,6 +26,8 @@ public class CurrentScheduleServlet extends HttpServlet {
 		Writer writer = resp.getWriter();	
 		
 		String username = pathInfo.substring(1);
+		System.out.println("schedule pathInfo " + username);
+		
 		
 		ArrayList<String> result = new ArrayList<String>();
 		

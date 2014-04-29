@@ -85,7 +85,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CurrentScheduleServlet</servlet-name>
-		<url-pattern>/currentSchedule</url-pattern>
+		<url-pattern>/currentSchedule/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Servlet context listeners -->
