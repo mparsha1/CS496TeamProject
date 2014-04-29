@@ -37,6 +37,9 @@
     <string name="EnterMaxCredits">Enter the maximum number of credits you would like to take next semester:</string>
     <string name="MaxDefault">18</string>
     <string name="GenerateCourses">Generate Courses</string>
+    <string name="ViewCurrentClassSchedule">View Current Class Schedule</string>
+    <string name="AddCourseToCurrentSchedule">Add a Course to Current Schedule</string>
+    <string name="CurrentClassSchedule">Current Class Schedule</string>
     
     
 
