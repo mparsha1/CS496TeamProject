@@ -24,12 +24,13 @@ public class DepartmentParser {
 		try {
 			while(true) {
 				String department = breader.readLine();
-
+				
 				if(department == null) {
 					break;
 				}
 				
 				departments.add(department);
+				
 			}
 			
 		System.out.println(departments.toString());

@@ -63,7 +63,7 @@ public class AdvisorParser {
 				}				
 				else if(type.equals("phone")) {
 					String phoneAsString = line.substring(line.indexOf(',') + 1, line.length());					
-					advisors.get(advisors.size() - 1).setName(phoneAsString);
+					advisors.get(advisors.size() - 1).setPhone(phoneAsString);
 				}
 			}
 		} finally {

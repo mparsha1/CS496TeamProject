@@ -1,14 +1,13 @@
 package edu.ycp.cs.cs496.collegeplanner.tests;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.junit.Test;
-
+import edu.ycp.cs.cs496.collegeplanner.controllers.AdvisorParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.CourseParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.DepartmentParser;
+import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 
 public class Main {	
@@ -25,6 +24,20 @@ public class Main {
 					course.getCategory() + " time: " + course.getStartTime() + "-" + course.getEndTime());
 					
 					
+		}
+		
+		AdvisorParser ap = new AdvisorParser();
+		File advisorFile = new File("advisorFile.txt");
+		ArrayList<Advisor> advisors = ap.parseAdvisors(advisorFile);
+		for(Advisor advisor : advisors) {
+			System.out.println(advisor.getName());
+		}
+		
+		DepartmentParser dp = new DepartmentParser();
+		File departmentFile = new File("departmentsFile.txt");
+		ArrayList<String> departments = dp.parseDepartments(departmentFile);
+		for(String department : departments) {
+			System.out.println(department);
 		}
 	}
 
