@@ -6,6 +6,7 @@ import java.util.HashMap;
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
+import edu.ycp.cs.cs496.collegeplanner.models.CurrentClass;
 import edu.ycp.cs.cs496.collegeplanner.models.IntegerPairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import edu.ycp.cs.cs496.collegeplanner.persist.IDatabase;
@@ -33,8 +34,19 @@ public class FakeDatabase implements IDatabase {
 	ArrayList<IntegerPairs> user_advisor;
 	
 	ArrayList<CourseSequencePairs> sequence;
+	ArrayList<CurrentClass> currentClasses;
 	
 	public FakeDatabase() {
+		
+		currentClasses = new ArrayList<CurrentClass>();
+		CurrentClass c1 = new CurrentClass();
+		c1.setNameAndInfo("Class: HIS101 Day(s): MWF Location: HUM12");
+		c1.setUserId(0);
+		currentClasses.add(c1);
+		CurrentClass c2 = new CurrentClass();
+		c2.setNameAndInfo("Class: CS101 Day(s): TR Location: KEC119");
+		c2.setUserId(0);
+		currentClasses.add(c2);
 
 		majors = new ArrayList<String>();		
 		majors.add("Computer Science");
@@ -188,6 +200,21 @@ public class FakeDatabase implements IDatabase {
 		sequence.add(new CourseSequencePairs("Computer Science", "HC101", 2, 3, "None"));
 		sequence.add(new CourseSequencePairs("Computer Science", "ADR", 2, 3, "None"));
 
+	}
+	
+	public ArrayList<String> getCurrentClassSchedule(String username) {
+		int userId = getUserID(username);
+		ArrayList<String> result = new ArrayList<String>();
+		
+		if(userId != -1) {
+			for(int i = 0; i < currentClasses.size(); i++) {
+				if(currentClasses.get(i).getUserId() == userId) {
+					result.add(currentClasses.get(i).getNameAndInfo());
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public ArrayList<CourseSequencePairs> getCourseSequence(String major) {

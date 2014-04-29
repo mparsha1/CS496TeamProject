@@ -186,4 +186,10 @@ public class DerbyDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<String> getCurrentClassSchedule(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

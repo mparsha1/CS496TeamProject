@@ -66,4 +66,6 @@ public interface IDatabase {
 	
 	public ArrayList<CourseSequencePairs> getCourseSequence(String major);
 	
+	public ArrayList<String> getCurrentClassSchedule(String username);
+	
 }
