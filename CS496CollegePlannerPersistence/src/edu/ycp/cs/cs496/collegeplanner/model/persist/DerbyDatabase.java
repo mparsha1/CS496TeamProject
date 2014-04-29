@@ -192,4 +192,17 @@ public class DerbyDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean addClassToSchedule(String username, String classInfo,
+			String courseName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeClassFromSchedule(String username, String courseName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

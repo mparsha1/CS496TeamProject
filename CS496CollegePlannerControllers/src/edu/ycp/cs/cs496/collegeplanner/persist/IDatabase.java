@@ -67,5 +67,8 @@ public interface IDatabase {
 	public ArrayList<CourseSequencePairs> getCourseSequence(String major);
 	
 	public ArrayList<String> getCurrentClassSchedule(String username);
+	public boolean addClassToSchedule(String username, String classInfo, String courseName);
+	public boolean removeClassFromSchedule(String username, String courseName);
+	
 	
 }

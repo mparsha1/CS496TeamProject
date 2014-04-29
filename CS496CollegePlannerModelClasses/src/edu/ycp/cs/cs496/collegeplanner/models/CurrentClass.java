@@ -4,6 +4,7 @@ public class CurrentClass {
 	
 	private int userId;
 	private String nameAndInfo;
+	private String courseName;
 	
 	public CurrentClass() {
 		
@@ -23,5 +24,13 @@ public class CurrentClass {
 
 	public void setNameAndInfo(String nameAndInfo) {
 		this.nameAndInfo = nameAndInfo;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 }

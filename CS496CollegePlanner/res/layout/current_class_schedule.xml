@@ -51,4 +51,11 @@
         android:text="@string/AddCourseToCurrentSchedule"
         android:textColor="@color/darkGreen" />
 
+    <Button
+        android:id="@+id/ViewCurrentCoursesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ViewCurrentCourses"
+        android:textColor="@color/darkGreen" />
+
 </LinearLayout>

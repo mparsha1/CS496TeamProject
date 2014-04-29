@@ -217,6 +217,45 @@ public class FakeDatabase implements IDatabase {
 		return result;
 	}
 	
+	public boolean addClassToSchedule(String username, String classInfo, String courseName) {
+		int userId = getUserID(username);
+		boolean validate = true;
+		
+		if(userId != -1) {
+			for(int i = 0; i < currentClasses.size(); i++) {
+				if(currentClasses.get(i).getCourseName() == courseName) {
+					validate = false;
+				}
+			}
+		}
+		if(validate) {
+			CurrentClass c = new CurrentClass();
+			c.setCourseName(courseName);
+			c.setNameAndInfo(classInfo);
+			c.setUserId(userId);
+			
+			currentClasses.add(c);
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public boolean removeClassFromSchedule(String username, String courseName) {
+		int userId = getUserID(username);
+		
+		if(userId != -1) {
+			for(int i = 0; i < currentClasses.size(); i++) {
+				if(currentClasses.get(i).getCourseName() == courseName && currentClasses.get(i).getUserId() == userId) {
+					currentClasses.remove(i);
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	public ArrayList<CourseSequencePairs> getCourseSequence(String major) {
 		
 		ArrayList<CourseSequencePairs> result = new ArrayList<CourseSequencePairs>();

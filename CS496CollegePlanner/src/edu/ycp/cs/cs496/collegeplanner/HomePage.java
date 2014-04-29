@@ -99,6 +99,18 @@ public class HomePage extends Activity {
 			}
 		});
 		
+		Button viewClassScheduleButton = (Button) findViewById(R.id.button_classSchedule);
+		viewClassScheduleButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent goToCourses = new Intent(v.getContext(), CurrentCoursesPage.class);
+				goToCourses.putExtra("username", username);
+				startActivity(goToCourses);				
+			}
+		});
+		
+		
 		
 	}
 }

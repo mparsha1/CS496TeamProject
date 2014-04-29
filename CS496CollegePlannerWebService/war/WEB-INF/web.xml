@@ -41,6 +41,10 @@
 	    <servlet-name>CourseSequenceServlet</servlet-name>
 	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.CourseSequenceServlet</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>CurrentScheduleServlet</servlet-name>
+	    <servlet-class>edu.ycp.cs.cs496.collegeplanner.servlets.CurrentScheduleServlet</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
@@ -78,6 +82,10 @@
 	<servlet-mapping>
 		<servlet-name>CourseSequenceServlet</servlet-name>
 		<url-pattern>/courseSequence</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CurrentScheduleServlet</servlet-name>
+		<url-pattern>/currentSchedule</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Servlet context listeners -->
