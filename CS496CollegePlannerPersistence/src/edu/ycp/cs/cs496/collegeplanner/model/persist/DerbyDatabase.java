@@ -399,4 +399,18 @@ public class DerbyDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public static void main(String[] args) {
+		DerbyDatabase db = new DerbyDatabase();
+		System.out.println("Creating tables...");
+		db.createTables();
+		System.out.println("Loading initial data...");
+		db.loadInitialData();
+		System.out.println("Done!");
+	}
+
+	private void loadInitialData() {
+		//We need to load a TON of initial data!
+		
+	}
 }
