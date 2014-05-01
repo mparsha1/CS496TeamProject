@@ -180,10 +180,8 @@ public class DerbyDatabase implements IDatabase{
 					courseUserLink = conn.prepareStatement(
 							"create table courseUserLinks (" +
 							"userId integer," +
-							"courseId integer," +
+							"courseId integer" +
 							")");
-					
-					//TODO: Create other tables!!!
 					
 					users.executeUpdate();
 					advisors.executeUpdate();
