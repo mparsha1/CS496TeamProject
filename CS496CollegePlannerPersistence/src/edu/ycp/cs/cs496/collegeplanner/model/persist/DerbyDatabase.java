@@ -2,6 +2,7 @@ package edu.ycp.cs.cs496.collegeplanner.model.persist;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 import edu.ycp.cs.cs496.collegeplanner.persist.IDatabase;
+
 
 public class DerbyDatabase implements IDatabase{
 	private static final int MAX_ATTEMPTS = 10;
@@ -80,6 +82,136 @@ public class DerbyDatabase implements IDatabase{
 	}
 	
 	//TODO: GOOD LUCK
+	
+	public void createTables() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement users = null;
+				PreparedStatement advisors = null;
+				PreparedStatement courses = null;
+				PreparedStatement courseSequences = null;
+				PreparedStatement currentClasses = null;
+				PreparedStatement userAdvisorLink = null;
+				PreparedStatement departments = null;
+				PreparedStatement classCategories = null;
+				PreparedStatement majors = null;
+				PreparedStatement courseUserLink = null;
+				
+				try {
+					// Note that the 'id' column is an autoincrement primary key,
+					// so SQLite will automatically assign an id when rows
+					// are inserted.
+					users = conn.prepareStatement(
+							"create table users (" +
+							" id integer primary key not null generated always as identity," +
+							" username varchar(80) unique," +
+							" password varchar(20)," +
+							" name varchar(50)," +
+							" emailAddress varchar(80)," +
+							" major varchar(40)," +
+							"maxCredits integer" +
+							")"
+							
+					);
+					
+					advisors = conn.prepareStatement(
+							"create table advisors (" +
+							"id integer primary key not null generated always as identity," +
+							"name varchar(80)," +
+							"department varchar(80)," +
+							"location varchar(10)," +
+							"email varchar(80)," +
+							"phone varchar(15)" +
+							")");
+					
+					courses = conn.prepareStatement( 
+							"create table courses(" +
+							"id integer primary key not null generated always as identity," +
+							"startTime varchar(20)," +
+							"endTime varchar(20)," +
+							"name varchar(50) unique," +
+							"prereq_id integer," +
+							"instructor varchar(50)," +
+							"location varchar(10)," +
+							"category varchar(40)," +
+							"type varchar(10)," +
+							"level integer," +
+							"semester integer" +							
+							")");
+					
+					courseSequences = conn.prepareStatement(
+							"create table courseSequences (" +
+							"sequenceName varchar(80)," +
+							"courseName varchar(80)," +
+							"yearNum integer," +
+							"credits integer," +
+							"prereq varchar(10)" +
+							")"
+							);
+					currentClasses = conn.prepareStatement(
+							"create table currentClasses (" +
+							"userId integer," +
+							"nameAndInfo varchar(100)," +
+							"courseName varchar(10)" +
+							")"
+							);
+					userAdvisorLink = conn.prepareStatement(
+							"create table userAdvisorLink (" +
+							"userId integer," +
+							"advisorId integer" +
+							")"
+							);
+					
+					departments = conn.prepareStatement(
+							"create table departments (" +
+							"name varchar(80)" +
+							")");
+					classCategories = conn.prepareStatement(
+							"create table classCategories (" +
+							"category varchar(80)" +
+							")"
+							);
+					majors = conn.prepareStatement(
+							"create table majors (" +
+							"major varchar(80)" +
+							")"
+							);
+					courseUserLink = conn.prepareStatement(
+							"create table courseUserLinks (" +
+							"userId integer," +
+							"courseId integer," +
+							")");
+					
+					//TODO: Create other tables!!!
+					
+					users.executeUpdate();
+					advisors.executeUpdate();
+					courses.executeUpdate();
+					courseSequences.executeUpdate();
+					currentClasses.executeUpdate();
+					userAdvisorLink.executeUpdate();
+					departments.executeUpdate();
+					classCategories.executeUpdate();
+					majors.executeUpdate();
+					courseUserLink.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(users);
+					DBUtil.closeQuietly(advisors);
+					DBUtil.closeQuietly(courses);
+					DBUtil.closeQuietly(courseSequences);
+					DBUtil.closeQuietly(currentClasses);
+					DBUtil.closeQuietly(userAdvisorLink);
+					DBUtil.closeQuietly(departments);
+					DBUtil.closeQuietly(classCategories);
+					DBUtil.closeQuietly(majors);
+					DBUtil.closeQuietly(courseUserLink);
+				}
+			}
+		});
+	}
 	
 	@Override
 	public boolean addUser(User user) {
