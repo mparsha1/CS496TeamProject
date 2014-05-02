@@ -14,7 +14,7 @@ public class Course {
 	private String location;	
 	private String category;
 	private String type;
-	private String level;
+	private int level;
 	private int credits;
 	private int semester;
 	
@@ -98,15 +98,15 @@ public class Course {
 		return type;
 	}
 
-	public void setType(String stype) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
