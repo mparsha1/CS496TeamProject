@@ -14,3 +14,27 @@ instructor,Misses
 start-time,12:00pm
 finish-time,1:45pm
 prereq-id,3
+Course,
+id,3
+name,Math
+category,Mathematics
+instructor,Dr. Yuan
+start-time,11:00am
+finish-time,11:50am
+prereq-id,66
+Course,
+id,4
+name,Chorale
+category,Music
+instructor,Dr. Muzzo
+start-time,1:00pm
+finish-time,1:50pm
+prereq-id,0
+Course,
+id,5
+name,Voice
+category,Music
+instructor,Mr. Woodfield
+start-time,3:30pm
+finish-time,4:00pm
+prereq-id,0

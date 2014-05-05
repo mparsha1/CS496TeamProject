@@ -3,5 +3,40 @@ id,17
 name,Dr. Hovemeyer
 location,KEC
 department,Physical Science
-email,something@something.something
+email,dhovemey@ycp.edu
 phone,8395401
+Advisor,
+id,18
+name,Dr. Babcock
+location,KEC
+department,Physical Science
+email,dbabcock@ycp.edu
+phone,7777777
+Advisor,
+id,18
+name,Dr. Link
+location,KEC
+department,Physical Science
+email,glink@ycp.edu
+phone,8888888
+Advisor
+id,4
+name,Dr. Kaltreider
+location,LS
+department,Biological Sciences
+email,rkaltrei@ycp.edu
+phone,1234567
+Advisor,
+id,7
+name,Dr. Bauer
+location,LS
+department,Mathematics
+email,cbauer@ycp.edu
+phone,8588855
+Advisor,
+id,8
+name,Dr. Yuan
+location,LS
+department,Mathematics
+email,hyuan@ycp.edu
+phone,1111111
