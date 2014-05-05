@@ -259,15 +259,47 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean setNameOfUser(String username, String newUsername) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setNameOfUser(final String username, final String newUsername) {
+		return executeTransaction(new Transaction<Boolean>() {
+			//TODO: make sure username does not already exist
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("update users set username=?, where username=?");
+					stmt.setString(1, newUsername);
+					stmt.setString(2, username);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
-	public boolean setPasswordOfUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setPasswordOfUser(final String username, final String password) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("update users set password=?, where username=?");
+					stmt.setString(1, password);
+					stmt.setString(2, username);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
@@ -305,9 +337,25 @@ public class DerbyDatabase implements IDatabase{
 
 
 	@Override
-	public boolean changeUsernameOfUser(String username, String newUsername) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean changeUsernameOfUser(final String username, final String newUsername) {
+		return executeTransaction(new Transaction<Boolean>() {
+			//TODO: make sure new username does not already exist
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("update users set username=?, where username=?");
+					stmt.setString(1, newUsername);
+					stmt.setString(2, username);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
@@ -426,21 +474,77 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean setAdvisorForUser(String advisor, String user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setAdvisorForUser(final String advisor, final String username) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("update users set advisor=?, where username=?");
+					stmt.setString(1, advisor);
+					stmt.setString(2, username);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
-	public Advisor getAdvisorForUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public Advisor getAdvisorForUser(final User user) {
+		return executeTransaction(new Transaction<Advisor>() {
+
+			@Override
+			public Advisor execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {					
+					stmt = conn.prepareStatement("select users.advisor from users where username=?");
+					stmt.setString(1, user.getUsername());
+					resultSet = stmt.executeQuery();
+					Advisor advisor = new Advisor();
+					loadAdvisor(advisor, resultSet, 1);
+					return advisor;
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 	@Override
-	public Advisor getAdvisor(String advisorName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Advisor getAdvisor(final String advisorName) {
+		return executeTransaction(new Transaction<Advisor>() {
+
+			@Override
+			public Advisor execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {					
+					stmt = conn.prepareStatement("select advisors.* from advisors where name=?");
+					stmt.setString(1, advisorName);
+					resultSet = stmt.executeQuery();
+					Advisor advisor = new Advisor();
+					loadAdvisor(advisor, resultSet, 1);
+					return advisor;
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 	@Override
@@ -509,9 +613,37 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public ArrayList<Advisor> getAdvisorsByDepartment(String department) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Advisor> getAdvisorsByDepartment(final String department) {
+		return executeTransaction(new Transaction<ArrayList<Advisor>>() {
+
+			@Override
+			public ArrayList<Advisor> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {					
+					stmt = conn.prepareStatement("select advisors.* from advisors where department=?");
+					stmt.setString(1, department);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<Advisor> result = new ArrayList<Advisor>();
+
+					while (resultSet.next()) {
+						Advisor advisor = new Advisor();
+						loadAdvisor(advisor, resultSet, 1);
+						result.add(advisor);
+					}
+					
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 	@Override
@@ -536,9 +668,29 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public String getNameOfUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNameOfUser(final String username) {
+		return executeTransaction(new Transaction<String>() {
+
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {					
+					stmt = conn.prepareStatement("select users.name from users where username=?");
+					stmt.setString(1, username);
+					resultSet = stmt.executeQuery();
+					
+					String name = resultSet.getString(1);
+					return name;
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 	@Override
@@ -575,15 +727,58 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean setMajor(String username, String major) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setMajor(final String username,final String major) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("update users set major=?, where username=?");
+					stmt.setString(1, major);
+					stmt.setString(2, username);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
-	public boolean addCourse(Course course) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addCourse(final Course course) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("insert into courses(startTime, endTime, name, prereq-id, " +
+							"instructor, location, category, type, level, semester)" +
+							" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+							PreparedStatement.RETURN_GENERATED_KEYS);
+					stmt.setString(1, course.getStartTime());
+					stmt.setString(2, course.getEndTime());
+					stmt.setString(3, course.getName());
+					stmt.setInt(4, course.getPrereq_id());
+					stmt.setString(5, course.getInstructor());
+					stmt.setString(6, course.getLocation());
+					stmt.setString(7, course.getCategory());
+					stmt.setString(8, course.getType());
+					stmt.setInt(9, course.getLevel());
+					stmt.setInt(10, course.getSemester());
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
