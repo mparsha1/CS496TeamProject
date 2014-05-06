@@ -814,15 +814,54 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public String getMajor(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getMajor(final String username) {
+			return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {					
+					stmt = conn.prepareStatement("select users.major from users where users.username=?");
+					stmt.setString(1, username);
+					resultSet = stmt.executeQuery();
+					
+					String username = resultSet.getString(1);
+					return username;
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 	@Override
-	public ArrayList<String> getClassesTakenByUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getClassesTakenByUser(final String username) {
+//		return executeTransaction(new Transaction<ArrayList<String>>() {
+//			@Override
+//			public ArrayList<String> execute(Connection conn) throws SQLException {
+//				PreparedStatement stmt = null;
+//				ResultSet resultSet = null;
+//				
+//				User u = getUser(username);
+//				int userID = u.getId();
+//				try {					
+//					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
+//					stmt.setString(1, username);
+//					resultSet = stmt.executeQuery();
+//					//TODO!!! Finish this query!
+//	
+//				} finally {
+//					DBUtil.closeQuietly(conn);
+//					DBUtil.closeQuietly(resultSet);
+//					DBUtil.closeQuietly(stmt);
+//				}
+//			}
+//			
+//		});
 	}
 
 	@Override
