@@ -41,6 +41,12 @@
     <string name="AddCourseToCurrentSchedule">Add a Course to Current Schedule</string>
     <string name="CurrentClassSchedule">Current Class Schedule</string>
     <string name="ViewCurrentCourses">View Current Courses</string>
+    <string name="AddCurrentClass">Add Current Class</string>
+    <string name="ClassName">Class Name:</string>
+    <string name="ClassTime">Class Time:</string>
+    <string name="ClassDays">Class Days:</string>
+    <string name="AddClass">Add Class</string>
+    <string name="ClassLocation">Class Location</string>
     
     
 

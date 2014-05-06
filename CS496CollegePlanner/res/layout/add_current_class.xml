@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/backButtonAddCurrentCoursePg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/Back"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/spacerTempAddCurrentPg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.24" />
+
+        <Button
+            android:id="@+id/signOutButtonAddCurrentPg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:minHeight="@dimen/SignOutHeight"
+            android:minWidth="@dimen/SignOutWidth"
+            android:text="@string/LogOut"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/currentClassTxt"
+        android:id="@+id/AddCurrentClassLbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/AddCurrentClass"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/darkGreen" />
+
+    <TextView
+        android:id="@+id/ClassNameLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/ClassName"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+    <EditText
+        android:id="@+id/ClassNameTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/ClassTimeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/ClassTime"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+    <EditText
+        android:id="@+id/ClassTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/ClassDaysLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/ClassDays"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+    <EditText
+        android:id="@+id/ClassDaysTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/classLocationLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ClassLocation"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/darkGreen" />
+
+    <EditText
+        android:id="@+id/ClassLocationTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/SubmitCurrentBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/darkGreen"
+        android:text="@string/AddClass"
+        android:textColor="@color/white" />
 
 </LinearLayout>

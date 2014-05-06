@@ -26,7 +26,6 @@ public class CurrentCoursesPage extends Activity{
 		username = i.getStringExtra("username");
 		
 		setDefaultView();
-		//setContentView(R.layout.activity_main);
 	}
 
 	public void setDefaultView() {
@@ -66,7 +65,9 @@ public class CurrentCoursesPage extends Activity{
 			@Override
 			public void onClick(View v) {
 
-				//Go to add class view
+				Intent goToAdd = new Intent(v.getContext(), AddCurrentClassPage.class);
+				goToAdd.putExtra("username", username);					
+				startActivity(goToAdd);
 
 			}	
 		});
