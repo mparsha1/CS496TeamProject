@@ -425,31 +425,6 @@ public class FakeDatabase implements IDatabase {
 
 	}
 	
-	public ArrayList<Course> getCoursesTakenByUser(String username) {
-
-		int ID = getUserID(username);
-
-		ArrayList<Integer> classes = new ArrayList<Integer>();
-
-		for(int i = 0; i < course_user.size(); i++) {
-			if(course_user.get(i).getFirst() == ID) {
-				classes.add(course_user.get(i).getSecond());
-			}
-		}
-
-		ArrayList<Course> classNames = new ArrayList<Course>();
-
-		for(int i = 0; i < classes.size(); i++) {
-			Course course = getCourseByID(classes.get(i));
-			if(course != null) {
-				classNames.add(course);
-			}
-		}
-
-		return classNames;
-
-	}
-	
 	public String getMajor(String username) {
 
 		System.out.println("Database username" + username);
@@ -662,5 +637,11 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public ArrayList<Course> getCoursesTakenByUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

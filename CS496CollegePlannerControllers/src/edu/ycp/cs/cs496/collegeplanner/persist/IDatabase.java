@@ -40,6 +40,8 @@ public interface IDatabase {
 	public ArrayList<String> getAdvisorDepartments();
 	public ArrayList<Advisor> getAdvisorsByDepartment(String department);
 	
+	public ArrayList<Course> getCoursesTakenByUser(String username);
+	
 	public boolean deleteUser(User user);
 	public String getNameOfUser(String username);
 	
@@ -53,8 +55,7 @@ public interface IDatabase {
 	
 	public String getMajor(String username);
 	
-	public ArrayList<String> getClassesTakenByUser(String username);
-	public ArrayList<Course> getCoursesTakenByUser(String username);
+	public ArrayList<String> getClassesTakenByUser(String username);	
 	
 	public ArrayList<String> getClassesInCategory(String category);
 	

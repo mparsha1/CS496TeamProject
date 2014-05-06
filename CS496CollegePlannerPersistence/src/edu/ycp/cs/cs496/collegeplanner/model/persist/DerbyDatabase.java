@@ -1,11 +1,20 @@
 package edu.ycp.cs.cs496.collegeplanner.model.persist;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import edu.ycp.cs.cs496.collegeplanner.controllers.AdvisorParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.CategoryParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.CourseParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.DepartmentParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.MajorParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.UserParser;
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
@@ -152,8 +161,8 @@ public class DerbyDatabase implements IDatabase{
 					currentClasses = conn.prepareStatement(
 							"create table currentClasses (" +
 									"userId integer," +
-									"nameAndInfo varchar(100)," +
-									"courseName varchar(10)" +
+									"nameAndInfo varchar(100)" +			
+									"courseName varchar(30)" +
 									")"
 							);
 					userAdvisorLink = conn.prepareStatement(
@@ -840,83 +849,285 @@ public class DerbyDatabase implements IDatabase{
 
 	@Override
 	public ArrayList<String> getClassesTakenByUser(final String username) {
-//		return executeTransaction(new Transaction<ArrayList<String>>() {
-//			@Override
-//			public ArrayList<String> execute(Connection conn) throws SQLException {
-//				PreparedStatement stmt = null;
-//				ResultSet resultSet = null;
-//				
-//				User u = getUser(username);
-//				int userID = u.getId();
-//				try {					
-//					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
-//					stmt.setString(1, username);
-//					resultSet = stmt.executeQuery();
-//					//TODO!!! Finish this query!
-//	
-//				} finally {
-//					DBUtil.closeQuietly(conn);
-//					DBUtil.closeQuietly(resultSet);
-//					DBUtil.closeQuietly(stmt);
-//				}
-//			}
-//			
-//		});
+		return executeTransaction(new Transaction<ArrayList<String>>() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				User u = getUser(username);
+				int userID = u.getId();
+				try {					
+					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
+					stmt.setInt(1, userID);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<String> classes = new ArrayList<String>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {
+						classes.add(resultSet.getString(index++));
+					}
+					return classes;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}			
+		});
 	}
 
 	@Override
-	public ArrayList<Course> getCoursesTakenByUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<String> getClassesInCategory(String category) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getClassesInCategory(final String category) {
+		return executeTransaction(new Transaction<ArrayList<String>>() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;					
+				
+				try {					
+					stmt = conn.prepareStatement("select courses.* from courses where courses.category=?");
+					stmt.setString(1, category);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<String> classes = new ArrayList<String>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {
+						classes.add(resultSet.getString(index++));
+					}
+					return classes;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}			
+		});
 	}
 
 	@Override
 	public ArrayList<String> getClassCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<ArrayList<String>>() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;					
+				
+				try {					
+					stmt = conn.prepareStatement("select classCategories.* from classCategories");					
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<String> classes = new ArrayList<String>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {
+						classes.add(resultSet.getString(index++));
+					}
+					return classes;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}			
+		});
 	}
 
 	@Override
-	public boolean addClassToUser(String username, String className) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addClassToUser(final String username, final String className) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				User user = new User();
+				int userId = user.getId();
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into currentClasses (userId, courseName)" +
+									" values (?, ?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);
+					stmt.setInt(1, userId);
+					stmt.setString(2, className);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
-	public boolean deleteClassFromUser(String username, String className) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteClassFromUser(final String username,final String className) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				User user = new User();
+				user = getUser(username);
+				int userId = user.getId();
+				
+				try {
+					stmt = conn.prepareStatement("delete from courseUserLinks where courseUserLinks.userId=? and courseUserLinks.courseName=?");
+					stmt.setInt(1, userId);
+					stmt.setString(2, className);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+				
+			}
+		});
 	}
 
 	@Override
-	public ArrayList<CourseSequencePairs> getCourseSequence(String major) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<CourseSequencePairs> getCourseSequence(final String major) {
+		return executeTransaction(new Transaction<ArrayList<CourseSequencePairs>>() {
+			@Override
+			public ArrayList<CourseSequencePairs> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;					
+				
+				try {					
+					stmt = conn.prepareStatement("select courseSequences.* from courseSequences where sequenceName=?");	
+					stmt.setString(1, major);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<CourseSequencePairs> sequences = new ArrayList<CourseSequencePairs>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {
+						CourseSequencePairs csp = new CourseSequencePairs();
+						loadSequences(csp, resultSet, index);
+						sequences.add(csp);
+					}
+					return sequences;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+						
+		});
 	}
 
 	@Override
-	public ArrayList<String> getCurrentClassSchedule(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getCurrentClassSchedule(final String username) {
+		return executeTransaction(new Transaction<ArrayList<String>>() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;					
+				
+				try {	
+					
+					User user = new User();
+					user = getUser(username);
+					int userId = user.getId();
+					
+					stmt = conn.prepareStatement("select currentClasses.nameInfo from currentClasses where currentClasses.userId=?");	
+					stmt.setInt(1, userId);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<String> schedule = new ArrayList<String>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {						
+						schedule.add(resultSet.getString(index++));						
+					}
+					return schedule;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+						
+		});
 	}
 
 	@Override
-	public boolean addClassToSchedule(String username, String classInfo,
-			String courseName) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addClassToSchedule(String username, final String classInfo,
+			final String courseName) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				User user = new User();
+				int userId = user.getId();
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into currentClasses (userId, nameAndInfo, courseName)" +
+									" values (?, ?, ?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);
+					stmt.setInt(1, userId);
+					stmt.setString(2, classInfo);
+					stmt.setString(3, courseName);
+					stmt.executeUpdate();
+					return true;					
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(conn);
+				}				
+			}			
+		});
 	}
 
 	@Override
-	public boolean removeClassFromSchedule(String username, String courseName) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeClassFromSchedule(final String username, final String courseName) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				User user = new User();
+				user = getUser(username);
+				int userId = user.getId();
+				
+				try {
+					stmt = conn.prepareStatement("delete from currentClasses where currentClasses.userId=? and currentClasses.courseName=?");
+					stmt.setInt(1, userId);
+					stmt.setString(2, courseName);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+				
+			}
+		});
 	}
 
 	public static void main(String[] args) {
@@ -924,12 +1135,66 @@ public class DerbyDatabase implements IDatabase{
 		System.out.println("Creating tables...");
 		db.createTables();
 		System.out.println("Loading initial data...");
-		db.loadInitialData();
+		try {
+			db.loadInitialData();
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
 		System.out.println("Done!");
 	}
 
-	private void loadInitialData() {
-		//We need to load a TON of initial data!
+	private void loadInitialData() throws IOException {
+		UserParser up = new UserParser();
+		CourseParser cp = new CourseParser();
+		AdvisorParser ap = new AdvisorParser();
+		CategoryParser cap = new CategoryParser();
+		DepartmentParser dp = new DepartmentParser();
+		MajorParser mp = new MajorParser();
+		
+		ArrayList<User> users = new ArrayList<User>();
+		ArrayList<Course> courses = new ArrayList<Course>();
+		ArrayList<String> majors = new ArrayList<String>();
+		ArrayList<Advisor> advisors = new ArrayList<Advisor>();
+		ArrayList<String> departments = new ArrayList<String>();
+		ArrayList<String> categories = new ArrayList<String>();
+		
+		File userFile = new File("userFile.txt");
+		File coursesFile = new File("courseFile.txt");
+		File majorFile = new File("majorFile.txt");
+		File advisorFile = new File("advisorFile.txt");
+		File departmentFile = new File("departmentFile.txt");
+		File categoryFile = new File("categoryFile.txt");
+		
+		users = up.parseUsers(userFile);
+		courses = cp.parseCoursesFromFile(coursesFile);
+		advisors = ap.parseAdvisors(advisorFile);
+		categories = cap.parseCategories(categoryFile);
+		majors = mp.parseMajors(majorFile);
+		departments = dp.parseDepartments(departmentFile);
+		
+		for(User user : users) {
+			System.out.println(user.getUsername());
+		}
+		
+		for(Course course : courses) {
+			System.out.println(course.getName());
+		}
+		
+		for(String major : majors) {
+			System.out.println(major);
+		}
+		
+		for(String department : departments) {
+			System.out.println(department);
+		}
+		
+		for(String category : categories) {
+			System.out.println(category);
+		}
+		
+		for(Advisor advisor : advisors) {
+			System.out.println(advisor.getName());
+		}
 
 	}
 
@@ -962,6 +1227,63 @@ public class DerbyDatabase implements IDatabase{
 		course.setType(resultSet.getString(index++));
 		course.setLevel(resultSet.getInt(index++));
 		course.setSemester(resultSet.getInt(index++));		
+	}
+	
+	private void loadSequences(CourseSequencePairs csp, ResultSet resultSet, int index) throws SQLException {
+		csp.setSequenceName(resultSet.getString(index++));
+		csp.setCourseName(resultSet.getString(index++));
+		csp.setYearNum(resultSet.getInt(index++));
+		csp.setCredits(resultSet.getInt(index++));
+		csp.setPrereq(resultSet.getString(index++));		
+	}
+
+	@Override
+	public ArrayList<Course> getCoursesTakenByUser(final String username) {
+		return executeTransaction(new Transaction<ArrayList<Course>>() {
+			@Override
+			public ArrayList<Course> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				User u = getUser(username);
+				int userID = u.getId();
+				try {					
+					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
+					stmt.setInt(1, userID);
+					resultSet = stmt.executeQuery();
+					
+					ArrayList<Integer> courseIds = new ArrayList<Integer>();
+					
+					int index = 1;
+					
+					while(resultSet.next()) {
+						courseIds.add(resultSet.getInt(index++));
+					}
+					
+					ArrayList<Course> courses = new ArrayList<Course>();
+					index = 1;
+					
+					for(int i = 0; i < courseIds.size(); i++) {
+						stmt = conn.prepareStatement("select courses.* from courses where courses.id=?");
+						stmt.setInt(i + 1, courseIds.get(i));
+						resultSet = stmt.executeQuery();
+						
+						while(resultSet.next()) {
+							Course course = new Course();
+							loadCourses(course, resultSet, index++);
+							courses.add(course);
+						}
+					}
+					
+					return courses;
+	
+				} finally {
+					DBUtil.closeQuietly(conn);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}			
+		});
 	}
 	
 }
