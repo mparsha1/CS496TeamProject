@@ -1,0 +1,40 @@
+Course,
+id,1
+name,PHY160
+category,Physics
+instructor,Mister
+prereq-id,0
+start-time,10:00am
+finish-time,10:50am
+Course,
+id,2
+name,CHM101
+category,Chemistry
+instructor,Misses
+start-time,12:00pm
+finish-time,1:45pm
+prereq-id,3
+Course,
+id,3
+name,MAT260
+category,Mathematics
+instructor,Dr. Yuan
+start-time,11:00am
+finish-time,11:50am
+prereq-id,66
+Course,
+id,4
+name,MUS100
+category,Music
+instructor,Dr. Muzzo
+start-time,1:00pm
+finish-time,1:50pm
+prereq-id,0
+Course,
+id,5
+name,MUS101
+category,Music
+instructor,Mr. Woodfield
+start-time,3:30pm
+finish-time,4:00pm
+prereq-id,0

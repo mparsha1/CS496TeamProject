@@ -161,7 +161,7 @@ public class DerbyDatabase implements IDatabase{
 					currentClasses = conn.prepareStatement(
 							"create table currentClasses (" +
 									"userId integer," +
-									"nameAndInfo varchar(100)" +			
+									"nameAndInfo varchar(100)," +			
 									"courseName varchar(30)" +
 									")"
 							);
@@ -766,7 +766,7 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				
 				try {
-					stmt = conn.prepareStatement("insert into courses(startTime, endTime, name, prereq-id, " +
+					stmt = conn.prepareStatement("insert into courses(startTime, endTime, name, prereq_id, " +
 							"instructor, location, category, type, level, semester)" +
 							" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 							PreparedStatement.RETURN_GENERATED_KEYS);
@@ -1133,6 +1133,7 @@ public class DerbyDatabase implements IDatabase{
 	public static void main(String[] args) {
 		DerbyDatabase db = new DerbyDatabase();
 		System.out.println("Creating tables...");
+		//TODO: alter tables created - 
 		db.createTables();
 		System.out.println("Loading initial data...");
 		try {
@@ -1158,11 +1159,11 @@ public class DerbyDatabase implements IDatabase{
 		ArrayList<String> departments = new ArrayList<String>();
 		ArrayList<String> categories = new ArrayList<String>();
 		
-		File userFile = new File("userFile.txt");
+		File userFile = new File("usersFile.txt");
 		File coursesFile = new File("courseFile.txt");
-		File majorFile = new File("majorFile.txt");
+		File majorFile = new File("majorsFile.txt");
 		File advisorFile = new File("advisorFile.txt");
-		File departmentFile = new File("departmentFile.txt");
+		File departmentFile = new File("departmentsFile.txt");
 		File categoryFile = new File("categoryFile.txt");
 		
 		users = up.parseUsers(userFile);
@@ -1229,9 +1230,7 @@ public class DerbyDatabase implements IDatabase{
 		for(Advisor advisor : advisors) {
 			this.addAdvisor(advisor);
 			System.out.println("added " + advisor.getName());
-		}
-		
-		
+		}		
 
 	}
 
@@ -1373,7 +1372,7 @@ public class DerbyDatabase implements IDatabase{
 
 				try {
 					stmt = conn.prepareStatement(
-							"insert into categories (category)" +
+							"insert into classCategories (category)" +
 									" values (?)",
 									PreparedStatement.RETURN_GENERATED_KEYS
 							);					
@@ -1412,7 +1411,7 @@ public class DerbyDatabase implements IDatabase{
 
 				try {
 					stmt = conn.prepareStatement(
-							"insert into departments (department)" +
+							"insert into departments (name)" +
 									" values (?)",
 									PreparedStatement.RETURN_GENERATED_KEYS
 							);					

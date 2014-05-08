@@ -16,6 +16,7 @@ public class UserParser {
 	
 	public ArrayList<User> parseUsers(File userFile) throws IOException {
 		if(!userFile.exists()) {
+			System.out.println("could not find user file");
 			return null;
 		}
 		
@@ -64,7 +65,7 @@ public class UserParser {
 					users.get(users.size() - 1).setMajor(majorAsString);
 				}
 			}
-			System.out.println(users.toString());
+			
 			return users;
 		} finally {
 			breader.close();
