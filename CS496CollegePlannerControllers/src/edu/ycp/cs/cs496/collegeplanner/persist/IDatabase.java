@@ -28,6 +28,12 @@ public interface IDatabase {
 	
 	public ArrayList<User> getUsers();
 	
+	public boolean addMajor(String major);
+	
+	public boolean addCategory(String category);
+	
+	public boolean addDepartment(String department);
+	
 	public boolean addAdvisor(Advisor advsr);
 	
 	public boolean setAdvisorForUser(String advisor, String user);

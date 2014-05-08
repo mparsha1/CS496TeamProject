@@ -644,4 +644,22 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean addMajor(String major) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addCategory(String category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addDepartment(String department) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

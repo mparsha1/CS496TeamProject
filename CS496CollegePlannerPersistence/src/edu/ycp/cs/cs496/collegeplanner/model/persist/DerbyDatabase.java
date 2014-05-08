@@ -1172,6 +1172,8 @@ public class DerbyDatabase implements IDatabase{
 		majors = mp.parseMajors(majorFile);
 		departments = dp.parseDepartments(departmentFile);
 		
+		// make sure parsers worked
+		
 		for(User user : users) {
 			System.out.println(user.getUsername());
 		}
@@ -1195,6 +1197,41 @@ public class DerbyDatabase implements IDatabase{
 		for(Advisor advisor : advisors) {
 			System.out.println(advisor.getName());
 		}
+		
+		
+		// make sure adding works
+		
+		for(User user : users) {
+			this.addUser(user);
+			System.out.println("added " + user.getUsername());
+		}
+		
+		for(Course course : courses) {
+			this.addCourse(course);
+			System.out.println("added " + course.getName());
+		}
+		
+		for(String major : majors) {	
+			this.addMajor(major);
+			System.out.println("added " + major);
+		}
+		
+		for(String department : departments) {
+			this.addDepartment(department);
+			System.out.println("added " + department);
+		}
+		
+		for(String category : categories) {
+			this.addCategory(category);
+			System.out.println("added " + category);
+		}
+		
+		for(Advisor advisor : advisors) {
+			this.addAdvisor(advisor);
+			System.out.println("added " + advisor.getName());
+		}
+		
+		
 
 	}
 
@@ -1284,6 +1321,123 @@ public class DerbyDatabase implements IDatabase{
 				}
 			}			
 		});
+	}
+
+	@Override
+	public boolean addMajor(final String major) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"insert into majors (major)" +
+									" values (?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);					
+					
+					stmt.setString(1, major);
+
+					try {
+						stmt.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted Major");
+					}					
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});		
+	}
+
+	@Override
+	public boolean addCategory(final String category) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"insert into categories (category)" +
+									" values (?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);					
+					
+					stmt.setString(1, category);
+
+					try {
+						stmt.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted Category");
+					}					
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
+	}
+
+	@Override
+	public boolean addDepartment(final String department) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"insert into departments (department)" +
+									" values (?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);					
+					
+					stmt.setString(1, department);
+
+					try {
+						stmt.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted department");
+					}					
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
 	}
 	
 }
