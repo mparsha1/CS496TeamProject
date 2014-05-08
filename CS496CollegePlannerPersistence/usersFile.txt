@@ -5,6 +5,7 @@ password,7
 name,Drew Holtzapple
 emailAddress,dholtzap@ycp.edu
 major,Computer Science
+maxCredits,18
 User,
 id,2
 username,mparsha
@@ -12,21 +13,25 @@ password,abc123
 name,Misty Parshall
 emailAddress,mparsha@ycp.edu
 major,Computer Science
+maxCredits,18
 User,
 id,3
 username,fakeperson
 password,uncrackable
 emailAddress,doesntexist@ycp.edu
 major,Music
+maxCredits,18
 User,
 id,4
 username,notreal
 password,a
 emailAddress,notreal@ycp.edu
 major,Mass Communication
+maxCredits,18
 User,
 id,5
 username,faux
 password,kittens
 emailAddress,fuzz@ycp.edu
 major,Biology
+maxCredits,18

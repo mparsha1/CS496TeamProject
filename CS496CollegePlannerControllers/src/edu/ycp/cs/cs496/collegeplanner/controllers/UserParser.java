@@ -64,6 +64,11 @@ public class UserParser {
 					String majorAsString = line.substring(line.indexOf(',') + 1, line.length());					
 					users.get(users.size() - 1).setMajor(majorAsString);
 				}
+				else if(type.equals("maxCredits")) {
+					String maxCreditsAsString = line.substring(line.indexOf(',') + 1, line.length());
+					int maxCredits = Integer.parseInt(maxCreditsAsString);
+					users.get(users.size() - 1).setMaxCredits(maxCredits);
+				}
 			}
 			
 			return users;

@@ -378,20 +378,22 @@ public class DerbyDatabase implements IDatabase{
 
 				try {
 					stmt = conn.prepareStatement("select users.* from users where users.username= ?");
+					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();				
 
 					if (!resultSet.next()) {
 						// No such item
 						return null;
 					}
-
+					//TODO: use loadUser method
+					
 					User user = new User();
-					user.setId(resultSet.getInt(1));
-					user.setUsername(resultSet.getString(2));
-					user.setPassword(resultSet.getString(3));
-					user.setName(resultSet.getString(4));
-					user.setEmailAddress(resultSet.getString(5));
-					user.setMajor(resultSet.getString(6));
+					user.setId(resultSet.getInt("id"));
+					user.setUsername(resultSet.getString("username"));
+					user.setPassword(resultSet.getString("password"));
+					user.setName(resultSet.getString("name"));
+					user.setEmailAddress(resultSet.getString("emailAddress"));
+					user.setMajor(resultSet.getString("major"));
 
 					return user;
 				} finally {
@@ -483,18 +485,31 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean setAdvisorForUser(final String advisor, final String username) {
+	public boolean setAdvisorForUser(final String advisorName, final String username) {
 		return executeTransaction(new Transaction<Boolean>() {
 
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				
+				User user = new User();
+				user = getUser(username);
+				int userId = user.getId();
+				
+				Advisor advisor = new Advisor();
+				advisor = getAdvisor(advisorName);
+				int advisorId = advisor.getId();
 				
 				try {
-					stmt = conn.prepareStatement("update users set advisor=?, where username=?");
-					stmt.setString(1, advisor);
-					stmt.setString(2, username);
+					stmt = conn.prepareStatement("delete from userAdvisorLink where userAdvisorLink.userId= ?");
+					stmt.setInt(1, userId);					
 					stmt.executeUpdate();
+					
+					stmt2 = conn.prepareStatement("insert into userAdvisorLink (userId, advisorId) values(?,?)");
+					stmt2.setInt(1, userId);
+					stmt2.setInt(2, advisorId);
+					
 					return true;					
 				} finally {
 					DBUtil.closeQuietly(stmt);
@@ -513,10 +528,18 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
+				User userWithId = new User();
+				userWithId = getUser(user.getUsername());
+				
+				int userId = userWithId.getId();
+				
 				try {					
-					stmt = conn.prepareStatement("select users.advisor from users where username=?");
-					stmt.setString(1, user.getUsername());
+					stmt = conn.prepareStatement("select userAdvisorLink.* from userAdvisorLink where userAdvisorLink.userId= ?");
+					stmt.setInt(1, userId);
 					resultSet = stmt.executeQuery();
+					if (!resultSet.next()) {
+						return null;
+					}
 					Advisor advisor = new Advisor();
 					loadAdvisor(advisor, resultSet, 1);
 					return advisor;
@@ -543,6 +566,9 @@ public class DerbyDatabase implements IDatabase{
 					stmt = conn.prepareStatement("select advisors.* from advisors where name=?");
 					stmt.setString(1, advisorName);
 					resultSet = stmt.executeQuery();
+					if (!resultSet.next()) {
+						return null;
+					}
 					Advisor advisor = new Advisor();
 					loadAdvisor(advisor, resultSet, 1);
 					return advisor;
@@ -602,12 +628,10 @@ public class DerbyDatabase implements IDatabase{
 
 					resultSet = stmt.executeQuery();
 
-					ArrayList<String> result = new ArrayList<String>();
-
-					int index = 1;
+					ArrayList<String> result = new ArrayList<String>();					
 					
 					while (resultSet.next()) {
-						String name = resultSet.getString(index++);
+						String name = resultSet.getString("name");
 						result.add(name);
 					}
 
@@ -689,7 +713,9 @@ public class DerbyDatabase implements IDatabase{
 					stmt = conn.prepareStatement("select users.name from users where username=?");
 					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();
-					
+					if (!resultSet.next()) {
+						return null;
+					}
 					String name = resultSet.getString(1);
 					return name;
 				} finally {
@@ -716,12 +742,10 @@ public class DerbyDatabase implements IDatabase{
 
 					resultSet = stmt.executeQuery();
 
-					ArrayList<String> result = new ArrayList<String>();
-
-					int index = 1;					
+					ArrayList<String> result = new ArrayList<String>();									
 					
 					while (resultSet.next()) {
-						String name = resultSet.getString(index++);
+						String name = resultSet.getString("major");
 						result.add(name);
 					}
 
@@ -744,7 +768,7 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				
 				try {
-					stmt = conn.prepareStatement("update users set major=?, where username=?");
+					stmt = conn.prepareStatement("update users set major= ? where username= ?");
 					stmt.setString(1, major);
 					stmt.setString(2, username);
 					stmt.executeUpdate();
@@ -831,12 +855,16 @@ public class DerbyDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {					
-					stmt = conn.prepareStatement("select users.major from users where users.username=?");
+					stmt = conn.prepareStatement("select users.major from users where users.username= ?");
 					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();
 					
-					String username = resultSet.getString(1);
-					return username;
+					if (!resultSet.next()) {
+						return null;
+					}
+					
+					String major = resultSet.getString(1);
+					return major;
 				} finally {
 					DBUtil.closeQuietly(conn);
 					DBUtil.closeQuietly(resultSet);
@@ -898,7 +926,7 @@ public class DerbyDatabase implements IDatabase{
 					int index = 1;
 					
 					while(resultSet.next()) {
-						classes.add(resultSet.getString(index++));
+						classes.add(resultSet.getString("name"));
 					}
 					return classes;
 	
@@ -928,7 +956,7 @@ public class DerbyDatabase implements IDatabase{
 					int index = 1;
 					
 					while(resultSet.next()) {
-						classes.add(resultSet.getString(index++));
+						classes.add(resultSet.getString("category"));
 					}
 					return classes;
 	
@@ -1176,7 +1204,7 @@ public class DerbyDatabase implements IDatabase{
 		// make sure parsers worked
 		
 		for(User user : users) {
-			System.out.println(user.getUsername());
+			System.out.println(user.getUsername());			
 		}
 		
 		for(Course course : courses) {
@@ -1235,42 +1263,42 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
-		user.setId(resultSet.getInt(index++));
-		user.setUsername(resultSet.getString(index++));
-		user.setPassword(resultSet.getString(index++));
-		user.setName(resultSet.getString(index++));
-		user.setEmailAddress(resultSet.getString(index++));
-		user.setMajor(resultSet.getString(index++));
-		user.setMaxCredits(resultSet.getInt(index++));
+		user.setId(resultSet.getInt("id"));
+		user.setUsername(resultSet.getString("username"));
+		user.setPassword(resultSet.getString("password"));
+		user.setName(resultSet.getString("name"));
+		user.setEmailAddress(resultSet.getString("emailAddress"));
+		user.setMajor(resultSet.getString("major"));
+		user.setMaxCredits(resultSet.getInt("maxCredits"));
 	}
 
 	private void loadAdvisor(Advisor advisor, ResultSet resultSet, int index) throws SQLException {
-		advisor.setId(resultSet.getInt(index++));
-		advisor.setName(resultSet.getString(index++));
-		advisor.setDepartment(resultSet.getString(index++));
-		advisor.setLocation(resultSet.getString(index++));
-		advisor.setEmail(resultSet.getString(index++));
-		advisor.setPhone(resultSet.getString(index++));				
+		advisor.setId(resultSet.getInt("id"));
+		advisor.setName(resultSet.getString("name"));
+		advisor.setDepartment(resultSet.getString("department"));
+		advisor.setLocation(resultSet.getString("location"));
+		advisor.setEmail(resultSet.getString("email"));
+		advisor.setPhone(resultSet.getString("phone"));				
 	}
 	private void loadCourses(Course course, ResultSet resultSet, int index) throws SQLException {
-		course.setId(resultSet.getInt(index++));
-		course.setStartTime(resultSet.getString(index++));
-		course.setEndTime(resultSet.getString(index++));
-		course.setPrereq_id(resultSet.getInt(index++));
-		course.setInstructor(resultSet.getString(index++));
-		course.setLocation(resultSet.getString(index++));
-		course.setCategory(resultSet.getString(index++));
-		course.setType(resultSet.getString(index++));
-		course.setLevel(resultSet.getInt(index++));
-		course.setSemester(resultSet.getInt(index++));		
+		course.setId(resultSet.getInt("id"));
+		course.setStartTime(resultSet.getString("startTime"));
+		course.setEndTime(resultSet.getString("endTime"));
+		course.setPrereq_id(resultSet.getInt("prereq_id"));
+		course.setInstructor(resultSet.getString("instructor"));
+		course.setLocation(resultSet.getString("location"));
+		course.setCategory(resultSet.getString("category"));
+		course.setType(resultSet.getString("type"));
+		course.setLevel(resultSet.getInt("level"));
+		course.setSemester(resultSet.getInt("semester"));		
 	}
 	
 	private void loadSequences(CourseSequencePairs csp, ResultSet resultSet, int index) throws SQLException {
-		csp.setSequenceName(resultSet.getString(index++));
-		csp.setCourseName(resultSet.getString(index++));
-		csp.setYearNum(resultSet.getInt(index++));
-		csp.setCredits(resultSet.getInt(index++));
-		csp.setPrereq(resultSet.getString(index++));		
+		csp.setSequenceName(resultSet.getString("sequenceName"));
+		csp.setCourseName(resultSet.getString("courseName"));
+		csp.setYearNum(resultSet.getInt("yearNum"));
+		csp.setCredits(resultSet.getInt("credits"));
+		csp.setPrereq(resultSet.getString("prereq"));		
 	}
 
 	@Override
