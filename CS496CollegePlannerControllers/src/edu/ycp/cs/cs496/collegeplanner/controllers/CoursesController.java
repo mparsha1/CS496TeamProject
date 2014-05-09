@@ -22,7 +22,7 @@ public class CoursesController {
 	
 	public ArrayList<String> getClassesTakenByUser(String username) {
 		IDatabase db = DatabaseProvider.getInstance();
-		
+
 		return db.getClassesTakenByUser(username);
 	}
 	

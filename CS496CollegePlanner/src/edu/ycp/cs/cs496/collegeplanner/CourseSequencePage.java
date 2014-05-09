@@ -98,6 +98,7 @@ public class CourseSequencePage extends Activity {
 					e.printStackTrace();
 				}  
 				
+				u.setUsername(username);
 				u.setMajor(major);
 				u.setMaxCredits(maxCredits);
 				GetCourseSequence controller = new GetCourseSequence();

@@ -11,8 +11,12 @@ public class Course {
 	private String name;
 	private int prereq_id; 
 	private String instructor;
-	private String location;	// TODO: should location be a class we make? NO
+	private String location;	
 	private String category;
+	private String type;
+	private int level;
+	private int credits;
+	private int semester;
 	
 	public Course() {
 		
@@ -80,5 +84,45 @@ public class Course {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getPrereq_id() {
+		return prereq_id;
+	}
+
+	public void setPrereq_id(int prereq_id) {
+		this.prereq_id = prereq_id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	public int getSemester() {
+		return semester;
+	}
+
+	public void setSemester(int semester) {
+		this.semester = semester;
 	}
 }
