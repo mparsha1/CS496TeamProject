@@ -18,11 +18,12 @@ public class GetSuggestedCourseSequence {
 		ArrayList<Course> taken = db.getCoursesTakenByUser(u.getUsername());
 		
 		
-		
-		for(int i = 0; i < taken.size(); i++) {
-			for(int j = 0; j < sequence.size(); j++) {
-				if(taken.get(i).getType().equals(sequence.get(i).getCourseName())) {
-					sequence.remove(i);
+		if(taken!=null){
+			for(int i = 0; i < taken.size(); i++) {
+				for(int j = 0; j < sequence.size(); j++) {
+					if(taken.get(i).getType().equals(sequence.get(i).getCourseName())) {
+						sequence.remove(i);
+					}
 				}
 			}
 		}

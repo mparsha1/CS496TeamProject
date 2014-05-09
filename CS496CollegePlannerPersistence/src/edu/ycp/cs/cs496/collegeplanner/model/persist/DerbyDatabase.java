@@ -392,6 +392,7 @@ public class DerbyDatabase implements IDatabase{
 
 					System.out.println(user.getUsername() + user.getId());
 					return user;
+					
 				} finally {
 					DBUtil.closeQuietly(conn);
 					DBUtil.closeQuietly(resultSet);
@@ -1351,7 +1352,8 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;					
 
-				System.out.println("&&&&&&&&&&username in getCourses: " + username);
+				System.out.println("###################### username in getCourses: " + username);
+				
 				User u = getUser(username);
 				int userID = u.getId();
 
