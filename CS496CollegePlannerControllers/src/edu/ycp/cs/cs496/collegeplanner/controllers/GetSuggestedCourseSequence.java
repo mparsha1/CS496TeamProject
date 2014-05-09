@@ -14,7 +14,10 @@ public class GetSuggestedCourseSequence {
 		IDatabase db = DatabaseProvider.getInstance();
 		
 		ArrayList<CourseSequencePairs> sequence = db.getCourseSequence(u.getMajor());
+		System.out.println("user in controller: " + u.getUsername());
 		ArrayList<Course> taken = db.getCoursesTakenByUser(u.getUsername());
+		
+		
 		
 		for(int i = 0; i < taken.size(); i++) {
 			for(int j = 0; j < sequence.size(); j++) {

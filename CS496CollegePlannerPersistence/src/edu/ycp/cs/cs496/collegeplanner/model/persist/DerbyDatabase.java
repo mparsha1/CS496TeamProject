@@ -355,7 +355,7 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				
 				try {
-					stmt = conn.prepareStatement("update users set username=?, where username=?");
+					stmt = conn.prepareStatement("update users set username= ? where username= ?");
 					stmt.setString(1, newUsername);
 					stmt.setString(2, username);
 					stmt.executeUpdate();
@@ -386,7 +386,6 @@ public class DerbyDatabase implements IDatabase{
 						// No such item
 						return null;
 					}
-					//TODO: use loadUser method
 					
 					User user = new User();
 					user.setId(resultSet.getInt("id"));
@@ -504,6 +503,8 @@ public class DerbyDatabase implements IDatabase{
 				advisor = getAdvisor(advisorName);
 				int advisorId = advisor.getId();
 				
+				System.out.println("In set advisor For user!");
+				
 				try {
 					stmt = conn.prepareStatement("delete from userAdvisorLink where userAdvisorLink.userId= ?");
 					stmt.setInt(1, userId);					
@@ -512,6 +513,7 @@ public class DerbyDatabase implements IDatabase{
 					stmt2 = conn.prepareStatement("insert into userAdvisorLink (userId, advisorId) values(?,?)");
 					stmt2.setInt(1, userId);
 					stmt2.setInt(2, advisorId);
+					stmt2.executeUpdate();
 					
 					return true;					
 				} finally {
@@ -537,15 +539,29 @@ public class DerbyDatabase implements IDatabase{
 				int userId = userWithId.getId();
 				
 				try {					
-					stmt = conn.prepareStatement("select userAdvisorLink.* from userAdvisorLink where userAdvisorLink.userId= ?");
+					stmt = conn.prepareStatement("select userAdvisorLink.advisorId from userAdvisorLink where userAdvisorLink.userId= ?");
 					stmt.setInt(1, userId);
 					resultSet = stmt.executeQuery();
+					
 					if (!resultSet.next()) {
+						System.out.println("Advisor Not Found!");
 						return null;
 					}
+					
+					int advisorId = resultSet.getInt("advisorId");
+					
+					ArrayList<Advisor> all = getAdvisors();
 					Advisor advisor = new Advisor();
-					loadAdvisor(advisor, resultSet, 1);
+					
+					for(int i = 0; i < all.size(); i++) {
+						if(all.get(i).getId() == advisorId) {
+							advisor = all.get(i);
+							System.out.println("Found Advisor" + advisor.getName());
+						}
+					}
+					
 					return advisor;
+					
 				} finally {
 					DBUtil.closeQuietly(conn);
 					DBUtil.closeQuietly(resultSet);
@@ -880,35 +896,20 @@ public class DerbyDatabase implements IDatabase{
 
 	@Override
 	public ArrayList<String> getClassesTakenByUser(final String username) {
-		return executeTransaction(new Transaction<ArrayList<String>>() {
-			@Override
-			public ArrayList<String> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
+		
+				ArrayList<Course> courses = getCoursesTakenByUser(username);
+				ArrayList<String> result = new ArrayList<String>();
 				
-				User u = getUser(username);
-				int userID = u.getId();
-				try {					
-					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
-					stmt.setInt(1, userID);
-					resultSet = stmt.executeQuery();
-					
-					ArrayList<String> classes = new ArrayList<String>();
-					
-					int index = 1;
-					
-					while(resultSet.next()) {
-						classes.add(resultSet.getString(index++));
+				
+				if(courses!=null) {
+					System.out.println("foundCourses" + courses.get(0).getName());
+					for(int i = 0; i < courses.size(); i++) {
+						result.add(courses.get(i).getName());
+						System.out.println(courses.get(i).getName());
 					}
-					return classes;
-	
-				} finally {
-					DBUtil.closeQuietly(conn);
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
 				}
-			}			
-		});
+				
+				return result;
 	}
 
 	@Override
@@ -979,20 +980,38 @@ public class DerbyDatabase implements IDatabase{
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement getCourseId = null;
+				ResultSet resultSet = null;	
 				
-				User user = new User();
+				User user = getUser(username);
 				int userId = user.getId();
 				
+				System.out.println("userId: " + userId);
+				
+				
 				try {
-					stmt = conn.prepareStatement(
-							"insert into currentClasses (userId, courseName)" +
-									" values (?, ?)",
-									PreparedStatement.RETURN_GENERATED_KEYS
-							);
-					stmt.setInt(1, userId);
-					stmt.setString(2, className);
-					stmt.executeUpdate();
-					return true;					
+					getCourseId = conn.prepareStatement("select courses.id from courses where courses.name = ?");
+							getCourseId.setString(1, className);
+							
+							resultSet = getCourseId.executeQuery();
+							
+					if(resultSet.next()) {	
+						
+						System.out.println("Actually going to try to insert: " + className);
+						int courseId = resultSet.getInt("id");
+						System.out.println("courseId to be added " + courseId);
+						stmt = conn.prepareStatement(
+								"insert into courseUserLinks (userId, courseId)" +
+										" values (?, ?)"
+	
+								);
+						stmt.setInt(1, userId);
+						stmt.setInt(2, courseId);
+						stmt.executeUpdate();
+						return true;	
+					}
+					
+					return false;
 				} finally {
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(conn);
@@ -1008,19 +1027,30 @@ public class DerbyDatabase implements IDatabase{
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement getCourseId = null;
+				ResultSet resultSet = null;
 				
 				User user = new User();
 				user = getUser(username);
 				int userId = user.getId();
 				
 				try {
-					stmt = conn.prepareStatement("delete from courseUserLinks where courseUserLinks.userId=? and courseUserLinks.courseName=?");
-					stmt.setInt(1, userId);
-					stmt.setString(2, className);
 					
-					stmt.executeUpdate();
+					getCourseId = conn.prepareStatement("select courses.id from courses where courses.name = ?");
+					getCourseId.setString(1, className);
+					resultSet = getCourseId.executeQuery();
 					
-					return true;
+					if(resultSet.next()) {
+						int courseId = resultSet.getInt("id");
+						stmt = conn.prepareStatement("delete from courseUserLinks where courseUserLinks.userId= ? and courseUserLinks.courseId = ?");
+						stmt.setInt(1, userId);
+						stmt.setInt(2, courseId);
+						
+						
+						stmt.executeUpdate();
+						return true;
+					}
+					return false;
 				} finally {
 					DBUtil.closeQuietly(conn);					
 					DBUtil.closeQuietly(stmt);
@@ -1303,6 +1333,7 @@ public class DerbyDatabase implements IDatabase{
 		course.setPrereq_id(resultSet.getInt("prereq_id"));
 		course.setInstructor(resultSet.getString("instructor"));
 		course.setLocation(resultSet.getString("location"));
+		course.setName(resultSet.getString("name"));
 		course.setCategory(resultSet.getString("category"));
 		course.setType(resultSet.getString("type"));
 		course.setLevel(resultSet.getInt("level"));
@@ -1325,33 +1356,36 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;				
 				
-				System.out.println(getUser(username).getId());
-				
-				int userID = getUser(username).getId();
+
+				System.out.println("username in getCourses: " + username);
+				User u = getUser(username);
+				int userID = u.getId();
+
 				try {					
-					stmt = conn.prepareStatement("select courseUserLinks.courseID from courseUserLinks where courseUserLinks.userID=?");
+					stmt = conn.prepareStatement("select courseUserLinks.courseId from courseUserLinks where courseUserLinks.userId= ?");
 					stmt.setInt(1, userID);
 					resultSet = stmt.executeQuery();
 					
 					ArrayList<Integer> courseIds = new ArrayList<Integer>();
 					
-					int index = 1;
 					
 					while(resultSet.next()) {
-						courseIds.add(resultSet.getInt(index++));
+						System.out.println("Found actual results for user " + username);
+						courseIds.add(resultSet.getInt("courseId"));
 					}
 					
 					ArrayList<Course> courses = new ArrayList<Course>();
-					index = 1;
 					
 					for(int i = 0; i < courseIds.size(); i++) {
-						stmt = conn.prepareStatement("select courses.* from courses where courses.id=?");
-						stmt.setInt(i + 1, courseIds.get(i));
+						
+						System.out.println("Found actual results for user " + username);
+						stmt = conn.prepareStatement("select courses.* from courses where courses.id= ?");
+						stmt.setInt(1, courseIds.get(i));
 						resultSet = stmt.executeQuery();
 						
 						while(resultSet.next()) {
 							Course course = new Course();
-							loadCourses(course, resultSet, index++);
+							loadCourses(course, resultSet, 1);
 							courses.add(course);
 						}
 					}

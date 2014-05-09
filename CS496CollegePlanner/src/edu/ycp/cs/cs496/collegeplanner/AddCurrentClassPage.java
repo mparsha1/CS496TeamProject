@@ -17,9 +17,9 @@ public class AddCurrentClassPage extends Activity{
 		Intent i = getIntent();
 		username = i.getStringExtra("username");
 		
-		setDefaultView();
+		setDefaultView();  
 		
-	}
+	} 
 
 	private void setDefaultView() {
 		setContentView(R.layout.add_current_class);
@@ -37,7 +37,7 @@ public class AddCurrentClassPage extends Activity{
 				backToCurrent.putExtra("username", username);
 				startActivity(backToCurrent);
 
-			}	
+			}	 
 		});
 		
 		signOutButton.setOnClickListener(new View.OnClickListener() {

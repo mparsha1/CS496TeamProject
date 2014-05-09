@@ -63,10 +63,25 @@ public class AdvisorServlet extends HttpServlet {
 			for(User usr : users) {
 				if(usr.getUsername().equals(username)) {
 					advisor = gafuc.getAdvisorForUser(usr);
+					System.out.println("Advisor: " + advisor);
 				}
+			}
+			if(advisor == null) {
+				Advisor none = new Advisor();
+				none.setDepartment("N/A");
+				none.setEmail("N/A");
+				none.setId(-1);
+				none.setLocation("N/A");
+				none.setPhone("N/A");
+				none.setName("Not Specified");
+				resp.setStatus(HttpServletResponse.SC_OK); 
+				resp.setContentType("application/json"); 
+				JSON.getObjectMapper().writeValue(writer, none);	
+				return;
 			}
 			
 			if(advisor.getName() != null) {
+				System.out.println("Inside not null in advisor get");
 				resp.setStatus(HttpServletResponse.SC_OK); 
 				resp.setContentType("application/json"); 
 				JSON.getObjectMapper().writeValue(writer, advisor);	
