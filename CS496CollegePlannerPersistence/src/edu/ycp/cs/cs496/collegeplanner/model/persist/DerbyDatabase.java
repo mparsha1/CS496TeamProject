@@ -388,13 +388,7 @@ public class DerbyDatabase implements IDatabase{
 					}
 					
 					User user = new User();
-					user.setId(resultSet.getInt("id"));
-					System.out.println("#### GOT USER WITH ID " + user.getId() + " ####");
-					user.setUsername(resultSet.getString("username"));
-					user.setPassword(resultSet.getString("password"));
-					user.setName(resultSet.getString("name"));
-					user.setEmailAddress(resultSet.getString("emailAddress"));
-					user.setMajor(resultSet.getString("major"));
+					loadUser(user, resultSet, 1);
 
 					System.out.println(user.getUsername() + user.getId());
 					return user;
@@ -1108,7 +1102,7 @@ public class DerbyDatabase implements IDatabase{
 					user = getUser(username);
 					int userId = user.getId();
 					
-					stmt = conn.prepareStatement("select currentClasses.nameInfo from currentClasses where currentClasses.userId=?");	
+					stmt = conn.prepareStatement("select currentClasses.nameAndInfo from currentClasses where currentClasses.userId=?");	
 					stmt.setInt(1, userId);
 					resultSet = stmt.executeQuery();
 					
@@ -1355,10 +1349,9 @@ public class DerbyDatabase implements IDatabase{
 			@Override
 			public ArrayList<Course> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				ResultSet resultSet = null;				
-				
+				ResultSet resultSet = null;					
 
-				System.out.println("username in getCourses: " + username);
+				System.out.println("&&&&&&&&&&username in getCourses: " + username);
 				User u = getUser(username);
 				int userID = u.getId();
 

@@ -1,8 +1,6 @@
 package edu.ycp.cs.cs496.collegeplanner.model.persist;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
 import edu.ycp.cs.cs496.collegeplanner.models.Course;
 import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
