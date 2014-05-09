@@ -723,14 +723,15 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
-				try {					
-					stmt = conn.prepareStatement("select users.name from users where username=?");
+				try {	
+					System.out.println("##### getting name of user with username: " + username);
+					stmt = conn.prepareStatement("select users.name from users where users.username=?");
 					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();
 					if (!resultSet.next()) {
 						return null;
 					}
-					String name = resultSet.getString(1);
+					String name = resultSet.getString("name");
 					return name;
 				} finally {
 					DBUtil.closeQuietly(conn);
@@ -1102,18 +1103,20 @@ public class DerbyDatabase implements IDatabase{
 					User user = new User();
 					user = getUser(username);
 					int userId = user.getId();
+					System.out.println("getting schedule for userId " + userId);
+					stmt = conn.prepareStatement("select currentClasses.nameAndInfo from currentClasses where currentClasses.userId= ?");	
 					
-					stmt = conn.prepareStatement("select currentClasses.nameAndInfo from currentClasses where currentClasses.userId=?");	
 					stmt.setInt(1, userId);
 					resultSet = stmt.executeQuery();
 					
 					ArrayList<String> schedule = new ArrayList<String>();
-					
-					int index = 1;
-					
+										
 					while(resultSet.next()) {						
-						schedule.add(resultSet.getString(index++));						
+						schedule.add(resultSet.getString("nameAndInfo"));						
 					}
+					
+					System.out.println("schedule size " + schedule.size());
+					
 					return schedule;
 	
 				} finally {
@@ -1127,8 +1130,7 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean addClassToSchedule(String username, final String classInfo,
-			final String courseName) {
+	public boolean addClassToSchedule(final String username, final String classInfo, final String courseName) {
 		return executeTransaction(new Transaction<Boolean>() {
 
 			@Override
@@ -1136,6 +1138,7 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement stmt = null;
 				
 				User user = new User();
+				user = getUser(username);
 				int userId = user.getId();
 				
 				try {

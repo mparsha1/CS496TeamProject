@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import mobileControllers.ChangeUsername;
 import mobileControllers.GetAdvisorForUser;
 import mobileControllers.GetMajor;
+import mobileControllers.GetNameOfUser;
 import mobileControllers.GetPassword;
 import mobileControllers.SetPassword;
 
@@ -269,19 +270,25 @@ public class AccountPage extends Activity{
 	private void setDefaultView() throws ClientProtocolException, URISyntaxException, IOException {
 		setContentView(R.layout.account_view);
 
+		TextView nameText = (TextView) findViewById(R.id.NameTextView_AcntPg);
 		TextView majorText = (TextView) findViewById(R.id.MajorTextView_2);
 		TextView usernameText = (TextView) findViewById(R.id.UsernameTextView_2);
 		TextView advisorText = (TextView) findViewById(R.id.advisorTextView);
 		TextView advisorEmail = (TextView) findViewById(R.id.AdvisorEmail);
 		TextView advisorPhone = (TextView) findViewById(R.id.AdvisorPhone);
 		TextView advisorLocation = (TextView) findViewById(R.id.AdvisorLocation);
-
+		
 		Button signOutButton = (Button) findViewById(R.id.signOutButtonAccountPg);
 		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);
 
 		Button editUsernameButton = (Button) findViewById(R.id.editUsernameAcntPgBtn);
 		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);		
 
+		GetNameOfUser gnou = new GetNameOfUser();
+		String nameOfUser =  gnou.getNameOfUser(username);
+		Toast.makeText(AccountPage.this, nameOfUser, Toast.LENGTH_SHORT).show();
+		nameText.setText("Name: " + nameOfUser);
+		
 		usernameText.setText("Username: " + username);
 
 		GetMajor gm = new GetMajor();
