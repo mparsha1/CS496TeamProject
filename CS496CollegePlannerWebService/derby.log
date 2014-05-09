@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri May 09 17:04:08 EDT 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0145-e2cc-b98d-000003347808 
+on database directory H:\collegeplanner.edu with class loader sun.misc.Launcher$AppClassLoader@263534c1 
+Loaded from file:/H:/git/CS496TeamProject/CS320_Derby/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_07-b11
+user.dir=H:\git\CS496TeamProject\CS496CollegePlannerWebService
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

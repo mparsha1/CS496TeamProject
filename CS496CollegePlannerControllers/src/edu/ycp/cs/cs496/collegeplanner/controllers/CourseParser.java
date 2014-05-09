@@ -70,7 +70,11 @@ public class CourseParser {
 					String prereqIdAsString = line.substring(line.indexOf(',') + 1, line.length());
 					int prereq_id = Integer.parseInt(prereqIdAsString);
 					courses.get(courses.size() - 1).setPrerequisites(prereq_id);
-				}					
+				}
+				else if(type.equals("type")) {
+					String courseType = line.substring(line.indexOf(',') + 1, line.length());
+					courses.get(courses.size() - 1).setType(courseType);
+				}
 			}			
 
 			System.out.println(courses.toString());

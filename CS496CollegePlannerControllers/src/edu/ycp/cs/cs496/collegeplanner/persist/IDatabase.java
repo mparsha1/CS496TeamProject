@@ -14,6 +14,8 @@ import edu.ycp.cs.cs496.collegeplanner.models.User;
  */
 public interface IDatabase {
 	
+	public boolean addCourseSequencePair(CourseSequencePairs cspair);
+	
 	public boolean addUser(User user);
 	
 	public boolean setNameOfUser(String username, String newUsername);

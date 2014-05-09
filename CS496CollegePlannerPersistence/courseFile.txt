@@ -1,40 +1,70 @@
 Course,
 id,1
-name,PHY160
-category,Physics
-instructor,Mister
+start-time,9:00am
+finish-time,11:45am
+name,BIO 101
+type,LAB
+instructor,R. Kaltreider
+location,LS 211
+category,Lab Science
 prereq-id,0
-start-time,10:00am
-finish-time,10:50am
 Course,
 id,2
-name,CHM101
-category,Chemistry
-instructor,Misses
-start-time,12:00pm
-finish-time,1:45pm
-prereq-id,3
+type,LAB
+start-time,10:00am
+finish-time,10:50am
+name,CHEM201
+instructor,C. Hem
+location,GH311
+category,Lab Science
+prereq-id,17
+Course,
+id,1
+type,CS101
+start-time,1:00pm
+finish-time,2:45pm
+name,CS101
+instructor,D. Babcock
+location,KEC130
+category,Computer Science
+prereq-id,11
 Course,
 id,3
-name,MAT260
-category,Mathematics
-instructor,Dr. Yuan
-start-time,11:00am
-finish-time,11:50am
-prereq-id,66
+type,ADR
+start-time,9:00am
+finish-time,9:50am
+name,HIS101
+instructor,M. Kulbicki
+location,HUM142
+category,Humanities
+prereq-id,0
 Course,
 id,4
-name,MUS100
-category,Music
-instructor,Dr. Muzzo
-start-time,1:00pm
-finish-time,1:50pm
+type,LAB
+start-time,12:00pm
+finish-time,12:50pm
+name,PHY160
+instructor,S. Khanna
+location,GH200
+category,Lab Science
 prereq-id,0
 Course,
 id,5
-name,MUS101
-category,Music
-instructor,Mr. Woodfield
-start-time,3:30pm
-finish-time,4:00pm
+type,ADR
+start-time,1:00pm
+finish-time,1:50pm
+name,ART300
+instructor,K. Osowski
+location,WOLF401
+category,Arts and Music
+prereq-id,0
+Course,
+id,9001
+type,MAT171
+start-time,6:00pm
+finish-time,6:50pm
+name,MAT171
+instructor,E. Bentzel
+location,GH303
+category,Mathematics
 prereq-id,0

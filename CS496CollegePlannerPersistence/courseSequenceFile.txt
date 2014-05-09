@@ -1,0 +1,126 @@
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,CS100
+yearNum,1
+credits,2
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,MAT171
+yearNum,1
+credits,4
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,LAB
+yearNum,1
+credits,4
+prereq,None		
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,WRT102
+yearNum,1
+credits,3
+prereq,None		
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,ADR
+yearNum,1
+credits,3
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,CS101
+yearNum,1
+credits,2
+prereq,CS100
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,MAT172
+yearNum,1
+credits,4
+prereq,MAT171	
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,LAB
+yearNum,1
+credits,4
+prereq,None	
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,WRT202
+yearNum,1
+credits,3
+prereq,None		
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,IFL100
+yearNum,1
+credits,2
+prereq,None	
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,CS201
+yearNum,2
+credits,4
+prereq,CS101
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,CS100
+yearNum,1
+credits,2
+prereq,None		
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,MAT280
+yearNum,2
+credits,3
+prereq,MAT171	
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,LAB
+yearNum,2
+credits,4
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,FREE ELECTIVE
+yearNum,2
+credits,3
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,PHYS ED
+yearNum,2
+credits,1
+prereq,None		
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,CS320
+yearNum,2
+credits,3
+prereq,CS201
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,ECE260
+yearNum,2
+credits,4
+prereq,CS201
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,MAT272
+yearNum,2
+credits,4
+prereq,MAT172
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,HC101
+yearNum,2
+credits,3
+prereq,None
+CourseSequencePair,
+sequenceName,Computer Science
+courseName,ADR
+yearNum,2
+credits,3
+prereq,None	

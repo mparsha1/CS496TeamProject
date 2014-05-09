@@ -144,9 +144,7 @@ public class AccountPage extends Activity{
 					}	
 				} catch (Exception e1) {					
 					e1.printStackTrace();
-				} 
-				
-							
+				} 							
 				
 				String newPassword = newPasswordBox.getText().toString();
 				String confirmPassword = confirmNewPasswordBox.getText().toString();
@@ -282,9 +280,7 @@ public class AccountPage extends Activity{
 		Button backButton = (Button) findViewById(R.id.backButtonAccountPg);
 
 		Button editUsernameButton = (Button) findViewById(R.id.editUsernameAcntPgBtn);
-		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);
-		
-		
+		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);		
 
 		usernameText.setText("Username: " + username);
 
