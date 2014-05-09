@@ -1,11 +1,18 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.apache.http.client.ClientProtocolException;
+
+import mobileControllers.CurrentSchedule;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddCurrentClassPage extends Activity{
 	
@@ -61,12 +68,23 @@ public class AddCurrentClassPage extends Activity{
 				EditText time = (EditText) findViewById(R.id.ClassTimeText);
 				EditText location = (EditText) findViewById(R.id.ClassLocationTxt);
 				
-				String formattedString = "Name: " + name + "\nDays: " + days + "\nTime: " + time + 
-						"\nLocation: " + location;
+				String formattedString = "Name: " + name.getText().toString() + "\nDays: " + days.getText().toString()
+						+ "\nTime: " + time.getText().toString() + 
+						"\nLocation: " + location.getText().toString();
+				boolean verify = false;
 				
 				//Call controller to add the class! 
+				CurrentSchedule controller = new CurrentSchedule();
 				
+				try {
+					verify = controller.addClassToCurrentSchedule(username, formattedString, name.getText().toString());
+					Toast.makeText(AddCurrentClassPage.this, "Added Class: " + name.getText().toString() + verify, Toast.LENGTH_SHORT).show();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
 				
+				//Toast.makeText(AddCurrentClassPage.this, "Added Class: " + verify, Toast.LENGTH_SHORT).show();
 				//Go back to the old view!
 				Intent goBack = new Intent(v.getContext(), CurrentCoursesPage.class);
 				goBack.putExtra("username", username);

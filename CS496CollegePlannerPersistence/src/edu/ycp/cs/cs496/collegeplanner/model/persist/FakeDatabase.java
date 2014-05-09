@@ -237,7 +237,7 @@ public class FakeDatabase implements IDatabase {
 			c.setCourseName(courseName);
 			c.setNameAndInfo(classInfo);
 			c.setUserId(userId);
-			
+			System.out.println("Database adding: " + courseName);
 			currentClasses.add(c);
 			return true;
 		}

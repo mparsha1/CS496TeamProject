@@ -52,7 +52,8 @@ public class CurrentSchedule {
 	}
 	
 	public boolean addClassToCurrentSchedule(String username, String classInfo, String className) throws ClientProtocolException, URISyntaxException, IOException {
-		 HttpClient client = new DefaultHttpClient();
+		
+		HttpClient client = new DefaultHttpClient();
 		 
 			// Construct URI
 				URI uri;
@@ -61,9 +62,10 @@ public class CurrentSchedule {
 				uri = URIUtils.createURI("http", "10.0.2.2", 8081, location, 
 						    null, null);
 				
-				HttpPut req = new HttpPut();
+				HttpPut req = new HttpPut(uri);
 				
 				StringWriter sw = new StringWriter();
+				
 				User u = new User();
 				u.setUsername(username);
 				

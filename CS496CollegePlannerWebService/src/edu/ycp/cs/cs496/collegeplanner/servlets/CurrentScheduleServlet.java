@@ -59,7 +59,7 @@ public class CurrentScheduleServlet extends HttpServlet {
 		CurrentClassSchedule controller = new CurrentClassSchedule();
 		
 		boolean result = controller.removeClassFromCurrentSchedule(u.getUsername(), u.getEmailAddress());
-		
+		System.out.println("Servlet removing: " + u.getEmailAddress());
 		
 		Writer writer = resp.getWriter();
 		
@@ -83,6 +83,7 @@ public class CurrentScheduleServlet extends HttpServlet {
 		CurrentClassSchedule controller = new CurrentClassSchedule();
 		
 		boolean result = controller.addClassToCurrentSchedule(u.getUsername(), u.getMajor(), u.getEmailAddress());
+		System.out.println("Serlvet adding: " + u.getEmailAddress());
 		
 		if(result) {
 			resp.setStatus(HttpServletResponse.SC_OK);

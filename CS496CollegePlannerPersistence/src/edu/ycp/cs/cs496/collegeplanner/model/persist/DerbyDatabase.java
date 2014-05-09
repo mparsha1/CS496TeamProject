@@ -1150,7 +1150,8 @@ public class DerbyDatabase implements IDatabase{
 					stmt.setString(2, classInfo);
 					stmt.setString(3, courseName);
 					stmt.executeUpdate();
-					return true;					
+					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(conn);
