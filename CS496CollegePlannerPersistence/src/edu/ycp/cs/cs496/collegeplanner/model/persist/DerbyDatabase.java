@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import edu.ycp.cs.cs496.collegeplanner.controllers.AdvisorParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.CategoryParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.CourseParser;
+import edu.ycp.cs.cs496.collegeplanner.controllers.CourseSequenceParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.DepartmentParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.MajorParser;
 import edu.ycp.cs.cs496.collegeplanner.controllers.UserParser;
@@ -388,12 +389,14 @@ public class DerbyDatabase implements IDatabase{
 					
 					User user = new User();
 					user.setId(resultSet.getInt("id"));
+					System.out.println("#### GOT USER WITH ID " + user.getId() + " ####");
 					user.setUsername(resultSet.getString("username"));
 					user.setPassword(resultSet.getString("password"));
 					user.setName(resultSet.getString("name"));
 					user.setEmailAddress(resultSet.getString("emailAddress"));
 					user.setMajor(resultSet.getString("major"));
 
+					System.out.println(user.getUsername() + user.getId());
 					return user;
 				} finally {
 					DBUtil.closeQuietly(conn);
@@ -1210,6 +1213,7 @@ public class DerbyDatabase implements IDatabase{
 		CategoryParser cap = new CategoryParser();
 		DepartmentParser dp = new DepartmentParser();
 		MajorParser mp = new MajorParser();
+		CourseSequenceParser csp = new CourseSequenceParser();
 		
 		ArrayList<User> users = new ArrayList<User>();
 		ArrayList<Course> courses = new ArrayList<Course>();
@@ -1217,6 +1221,7 @@ public class DerbyDatabase implements IDatabase{
 		ArrayList<Advisor> advisors = new ArrayList<Advisor>();
 		ArrayList<String> departments = new ArrayList<String>();
 		ArrayList<String> categories = new ArrayList<String>();
+		ArrayList<CourseSequencePairs> courseSequences = new ArrayList<CourseSequencePairs>();
 		
 		File userFile = new File("usersFile.txt");
 		File coursesFile = new File("courseFile.txt");
@@ -1224,6 +1229,7 @@ public class DerbyDatabase implements IDatabase{
 		File advisorFile = new File("advisorFile.txt");
 		File departmentFile = new File("departmentsFile.txt");
 		File categoryFile = new File("categoryFile.txt");
+		File courseSequenceFile = new File("courseSequenceFile.txt");
 		
 		users = up.parseUsers(userFile);
 		courses = cp.parseCoursesFromFile(coursesFile);
@@ -1231,6 +1237,7 @@ public class DerbyDatabase implements IDatabase{
 		categories = cap.parseCategories(categoryFile);
 		majors = mp.parseMajors(majorFile);
 		departments = dp.parseDepartments(departmentFile);
+		courseSequences = csp.parseCourseSequences(courseSequenceFile);
 		
 		// make sure parsers worked
 		
@@ -1256,6 +1263,10 @@ public class DerbyDatabase implements IDatabase{
 		
 		for(Advisor advisor : advisors) {
 			System.out.println(advisor.getName());
+		}
+		
+		for(CourseSequencePairs pairs : courseSequences) {
+			System.out.println(pairs.getCourseName());
 		}
 		
 		
@@ -1289,7 +1300,12 @@ public class DerbyDatabase implements IDatabase{
 		for(Advisor advisor : advisors) {
 			this.addAdvisor(advisor);
 			System.out.println("added " + advisor.getName());
-		}		
+		}
+		
+		for(CourseSequencePairs pairs : courseSequences) {
+			this.addCourseSequencePair(pairs);
+			System.out.println("added sequence " + pairs.getSequenceName() + " and course " + pairs.getCourseName());
+		}
 
 	}
 
@@ -1339,11 +1355,13 @@ public class DerbyDatabase implements IDatabase{
 			@Override
 			public ArrayList<Course> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
+				ResultSet resultSet = null;				
 				
+
 				System.out.println("username in getCourses: " + username);
 				User u = getUser(username);
 				int userID = u.getId();
+
 				try {					
 					stmt = conn.prepareStatement("select courseUserLinks.courseId from courseUserLinks where courseUserLinks.userId= ?");
 					stmt.setInt(1, userID);
@@ -1499,6 +1517,53 @@ public class DerbyDatabase implements IDatabase{
 				}
 			}
 		});	
+	}
+
+	@Override
+	public boolean addCourseSequencePair(final CourseSequencePairs cspair) {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"insert into courseSequences (sequenceName, courseName, yearNum, credits, prereq)" +
+									" values (?, ?, ?, ?, ?)",
+									PreparedStatement.RETURN_GENERATED_KEYS
+							);		
+					
+
+
+					int index = 1;
+					stmt.setString(index++, cspair.getSequenceName());
+					stmt.setString(index++, cspair.getCourseName());
+					stmt.setInt(index++, cspair.getYearNum());
+					stmt.setInt(index++, cspair.getCredits());
+					stmt.setString(index++, cspair.getPrereq());
+
+					try {
+						stmt.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted CSequence Pair");
+					}
+
+					//TODO: set id of pair?					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(conn);					
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});		
 	}
 	
 }

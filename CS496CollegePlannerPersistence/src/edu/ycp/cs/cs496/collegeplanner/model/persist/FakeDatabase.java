@@ -662,4 +662,10 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean addCourseSequencePair(CourseSequencePairs cspair) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
