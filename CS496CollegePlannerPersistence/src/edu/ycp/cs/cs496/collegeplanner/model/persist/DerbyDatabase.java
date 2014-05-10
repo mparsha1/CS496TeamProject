@@ -897,7 +897,7 @@ public class DerbyDatabase implements IDatabase{
 				ArrayList<String> result = new ArrayList<String>();
 				
 				
-				if(courses!=null) {
+				if(courses!=null && courses.size() > 0) {
 					System.out.println("foundCourses" + courses.get(0).getName());
 					for(int i = 0; i < courses.size(); i++) {
 						result.add(courses.get(i).getName());
@@ -1162,7 +1162,7 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean removeClassFromSchedule(final String username, final String courseName) {
+	public boolean removeClassFromSchedule(final String username, final String courseInfo) {
 		return executeTransaction(new Transaction<Boolean>() {
 
 			@Override
@@ -1174,11 +1174,13 @@ public class DerbyDatabase implements IDatabase{
 				int userId = user.getId();
 				
 				try {
-					stmt = conn.prepareStatement("delete from currentClasses where currentClasses.userId=? and currentClasses.courseName=?");
+					stmt = conn.prepareStatement("delete from currentClasses where currentClasses.userId=? and currentClasses.nameAndInfo=?");
 					stmt.setInt(1, userId);
-					stmt.setString(2, courseName);
+					stmt.setString(2, courseInfo);
 					
 					stmt.executeUpdate();
+					
+					System.out.println("Course has been removed!");
 					
 					return true;
 				} finally {

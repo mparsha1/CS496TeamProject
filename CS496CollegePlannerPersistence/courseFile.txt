@@ -2,11 +2,11 @@ Course,
 id,1
 start-time,9:00am
 finish-time,11:45am
-name,BIO 101
+name,BIO101
 type,LAB
 instructor,R. Kaltreider
 location,LS 211
-category,Lab Science
+category,Biology
 prereq-id,0
 Course,
 id,2
@@ -16,7 +16,7 @@ finish-time,10:50am
 name,CHEM201
 instructor,C. Hem
 location,GH311
-category,Lab Science
+category,Chemistry
 prereq-id,17
 Course,
 id,1
@@ -36,7 +36,7 @@ finish-time,9:50am
 name,HIS101
 instructor,M. Kulbicki
 location,HUM142
-category,Humanities
+category,History
 prereq-id,0
 Course,
 id,4
@@ -46,7 +46,7 @@ finish-time,12:50pm
 name,PHY160
 instructor,S. Khanna
 location,GH200
-category,Lab Science
+category,Physics
 prereq-id,0
 Course,
 id,5
@@ -56,7 +56,7 @@ finish-time,1:50pm
 name,ART300
 instructor,K. Osowski
 location,WOLF401
-category,Arts and Music
+category,Art
 prereq-id,0
 Course,
 id,9001
@@ -67,4 +67,44 @@ name,MAT171
 instructor,E. Bentzel
 location,GH303
 category,Mathematics
+prereq-id,0
+Course,
+id,95
+type,CS201
+start-time,6:00pm
+finish-time,6:50pm
+name,CS201
+instructor,E. Bentzel
+location,GH303
+category,Computer Science
+prereq-id,0
+Course,
+id,90
+type,ADR
+start-time,6:00pm
+finish-time,6:50pm
+name,MUS300
+instructor,E. Bentzel
+location,GH303
+category,Music
+prereq-id,0
+Course,
+id,49
+type,LAB
+start-time,6:00pm
+finish-time,6:50pm
+name,BIO202
+instructor,E. Bentzel
+location,GH303
+category,Biology
+prereq-id,0
+Course,
+id,57
+type,CS100
+start-time,6:00pm
+finish-time,6:50pm
+name,CS100
+instructor,E. Bentzel
+location,GH303
+category,Computer Science
 prereq-id,0

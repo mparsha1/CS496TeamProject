@@ -2,18 +2,26 @@ package edu.ycp.cs.cs496.collegeplanner;
 
 import java.util.ArrayList;
 
+
+import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
+
 import mobileControllers.CurrentSchedule;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class CurrentCoursesPage extends Activity{
 	
@@ -144,6 +152,54 @@ public class CurrentCoursesPage extends Activity{
 		lv.setAdapter(la); 
 		layout.addView(lv);
 		setContentView(layout,llp);
+		
+		lv.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View v, int index,
+					long id) {
+				
+				final String selected = lv.getItemAtPosition(index).toString();
+				AlertDialog.Builder builder =  new AlertDialog.Builder(CurrentCoursesPage.this);
+				builder.setMessage("Remove this item from current Schedule?");
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						boolean verify = false;
+						CurrentSchedule controller = new CurrentSchedule();
+						Advisor a = new Advisor();
+						a.setName(selected);
+						try {
+							
+							verify = controller.removeClassFromCurrentSchedule(username, selected);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+
+						if(verify) {
+							Toast.makeText(CurrentCoursesPage.this, "This item has been removed from your current schedule", Toast.LENGTH_SHORT).show();
+							ArrayList<String> courses = new ArrayList<String>();
+							try {
+								courses = controller.getCurrentSchedule(username);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							displayCourses(courses);
+						} 
+						else {
+							Toast.makeText(CurrentCoursesPage.this, "Error removing item from your current schedule", Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+				builder.setNegativeButton("Cancel", null);
+				builder.show();
+			}
+			
+		});
 
 		
 	}

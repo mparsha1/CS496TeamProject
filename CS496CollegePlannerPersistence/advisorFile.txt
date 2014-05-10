@@ -40,3 +40,24 @@ location,LS
 department,Mathematics
 email,hyuan@ycp.edu
 phone,1111111
+Advisor,
+id,9
+name,Dr. Garrison
+location,LS
+department,Engineering
+email,garrison@ycp.edu
+phone,111-111-1111
+Advisor,
+id,10
+name,Dr. Smith
+location,LS
+department,Nursing
+email,smith@ycp.edu
+phone,111-111-1111
+Advisor,
+id,11
+name,Dr. Hartman
+location,LS
+department,Nursing
+email,hartman@ycp.edu
+phone,111-111-1111

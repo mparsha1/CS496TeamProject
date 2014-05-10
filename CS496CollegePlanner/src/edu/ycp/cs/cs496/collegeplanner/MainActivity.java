@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 					startActivity(goToHome);
 					
 					
-					Toast.makeText(MainActivity.this, "This works", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Welcome " + username, Toast.LENGTH_SHORT).show();
 					
 				} else {
 					Toast.makeText(MainActivity.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();

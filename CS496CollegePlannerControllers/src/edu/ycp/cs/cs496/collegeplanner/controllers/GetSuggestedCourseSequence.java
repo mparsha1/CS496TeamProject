@@ -20,25 +20,34 @@ public class GetSuggestedCourseSequence {
 		
 		if(taken!=null){
 			for(int i = 0; i < taken.size(); i++) {
+				System.out.println("Taken: " + taken.get(i).getName());
 				for(int j = 0; j < sequence.size(); j++) {
-					if(taken.get(i).getType().equals(sequence.get(i).getCourseName())) {
-						sequence.remove(i);
+					if(taken.get(i).getType().equals(sequence.get(j).getCourseName())) {
+						System.out.println("Removing from sequence due to taken: " + sequence.get(j).getCourseName());
+						sequence.remove(j);
 					}
 				}
 			}
 		}
 		
 		for(int i = 0; i < sequence.size(); i++) {
+			
 			String prereq = sequence.get(i).getPrereq();
+			
 			if(!prereq.equals("None")) {
 				boolean tookIt = false;
-				for(int j = 0; i < taken.size(); j++) {
-					if(taken.get(i).getType().equals(prereq)) {
+				for(int j = 0; j < taken.size(); j++) {
+					System.out.println("Checking " + taken.get(j).getType() + " Prereq = " + prereq +"/");
+					
+					if(taken.get(j).getType().equals(prereq)) {
+						
+						System.out.println("Found taken! " + taken.get(j).getType() + " it equals " + prereq);
 						tookIt = true;
 					}
 				}
 				
 				if(tookIt == false) {
+					System.out.println("Removing due to prereq: " + sequence.get(i).getCourseName());
 					sequence.remove(i);
 				}
 			}

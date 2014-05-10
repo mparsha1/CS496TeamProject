@@ -97,7 +97,7 @@ public class CurrentSchedule {
 				uri = URIUtils.createURI("http", "10.0.2.2", 8081, location, 
 						    null, null);
 				
-				HttpPost req = new HttpPost();
+				HttpPost req = new HttpPost(uri);
 				StringWriter sw = new StringWriter();
 				User u = new User();
 				u.setUsername(username);
