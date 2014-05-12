@@ -18,7 +18,6 @@ public class UsernameServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("UsernameServlet-post");
 		
 		String pathInfo = req.getPathInfo();
 		String username = pathInfo.substring(1);

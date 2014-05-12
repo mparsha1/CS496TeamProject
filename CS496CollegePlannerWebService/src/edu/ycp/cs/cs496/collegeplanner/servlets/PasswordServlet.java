@@ -20,7 +20,6 @@ public class PasswordServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("password-servlet-get");
 
 		Writer writer = resp.getWriter();
 

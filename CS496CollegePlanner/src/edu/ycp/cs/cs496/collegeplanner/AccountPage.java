@@ -286,7 +286,6 @@ public class AccountPage extends Activity{
 
 		GetNameOfUser gnou = new GetNameOfUser();
 		String nameOfUser =  gnou.getNameOfUser(username);
-		Toast.makeText(AccountPage.this, nameOfUser, Toast.LENGTH_SHORT).show();
 		nameText.setText("Name: " + nameOfUser);
 		
 		usernameText.setText("Username: " + username);
