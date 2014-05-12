@@ -132,7 +132,9 @@ public class AccountPage extends Activity{
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
+			// when password button is clicked ..
 			public void onClick(View v) {
+				// get old password 
 				String oldPassword = oldPasswordBox.getText().toString();
 				GetPassword gp = new GetPassword();
 				String currentPassword;
