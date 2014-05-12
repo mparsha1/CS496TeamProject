@@ -49,15 +49,17 @@ public class CourseSequenceParser {
 					courseSequences.get(courseSequences.size() - 1).setCredits(credits);
 				}
 				else if(type.equals("sequenceName")) {
-					String sequenceNameAsString = line.substring(line.indexOf(',') + 1, line.length());					
+					String sequenceNameAsString = line.substring(line.indexOf(',') + 1, line.length());		
 					courseSequences.get(courseSequences.size() - 1).setSequenceName(sequenceNameAsString);
 				}
 				else if(type.equals("courseName")) {
-					String courseNameAsString = line.substring(line.indexOf(',') + 1, line.length());					
+					String courseNameAsString = line.substring(line.indexOf(',') + 1, line.length());	
+					courseNameAsString.replaceAll(" ", "");
 					courseSequences.get(courseSequences.size() - 1).setCourseName(courseNameAsString);
 				}
 				else if(type.equals("prereq")) {
-					String prereqAsString = line.substring(line.indexOf(',') + 1, line.length());					
+					String prereqAsString = line.substring(line.indexOf(',') + 1, line.length());
+					prereqAsString.replaceAll(" ", "");
 					courseSequences.get(courseSequences.size() - 1).setPrereq(prereqAsString);
 				}				
 			}

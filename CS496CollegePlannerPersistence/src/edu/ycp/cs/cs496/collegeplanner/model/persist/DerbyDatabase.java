@@ -389,8 +389,6 @@ public class DerbyDatabase implements IDatabase{
 					
 					User user = new User();
 					loadUser(user, resultSet, 1);
-
-					System.out.println(user.getUsername() + user.getId());
 					return user;
 					
 				} finally {
@@ -498,8 +496,6 @@ public class DerbyDatabase implements IDatabase{
 				advisor = getAdvisor(advisorName);
 				int advisorId = advisor.getId();
 				
-				System.out.println("In set advisor For user!");
-				
 				try {
 					stmt = conn.prepareStatement("delete from userAdvisorLink where userAdvisorLink.userId= ?");
 					stmt.setInt(1, userId);					
@@ -551,7 +547,6 @@ public class DerbyDatabase implements IDatabase{
 					for(int i = 0; i < all.size(); i++) {
 						if(all.get(i).getId() == advisorId) {
 							advisor = all.get(i);
-							System.out.println("Found Advisor" + advisor.getName());
 						}
 					}
 					
@@ -724,7 +719,6 @@ public class DerbyDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {	
-					System.out.println("##### getting name of user with username: " + username);
 					stmt = conn.prepareStatement("select users.name from users where users.username=?");
 					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();
@@ -897,11 +891,9 @@ public class DerbyDatabase implements IDatabase{
 				ArrayList<String> result = new ArrayList<String>();
 				
 				
-				if(courses!=null) {
-					System.out.println("foundCourses" + courses.get(0).getName());
+				if(courses!=null && courses.size() > 0) {
 					for(int i = 0; i < courses.size(); i++) {
 						result.add(courses.get(i).getName());
-						System.out.println(courses.get(i).getName());
 					}
 				}
 				
@@ -979,10 +971,18 @@ public class DerbyDatabase implements IDatabase{
 				PreparedStatement getCourseId = null;
 				ResultSet resultSet = null;	
 				
+				
+				ArrayList<String> classNames = getClassesTakenByUser(username);
+				
+				//Check if they have already taken the class, return false if they have.
+				for(int i = 0; i < classNames.size(); i++) {
+					if(classNames.get(i).equals(className)) {
+						return false;
+					}
+				}
+				
 				User user = getUser(username);
 				int userId = user.getId();
-				
-				System.out.println("userId: " + userId);
 				
 				
 				try {
@@ -993,9 +993,8 @@ public class DerbyDatabase implements IDatabase{
 							
 					if(resultSet.next()) {	
 						
-						System.out.println("Actually going to try to insert: " + className);
+						
 						int courseId = resultSet.getInt("id");
-						System.out.println("courseId to be added " + courseId);
 						stmt = conn.prepareStatement(
 								"insert into courseUserLinks (userId, courseId)" +
 										" values (?, ?)"
@@ -1103,7 +1102,6 @@ public class DerbyDatabase implements IDatabase{
 					User user = new User();
 					user = getUser(username);
 					int userId = user.getId();
-					System.out.println("getting schedule for userId " + userId);
 					stmt = conn.prepareStatement("select currentClasses.nameAndInfo from currentClasses where currentClasses.userId= ?");	
 					
 					stmt.setInt(1, userId);
@@ -1115,7 +1113,6 @@ public class DerbyDatabase implements IDatabase{
 						schedule.add(resultSet.getString("nameAndInfo"));						
 					}
 					
-					System.out.println("schedule size " + schedule.size());
 					
 					return schedule;
 	
@@ -1162,7 +1159,7 @@ public class DerbyDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean removeClassFromSchedule(final String username, final String courseName) {
+	public boolean removeClassFromSchedule(final String username, final String courseInfo) {
 		return executeTransaction(new Transaction<Boolean>() {
 
 			@Override
@@ -1174,9 +1171,9 @@ public class DerbyDatabase implements IDatabase{
 				int userId = user.getId();
 				
 				try {
-					stmt = conn.prepareStatement("delete from currentClasses where currentClasses.userId=? and currentClasses.courseName=?");
+					stmt = conn.prepareStatement("delete from currentClasses where currentClasses.userId=? and currentClasses.nameAndInfo=?");
 					stmt.setInt(1, userId);
-					stmt.setString(2, courseName);
+					stmt.setString(2, courseInfo);
 					
 					stmt.executeUpdate();
 					
@@ -1193,7 +1190,6 @@ public class DerbyDatabase implements IDatabase{
 	public static void main(String[] args) {
 		DerbyDatabase db = new DerbyDatabase();
 		System.out.println("Creating tables...");
-		//TODO: alter tables created - 
 		db.createTables();
 		System.out.println("Loading initial data...");
 		try {
@@ -1354,8 +1350,6 @@ public class DerbyDatabase implements IDatabase{
 			public ArrayList<Course> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;					
-
-				System.out.println("###################### username in getCourses: " + username);
 				
 				User u = getUser(username);
 				int userID = u.getId();
@@ -1369,7 +1363,6 @@ public class DerbyDatabase implements IDatabase{
 					
 					
 					while(resultSet.next()) {
-						System.out.println("Found actual results for user " + username);
 						courseIds.add(resultSet.getInt("courseId"));
 					}
 					
@@ -1377,7 +1370,6 @@ public class DerbyDatabase implements IDatabase{
 					
 					for(int i = 0; i < courseIds.size(); i++) {
 						
-						System.out.println("Found actual results for user " + username);
 						stmt = conn.prepareStatement("select courses.* from courses where courses.id= ?");
 						stmt.setInt(1, courseIds.get(i));
 						resultSet = stmt.executeQuery();
@@ -1553,8 +1545,7 @@ public class DerbyDatabase implements IDatabase{
 					if (!generatedKeys.next()) {
 						throw new SQLException("Could not get auto-generated key for inserted CSequence Pair");
 					}
-
-					//TODO: set id of pair?					
+			
 					return true;
 				} finally {
 					DBUtil.closeQuietly(conn);					

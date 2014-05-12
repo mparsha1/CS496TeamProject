@@ -22,7 +22,6 @@ public class NameServlet extends HttpServlet{
 		String pathInfo = req.getPathInfo();
 		String username = pathInfo.substring(1);
 		
-		System.out.println("##### NAME SERVLET with username " + username);
 		
 		if(username.length() > 0) {
 			GetNameOfUserController gnouc = new GetNameOfUserController();

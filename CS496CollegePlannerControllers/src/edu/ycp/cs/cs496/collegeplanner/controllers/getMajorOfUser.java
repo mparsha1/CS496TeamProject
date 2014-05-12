@@ -8,7 +8,6 @@ public class getMajorOfUser {
 		public String getMajor(String username) {
 			IDatabase db = DatabaseProvider.getInstance();
 			
-			System.out.print("getmajorofuser: " + db.getMajor(username));
 			return db.getMajor(username);
 		}
 }

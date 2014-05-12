@@ -14,26 +14,31 @@ public class GetSuggestedCourseSequence {
 		IDatabase db = DatabaseProvider.getInstance();
 		
 		ArrayList<CourseSequencePairs> sequence = db.getCourseSequence(u.getMajor());
-		System.out.println("user in controller: " + u.getUsername());
 		ArrayList<Course> taken = db.getCoursesTakenByUser(u.getUsername());
 		
 		
 		if(taken!=null){
 			for(int i = 0; i < taken.size(); i++) {
 				for(int j = 0; j < sequence.size(); j++) {
-					if(taken.get(i).getType().equals(sequence.get(i).getCourseName())) {
-						sequence.remove(i);
+					if(taken.get(i).getType().equals(sequence.get(j).getCourseName())) {
+						//remove if it has been taken
+						sequence.remove(j);
 					}
 				}
 			}
 		}
 		
 		for(int i = 0; i < sequence.size(); i++) {
+			
 			String prereq = sequence.get(i).getPrereq();
+			
 			if(!prereq.equals("None")) {
 				boolean tookIt = false;
-				for(int j = 0; i < taken.size(); j++) {
-					if(taken.get(i).getType().equals(prereq)) {
+				for(int j = 0; j < taken.size(); j++) {
+					
+					//remove if the prereq has not been taken
+					if(taken.get(j).getType().equals(prereq)) {
+						
 						tookIt = true;
 					}
 				}
@@ -49,18 +54,13 @@ public class GetSuggestedCourseSequence {
 		
 		for(int i = 0; i < sequence.size(); i++) {	
 			
+			//Only add up to the maximum desired credits
 				if(sequence.get(i).getCredits() + count <= u.getMaxCredits()) {
-					System.out.println(sequence.get(i).getCourseName());
 					result.add(sequence.get(i));
 					count+= sequence.get(i).getCredits();
 					
 				}
 		}
-		
-	
-	
-		System.out.println("Out of loop");
-		
 		
 		return result;
 		

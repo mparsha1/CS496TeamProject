@@ -341,6 +341,12 @@ public class SettingsPage extends Activity {
 
 						if(verify) {
 							Toast.makeText(SettingsPage.this, selected + " is now listed as your advisor", Toast.LENGTH_SHORT).show();
+							try {
+								setDefaultView();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
 						} 
 					}
 				});
@@ -515,6 +521,15 @@ public class SettingsPage extends Activity {
 
 						if(verify) {
 							Toast.makeText(SettingsPage.this, selected + " added to completed courses", Toast.LENGTH_SHORT).show();
+							try {
+								ArrayList<String> categories = controller.getCategories();
+								displayCategoriesView(categories);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							
+							
 						} else {
 							Toast.makeText(SettingsPage.this, selected + " is already in your list of completed courses.", Toast.LENGTH_SHORT).show();
 						}

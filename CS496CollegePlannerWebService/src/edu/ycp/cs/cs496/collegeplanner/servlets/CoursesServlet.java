@@ -54,7 +54,6 @@ public class CoursesServlet extends HttpServlet{
 		Writer writer = resp.getWriter();
 		
 		String category = JSON.getObjectMapper().readValue(req.getReader(), String.class);
-		System.out.println("Server category: " + category);
 		classes = controller.getClassesInCategory(category);
 		
 		if(!classes.isEmpty()) {
@@ -81,10 +80,8 @@ public class CoursesServlet extends HttpServlet{
 		Writer writer = resp.getWriter();
 		
 		String username = JSON.getObjectMapper().readValue(req.getReader(), String.class);
-		System.out.println("in getcoursesbyuser servlet");
 		classes = controller.getClassesTakenByUser(username);
 		
-		System.out.println(classes.isEmpty());
 		
 		if(!classes.isEmpty()) {
 			resp.setStatus(HttpServletResponse.SC_OK); 

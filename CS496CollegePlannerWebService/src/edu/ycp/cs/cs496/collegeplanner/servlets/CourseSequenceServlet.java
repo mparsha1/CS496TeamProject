@@ -25,7 +25,6 @@ public class CourseSequenceServlet extends HttpServlet {
 		
 		User u = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		GetSuggestedCourseSequence controller = new GetSuggestedCourseSequence();
-		System.out.println("username in Servlet: " + u.getUsername());
 		ArrayList<CourseSequencePairs> result =  controller.getSuggestedSequence(u);
 		ArrayList<String> formattedResult = new ArrayList<String>();
 		for(int i = 0; i < result.size(); i++) {

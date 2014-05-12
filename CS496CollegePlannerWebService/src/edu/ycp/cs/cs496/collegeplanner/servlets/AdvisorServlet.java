@@ -26,7 +26,6 @@ public class AdvisorServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("advisor-servlet-get");
 		
 		String pathInfo = req.getPathInfo(); 
 		Writer writer = resp.getWriter();		
@@ -63,10 +62,10 @@ public class AdvisorServlet extends HttpServlet {
 			for(User usr : users) {
 				if(usr.getUsername().equals(username)) {
 					advisor = gafuc.getAdvisorForUser(usr);
-					System.out.println("Advisor: " + advisor);
 				}
 			}
 			if(advisor == null) {
+				//If the advisor has not been chosen yet, set the values to not specified!
 				Advisor none = new Advisor();
 				none.setDepartment("N/A");
 				none.setEmail("N/A");
@@ -81,7 +80,6 @@ public class AdvisorServlet extends HttpServlet {
 			}
 			
 			if(advisor.getName() != null) {
-				System.out.println("Inside not null in advisor get");
 				resp.setStatus(HttpServletResponse.SC_OK); 
 				resp.setContentType("application/json"); 
 				JSON.getObjectMapper().writeValue(writer, advisor);	
@@ -101,10 +99,8 @@ public class AdvisorServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("advisor-servlet-post");
 		
 		String pathInfo = req.getPathInfo(); 
-		System.out.println("ok");
 		String username = pathInfo.substring(1);
 		
 		GetUsersController guc = new GetUsersController();
@@ -118,7 +114,6 @@ public class AdvisorServlet extends HttpServlet {
 		}
 		Advisor advisor = JSON.getObjectMapper().readValue(req.getReader(), Advisor.class);
 		
-		System.out.println(user.getUsername() + advisor.getName());
 		SetAdvisorForUserController sac = new SetAdvisorForUserController();
 		boolean result = sac.setAdvisorForUser(advisor, user);
 		
@@ -136,7 +131,6 @@ public class AdvisorServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Writer writer = resp.getWriter();
 		
-		System.out.println("in put thingy");
 		String department = JSON.getObjectMapper().readValue(req.getReader(), String.class);
 		GetAdvisorsController controller = new GetAdvisorsController();
 		ArrayList<Advisor> advisors = controller.getAdvisors(department);
@@ -148,13 +142,11 @@ public class AdvisorServlet extends HttpServlet {
 		
 		
 		if(!advisors.isEmpty()) {
-			System.out.println("advisors is not empty! First one: " + advisors.get(0).getName());
 			resp.setStatus(HttpServletResponse.SC_OK); 
 			resp.setContentType("text/plain"); 			
 			JSON.getObjectMapper().writeValue(writer, advNames);	
 			return;
 		} else {
-			System.out.println("advisors is empty from the database! :(");
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
 			return;

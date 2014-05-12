@@ -49,13 +49,11 @@ public class MajorsServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.print("servlet");
 		User user = new User();
 		user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		
 		getMajorOfUser controller = new getMajorOfUser();
 		String major = controller.getMajor(user.getUsername());
-		System.out.println(": " + major);
 		
 		if(major != null) {	
 			//set to SC_OK if it worked
@@ -84,11 +82,9 @@ public class MajorsServlet extends HttpServlet{
 		setMajorController controller = new setMajorController();
 		
 		boolean verify = controller.setMajor(user.getUsername(), user.getMajor());
-		System.out.println("Changed major to: " + user.getMajor());
 		
 		if(verify) {
 			resp.setStatus(HttpServletResponse.SC_OK);
-			System.out.println("Changed major to: " + user.getMajor());
 			return;
 		}
 		

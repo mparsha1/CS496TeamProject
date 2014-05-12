@@ -26,7 +26,6 @@ public class CurrentScheduleServlet extends HttpServlet {
 		Writer writer = resp.getWriter();	
 		
 		String username = pathInfo.substring(1);
-		System.out.println("schedule pathInfo " + username);
 		
 		
 		ArrayList<String> result = new ArrayList<String>();
@@ -58,8 +57,8 @@ public class CurrentScheduleServlet extends HttpServlet {
 		User u = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		CurrentClassSchedule controller = new CurrentClassSchedule();
 		
+		//classInfo is in the email address... shhhhhh Just pretend I didn't do that....
 		boolean result = controller.removeClassFromCurrentSchedule(u.getUsername(), u.getEmailAddress());
-		System.out.println("Servlet removing: " + u.getEmailAddress());
 		
 		Writer writer = resp.getWriter();
 		
@@ -83,7 +82,6 @@ public class CurrentScheduleServlet extends HttpServlet {
 		CurrentClassSchedule controller = new CurrentClassSchedule();
 		
 		boolean result = controller.addClassToCurrentSchedule(u.getUsername(), u.getMajor(), u.getEmailAddress());
-		System.out.println("Serlvet adding: " + u.getEmailAddress());
 		
 		if(result) {
 			resp.setStatus(HttpServletResponse.SC_OK);
