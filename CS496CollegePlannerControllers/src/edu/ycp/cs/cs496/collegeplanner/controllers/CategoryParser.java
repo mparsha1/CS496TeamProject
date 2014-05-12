@@ -21,6 +21,8 @@ public class CategoryParser {
 
 		ArrayList<String> categories = new ArrayList<String>();
 
+		// just add the strings to an array, since they only have a name parameter
+		
 		try {
 			while(true) {
 				String category = breader.readLine();

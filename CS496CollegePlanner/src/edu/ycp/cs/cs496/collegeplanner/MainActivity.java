@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 	public boolean logIn(User user) throws ClientProtocolException, URISyntaxException, IOException {		
 		GetLoginResult loginRequester = new GetLoginResult();
 		return loginRequester.getLoginResult(user.getUsername(), user.getPassword());
-	}	
+	}
 	
 	public void setDefaultView() {
 		setContentView(R.layout.activity_main);
@@ -70,8 +70,7 @@ public class MainActivity extends Activity {
 				boolean result = false;
 				try {
 					result = logIn(user);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {					
 					e.printStackTrace();
 				}
 				if(result == true) {

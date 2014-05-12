@@ -161,8 +161,7 @@ public class SettingsPage extends Activity {
 				ArrayList<String> majorsList = new ArrayList<String>();
 				try {
 					majorsList = controller.getMajors();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {					
 					e.printStackTrace();
 				} 
 
@@ -334,8 +333,7 @@ public class SettingsPage extends Activity {
 						a.setName(selected);
 						try {
 							verify = controller.setAdvisorForUser(username, a);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
+						} catch (Exception e) {							
 							e.printStackTrace();
 						} 
 
@@ -343,8 +341,7 @@ public class SettingsPage extends Activity {
 							Toast.makeText(SettingsPage.this, selected + " is now listed as your advisor", Toast.LENGTH_SHORT).show();
 							try {
 								setDefaultView();
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
+							} catch (Exception e) {								
 								e.printStackTrace();
 							} 
 						} 

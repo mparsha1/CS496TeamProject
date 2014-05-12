@@ -92,8 +92,7 @@ public class CurrentCoursesPage extends Activity{
 				try {
 					result = controller.getCurrentSchedule(username);
 					displayCourses(result);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {					
 					e.printStackTrace();
 				} 
 				

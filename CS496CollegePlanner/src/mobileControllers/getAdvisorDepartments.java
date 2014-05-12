@@ -18,8 +18,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
-import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
-import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class getAdvisorDepartments {
 	public ArrayList<String> getAdvisorDepartments() throws ClientProtocolException, URISyntaxException, IOException {

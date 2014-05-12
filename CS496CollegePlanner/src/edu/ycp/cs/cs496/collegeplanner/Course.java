@@ -3,6 +3,7 @@ package edu.ycp.cs.cs496.collegeplanner;
  * 
  * @author dholtzap
  * store all information pertaining to courses
+ * 
  */
 public class Course {
 	private int id;
@@ -11,7 +12,7 @@ public class Course {
 	private String name;
 	private int prereq_id; 
 	private String instructor;
-	private String location;	// TODO: should location be a class we make? NO
+	private String location;	
 	private String category;
 	
 	public Course() {

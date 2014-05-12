@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.collegeplanner.json.JSON;
 import edu.ycp.cs.cs496.collegeplanner.models.Advisor;
-import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 public class SetAdvisorForUser {
 	public boolean setAdvisorForUser(String username, Advisor advisor) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {

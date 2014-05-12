@@ -12,9 +12,9 @@ public class User {
 	private String password;
 	private String name;
 	private String emailAddress;
-	private ArrayList<Course> courses; //FIXME: other possible better data-type?
+	private ArrayList<Course> courses; 
 	private String major;
-	// TODO: field for subscriptions after subscriptions class made
+	
 	public User() {
 		
 	}

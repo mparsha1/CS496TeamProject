@@ -1,10 +1,5 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import mobileControllers.CurrentSchedule;
 import android.app.Activity;
 import android.content.Intent;

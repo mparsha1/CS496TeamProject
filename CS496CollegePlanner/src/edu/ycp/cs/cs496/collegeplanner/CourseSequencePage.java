@@ -1,34 +1,24 @@
 package edu.ycp.cs.cs496.collegeplanner;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
-
-import edu.ycp.cs.cs496.collegeplanner.models.CourseSequencePairs;
 import edu.ycp.cs.cs496.collegeplanner.models.User;
 
 import mobileControllers.GetCourseSequence;
 import mobileControllers.GetMajor;
-import mobileControllers.getAdvisorDepartments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class CourseSequencePage extends Activity {
 	
@@ -93,8 +83,7 @@ public class CourseSequencePage extends Activity {
 				String major = "";
 				try {
 					major = gmController.getMajor(username);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {					
 					e.printStackTrace();
 				}  
 				
@@ -105,8 +94,7 @@ public class CourseSequencePage extends Activity {
 				ArrayList<String> list = new ArrayList<String>();
 				try {
 					 list = controller.getSequence(u);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {					
 					e.printStackTrace();
 				} 
 				

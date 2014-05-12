@@ -139,6 +139,7 @@ public class AccountPage extends Activity{
 				GetPassword gp = new GetPassword();
 				String currentPassword;
 				
+				// make sure old password matches their current password
 				try {
 					currentPassword = gp.getPassword(username);
 					if(!oldPassword.equals(currentPassword)){
@@ -149,6 +150,7 @@ public class AccountPage extends Activity{
 					e1.printStackTrace();
 				} 							
 				
+				// new password must be equal to confirm password text.
 				String newPassword = newPasswordBox.getText().toString();
 				String confirmPassword = confirmNewPasswordBox.getText().toString();
 				
@@ -156,6 +158,7 @@ public class AccountPage extends Activity{
 					Toast.makeText(AccountPage.this, "New passwords do not match", Toast.LENGTH_SHORT).show();		
 					return;
 				}
+				// try to update password
 				SetPassword sp = new SetPassword();
 				try {
 					boolean result = sp.setPassword(username, newPassword);
@@ -173,6 +176,7 @@ public class AccountPage extends Activity{
 			}
 		});
 
+		// add all widgets
 		layout.addView(backButton);
 		layout.addView(oldText);
 		layout.addView(oldPasswordBox);
@@ -239,7 +243,7 @@ public class AccountPage extends Activity{
 		});
 		
 		confirmButton.setOnClickListener(new View.OnClickListener() {
-			
+			// get new username from text box and try to update the username
 			@Override
 			public void onClick(View v) {
 				String newUsername = usernameBox.getText().toString();
@@ -261,6 +265,7 @@ public class AccountPage extends Activity{
 			}
 		});
 
+		// add widgets
 		layout.addView(backButton);
 		layout.addView(text);
 		layout.addView(usernameBox);
@@ -272,6 +277,7 @@ public class AccountPage extends Activity{
 	private void setDefaultView() throws ClientProtocolException, URISyntaxException, IOException {
 		setContentView(R.layout.account_view);
 
+		// create all gui elements
 		TextView nameText = (TextView) findViewById(R.id.NameTextView_AcntPg);
 		TextView majorText = (TextView) findViewById(R.id.MajorTextView_2);
 		TextView usernameText = (TextView) findViewById(R.id.UsernameTextView_2);
@@ -286,6 +292,7 @@ public class AccountPage extends Activity{
 		Button editUsernameButton = (Button) findViewById(R.id.editUsernameAcntPgBtn);
 		Button editPasswordButton = (Button) findViewById(R.id.editPasswordAcntPgBtn);		
 
+		// make requests to get information
 		GetNameOfUser gnou = new GetNameOfUser();
 		String nameOfUser =  gnou.getNameOfUser(username);
 		nameText.setText("Name: " + nameOfUser);

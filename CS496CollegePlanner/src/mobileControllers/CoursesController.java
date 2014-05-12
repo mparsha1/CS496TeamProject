@@ -12,7 +12,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -46,6 +45,7 @@ public class CoursesController {
 				ArrayList<String> categories = new ArrayList<String>();
 				
 				//Is this okay?? Not sure.
+				//It's ok
 				categories = JSON.getObjectMapper().readValue(entity.getContent(), ArrayList.class);
 				
 				return categories;

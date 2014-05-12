@@ -36,6 +36,10 @@ public class AdvisorParser {
 				
 				String type = line.substring(0, line.indexOf(','));
 				
+				// advisor parser
+				// create a new advisor object everytime the "Advisor" phrase is encountered.
+				// then match types with parameters and set them appropriately.
+				
 				if(type.equals("Advisor")) {
 					Advisor advisor = new Advisor();
 					advisors.add(advisor);

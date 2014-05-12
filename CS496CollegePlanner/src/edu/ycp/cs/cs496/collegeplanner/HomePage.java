@@ -62,8 +62,7 @@ public class HomePage extends Activity {
 		settingsBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) {				
 				
 				Intent goToSettings = new Intent(v.getContext(), SettingsPage.class);
 				goToSettings.putExtra("username", username);
